@@ -1,20 +1,72 @@
 # TapeBytes
 
-Applicazione statica, interamente client-side, per registrare file su cassette e recuperarli. HTML indipendenti in inglese, italiano, spagnolo, tedesco e francese; nessun backend o account richiesto.
+**Digital files on cassette tape.**
 
-## Struttura
+TapeBytes is a free browser application that turns small files into audio you can record onto a music cassette—and recovers those files when you play the tape back. It brings a familiar idea from early home computing into a modern, entirely client-side workflow.
 
-- `src/`: interfaccia, traduzioni, audio, codec e acquisizione.
-- `build.mjs`: genera 25 pagine statiche, sitemap, metadati e risorse in `dist/`.
-- `tests/`: test del codec, acquisizione e sito.
-- `.github/workflows/static-pages.yml`: genera il sito su `gh-pages` e consente la pubblicazione manuale.
-- `outputs/`, `work/`: esportazioni e ricerca locali, escluse da Git.
+Built for retrocomputing enthusiasts, makers and people curious about analog data storage, TapeBytes combines an animated pixel-art cassette interface with real audio encoding, stereo recording support and file integrity checks.
 
-La cronologia Git precedente è stata mantenuta. Non sono configurati remoti GitHub.
+The configured website address is **tapebytes.lucasciacca.com**. This repository contains the source and static-site build; configuring that address does not publish the site.
 
-## Sviluppo locale
+## How it works
 
-Richiede Node.js 22+ e Python 3 per il server. Nessuna dipendenza npm da installare.
+```text
+Files → Encode → Stereo WAV → Cassette recorder
+                                      ↓
+Verified files ← Decode ← Stereo audio playback
+```
+
+1. **Encode:** choose files or a folder, cassette duration, modulation and redundancy. The capacity estimate updates with your settings. Generate a WAV, optionally including a spoken introduction with the recovery website address.
+2. **Studio:** connect your computer to the recorder, select an audio output where supported, calibrate the recording level, press REC on the physical deck and start the countdown. TapeBytes plays the audio; the deck records it.
+3. **Decode:** rewind the cassette and capture its stereo output, or import an existing WAV recording. TapeBytes corrects timing using the reference channel and checks recovered data before offering downloads.
+
+You can also try the software without a cassette recorder: generate a WAV in Encode, then verify it directly in Decode.
+
+### Why stereo?
+
+By default, the **left channel carries data** and the **right channel carries a continuous 3 kHz reference tone**. The reference lets the decoder compensate for tape-speed variations. Keep both channels separate throughout recording and capture.
+
+Reference correction is enabled by default in Encode and Decode. Disable it when reading older recordings without a reference channel. Captured WAV files preserve both channels when the input is stereo; optional input Playback monitors only the left channel and is off by default.
+
+## Features
+
+- Local file and folder encoding, with no preset file-size or file-count cap.
+- FSK at 300, 600 and 1200 bit/s; 4-FSK at 1200 and 2400 bit/s.
+- One, three or five copies of the transmission, with recovery of valid blocks across copies.
+- Tape capacity and recording-duration estimates that include format overhead and redundancy.
+- Stereo reference-based speed correction, live audio meters and downloadable captured WAV files.
+- Block and archive CRC checks, plus SHA-256 verification for each recovered file.
+- English, Italian, Spanish, German and French interfaces and spoken introductions.
+- Light, dark and system themes, with reduced-motion support.
+- Independently generated static pages, localized metadata and no backend, accounts or file uploads.
+
+## Equipment and browser requirements
+
+For a physical tape recording you need:
+
+- A stereo cassette recorder with line input and output.
+- A computer with stereo audio output and input; a USB audio interface can provide these connections.
+- Suitable cables that preserve the left and right channels.
+- A browser supporting Web Audio, AudioWorklet and microphone/audio-input access. Input capture requires **HTTPS or localhost** and permission from the user.
+
+Audio-output device selection depends on browser support. When unavailable, select the output in your operating system. Match input and output sample rates, disable the deck's Dolby/noise reduction, and set recording levels below clipping. Studio playback starts at 100% and remains adjustable.
+
+## Capacity and limitations
+
+TapeBytes is intended for **small files and hands-on experiments with data on tape**. Higher data rates require a cleaner signal; successful recovery depends on the recorder, tape, connections and recording levels.
+
+A C60 cassette provides 30 minutes per side. At 300 bit/s, the theoretical ceiling is 67,500 bytes per side before headers, metadata and pauses. At 2400 bit/s it is 540,000 bytes. Actual file capacity is lower, and repeated copies consume additional time. Use the estimate in Encode for your chosen files and settings.
+
+- The stereo reference corrects timing; it cannot restore missing samples or severely distorted audio.
+- Files are made available only after the required integrity checks pass. Keep the original files until you have verified a complete recording and recovery.
+- There is no automatic splitting across cassette sides.
+- WAV generation and capture use browser memory. Standard RIFF/WAV output is limited to roughly 4 GiB.
+- TapeBytes reads its own format. It is not a general decoder for Commodore, ZX Spectrum or Kansas City Standard tapes, or a music-digitization application.
+- The current format is `TVBLK003`; supported `TVFSK001` and `TVFSK002` recordings remain readable. These identifiers retain their original names for compatibility.
+
+## Run locally
+
+Requirements: **Node.js 22+** and **Python 3** for the local development server. There are no npm dependencies to install.
 
 ```sh
 npm run build
@@ -22,61 +74,110 @@ npm test
 npm run dev
 ```
 
-Apri http://127.0.0.1:8765/ oppure `/it/`. Le pagine si aprono direttamente anche senza passare dalla home. Per l’acquisizione audio servono localhost o HTTPS.
+Open [localhost:8765](http://127.0.0.1:8765/). English is served at `/`; other languages use `/it/`, `/es/`, `/de/` and `/fr/`. Each page can be opened directly, such as `/it/decode/`.
 
-Per il file HTML portatile: esegui prima la build con `BASE_PATH` vuoto, poi `npm run portable`. Il risultato è `outputs/TapeBytes.html`.
+The development server serves `dist/`. Run `npm run build` again after editing source files, then reload the browser.
 
-## Caricamento su GitHub
+### Portable HTML
 
-Crea un repository vuoto e aggiungi il suo indirizzo come `origin`, poi carica il branch `main`. Prima del commit, controlla `git status`: `outputs/`, `work/`, `dist/`, `.openai/` e i file di credenziali sono esclusi. Le rimozioni di `dist/` dall’indice sono intenzionali: ora viene generato dalla Action.
+To create a single-file companion with embedded routes, fonts, scripts and spoken introductions:
 
 ```sh
-git add .
-git commit -m "Prepare static GitHub Pages workflow"
-git remote add origin https://github.com/OWNER/REPOSITORY.git
-git push -u origin main
+BASE_PATH='' npm run build
+npm run portable
 ```
 
-Ogni push su `main` genera e verifica le pagine, aggiorna `gh-pages` con **solo il contenuto statico** e carica un artifact scaricabile. Non modifica il branch sorgente e non pubblica automaticamente. Il workflow usa il `GITHUB_TOKEN` del repository, senza PAT. Il branch `gh-pages` è riservato all’output generato: non modificarlo a mano. Le regole di protezione devono consentirne l’aggiornamento alla Action.
+The result is `outputs/TapeBytes.html`. The build also writes `outputs/TapeVault.html` for compatibility with existing local preview URLs. For browser audio features, serve the file over localhost or HTTPS. GitHub Pages uses the normal static build, not this portable export.
 
-### Attivare GitHub Pages
+## Source layout
 
-1. In **Settings → Pages → Build and deployment**, scegli **GitHub Actions**.
-2. In **Actions → Build static site → Run workflow**, scegli `main` e abilita **Publish the generated site to GitHub Pages**.
-3. Il job pubblica lo stesso artifact generato e salvato sul branch `gh-pages`.
+```text
+src/
+  assets/
+    app.js                 Application interactions and audio controls
+    codec.js               Data format, modulation and integrity checks
+    reference.js           Stereo-reference timing correction
+    capture.js             AudioWorklet capture processor
+    worker.js              Background encoding and decoding
+    style.css              Theme tokens, layout and animation
+    audio/                 Five pre-generated spoken introductions
+    fonts/                 Bundled font and license
+    social.png             Social sharing image
+  locales/                 UI copy, page titles and descriptions
+  cassette.svg             Animated pixel-art cassette artwork
+build.mjs                  HTML templates and static-site generator
+build-standalone.mjs        Portable HTML generator
+site.config.json           Domain, languages, routes and indexing settings
+tests/                     Codec, capture, reference and site checks
+scripts/
+  publish-static.sh        Writes generated output to gh-pages
+  generate-voices.py       Optional macOS voice regeneration
+.github/workflows/
+  static-pages.yml         Build, test and manual deployment workflow
+```
 
-Si usa la pubblicazione esplicita tramite Actions perché i commit su `gh-pages` effettuati con `GITHUB_TOKEN` non avviano da soli la pubblicazione Pages da branch. Non occorre cambiare i token. Documentazione: https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages
+HTML source templates live in the `render(lang, page)` function in `build.mjs`. The build combines those templates with `src/locales/*.json` and the assets to generate **25 localized pages** in `dist/`.
 
-### Indirizzo e SEO
+`dist/` is generated output. `outputs/` and `work/` contain local exports and research. These directories are excluded from Git and are not required to build the site.
 
-Il sito usa `https://tapebytes.lucasciacca.com`, configurato in `site.config.json`, senza prefisso. Il workflow usa la stessa configurazione. Canonical, hreflang, sitemap e anteprime social seguono questo indirizzo. La build genera anche `CNAME`.
+## GitHub Actions and GitHub Pages
 
-Variabili facoltative in **Settings → Secrets and variables → Actions → Variables**:
+Commit the source files, including `.github/workflows/static-pages.yml`, and push them to the repository's `main` branch.
 
-| Variabile | Uso |
+On each push to `main`, the workflow:
+
+1. Builds the static site and runs the tests.
+2. Updates a separate **`gh-pages`** branch containing only the generated site.
+3. Uploads the static site as a workflow artifact.
+
+Deployment is a separate, explicit action. Routine pushes do not deploy the site. The workflow uses the repository's `GITHUB_TOKEN`; no personal access token is needed. Repository rules must allow the workflow to write to `gh-pages`. Treat that branch as generated output rather than editing it manually.
+
+### Publish when ready
+
+1. In **Settings → Pages → Build and deployment**, select **GitHub Actions**.
+2. Configure the custom domain and its DNS records, and enable HTTPS when available.
+3. Set the repository variable `INDEXABLE` to `1` when the site is ready for search engines.
+4. In **Actions → Build static site → Run workflow**, select `main` and enable **Publish the generated site to GitHub Pages**.
+
+The deployment job publishes the same artifact saved to `gh-pages`. It uses an explicit Pages deployment rather than relying on a branch push to trigger publication. See [GitHub's custom Pages workflows documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+### Domain and SEO configuration
+
+The default origin is `https://tapebytes.lucasciacca.com`, with no path prefix, as defined in `site.config.json`. The build generates a `CNAME` file for this domain. DNS and GitHub Pages domain settings must still be configured separately.
+
+Optional repository variables are set under **Settings → Secrets and variables → Actions → Variables**:
+
+| Variable | Purpose |
 | --- | --- |
-| `SITE_ORIGIN` | Origine HTTPS senza percorso, per esempio `https://example.com`. |
-| `BASE_PATH` | Prefisso, per esempio `/tape-vault`; usa `/` per un dominio alla radice. |
-| `INDEXABLE` | Imposta `1` quando vuoi permettere l’indicizzazione. Di default `0`. |
+| `SITE_ORIGIN` | HTTPS origin without a path; overrides the configured domain. |
+| `BASE_PATH` | Deployment prefix, such as `/tape-vault`; use `/` for the domain root. |
+| `INDEXABLE` | Set to `1` to allow indexing. The workflow defaults to `0`. |
 
-Per un dominio personalizzato, configura anche dominio e DNS nelle impostazioni Pages. La build mantiene `noindex` finché `INDEXABLE` non viene impostato a `1`. Al lancio configura il DNS del sottodominio, il dominio personalizzato in Pages e questa variabile; quindi esegui la pubblicazione manuale. Nessuna pubblicazione viene avviata dalla sola modifica dei testi.
-
-Esempio di build per un repository:
+For a repository hosted under a GitHub Pages path instead of the custom domain:
 
 ```sh
-SITE_ORIGIN=https://owner.github.io BASE_PATH=/tape-vault INDEXABLE=1 npm run build
+SITE_ORIGIN=https://OWNER.github.io BASE_PATH=/REPOSITORY INDEXABLE=1 npm run build
 npm test
 ```
 
-## Audio e sicurezza
+Localized page titles and descriptions are stored under the `seo.*` and `desc.*` keys in the translation files. The generator embeds canonical links, reciprocal `hreflang` links, Open Graph and Twitter metadata, and structured data directly in each HTML page. It also creates `sitemap.xml` and `robots.txt`.
 
-Il riferimento stereo è attivo di default: dati a sinistra, riferimento a destra. Il volume parte dal 100% ed è regolabile. Playback in ingresso è spento di default. Conserva i file originali finché il recupero non supera CRC e SHA-256.
+Indexing is disabled by default. No client-side rendering is required for search engines to read the page content or metadata.
 
-## Linea editoriale
+## Spoken introductions
 
-TapeBytes è un progetto gratuito per appassionati di retrocomputing e registrazione analogica. Tono preciso, accessibile e appassionato: descrivere operazioni reali, senza promesse di archiviazione affidabile su qualsiasi hardware. Intento principale: cassette data storage. La guida risponde a capacità, attrezzatura e compatibilità; Codifica offre la stima effettiva. Nessuna compatibilità implicita con formati storici.
+Pre-generated WAV introductions are included in the source, so Linux CI can build the complete site without a speech engine.
 
-Titoli specifici e descrittivi e lingue con URL distinti seguono le indicazioni Google: https://developers.google.com/search/docs/appearance/title-link e https://developers.google.com/search/docs/specialty/international/localized-versions .
+To regenerate them on macOS after changing `voice.text` in the translation files:
 
-Le cinque voci includono il dominio selezionato. Per rigenerarle su macOS: `python3 scripts/generate-voices.py` (richiede le voci di sistema e ffmpeg). Il formato audio e gli identificatori TVBLK003/TVFSK001/002 restano invariati per leggere le registrazioni precedenti.
-# tapebytes
+```sh
+python3 scripts/generate-voices.py
+```
+
+This optional step requires the configured macOS system voices and `ffmpeg`. Commit the updated WAV files together with the text changes.
+
+## Privacy
+
+File and audio processing happens in the browser. No backend or external API credentials are required to run or build TapeBytes. Audio-device permission is requested when needed. Selected files and generated audio are held in the current tab and are cleared on reload.
+
+Keep credentials and private research out of source files. The `.gitignore` excludes local environment files and research directories, but cannot protect a secret pasted into an otherwise tracked file.
