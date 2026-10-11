@@ -1,0 +1,65 @@
+name: Build static site
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Publish the generated site to GitHub Pages
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: static-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Determine site URL
+        env:
+          CUSTOM_ORIGIN: ${{ vars.SITE_ORIGIN }}
+          CUSTOM_BASE_PATH: ${{ vars.BASE_PATH }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const config=JSON.parse(fs.readFileSync('site.config.json','utf8'));
+          const origin=process.env.CUSTOM_ORIGIN || config.origin;
+          const base=process.env.CUSTOM_BASE_PATH || config.basePath || '/';
+          if(/[\r\n]/.test(origin+base))throw Error('Invalid URL configuration');
+          fs.appendFileSync(process.env.GITHUB_ENV,`SITE_ORIGIN=${origin}\nBASE_PATH=${base}\n`);
+          JS
+      - name: Generate and test static pages
+        env:
+          INDEXABLE: ${{ vars.INDEXABLE || '0' }}
+        run: |
+          npm run build
+          npm test
+      - name: Update generated branch
+        run: bash scripts/publish-static.sh
+      - name: Upload static artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && inputs.deploy
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

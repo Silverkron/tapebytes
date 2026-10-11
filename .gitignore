@@ -1,0 +1,49 @@
+# Local credentials: never commit these files.
+.env
+.env.*
+!.env.example
+*.env
+*.local
+secrets/
+.secrets/
+credentials/
+credentials*.json
+*credentials*.json
+*service-account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+.netrc
+.npmrc
+.pypirc
+# Local tools and operating-system files.
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+*.log
+
+# Private research inputs, API responses and diagnostic work.
+work/
+outputs/seo/dati-ricerca.json
+
+# Local credentials: never commit these files.
+# Local tools and operating-system files.
+
+# Local DataForSEO configuration and responses.
+**/dataforseo*.json
+**/dataforseo*.toml
+**/dataforseo*.yaml
+**/dataforseo*.yml
+**/seo/raw/
+
+# Generated and private local material.
+/dist/
+/outputs/
+/work/
+/.openai/
+
+### Jetbrain
+/.idea

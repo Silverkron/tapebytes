@@ -1,0 +1,19 @@
+{
+  "origin": "https://tapebytes.lucasciacca.com",
+  "indexable": false,
+  "languages": [
+    "en",
+    "it",
+    "es",
+    "de",
+    "fr"
+  ],
+  "pages": [
+    "home",
+    "encode",
+    "studio",
+    "decode",
+    "guide"
+  ],
+  "basePath": ""
+}
