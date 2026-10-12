@@ -136,7 +136,7 @@ Deployment is a separate, explicit action. Routine pushes do not deploy the site
 
 1. In **Settings → Pages → Build and deployment**, select **GitHub Actions**.
 2. Configure the custom domain and its DNS records, and enable HTTPS when available.
-3. Set the repository variable `INDEXABLE` to `1` when the site is ready for search engines.
+3. Indexing is enabled by default. If an existing repository variable `INDEXABLE` is `0`, remove it or set it to `1` for the public site.
 4. In **Actions → Build static site → Run workflow**, select `main` and enable **Publish the generated site to GitHub Pages**.
 
 The deployment job publishes the same artifact saved to `gh-pages`. It uses an explicit Pages deployment rather than relying on a branch push to trigger publication. See [GitHub's custom Pages workflows documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
@@ -151,7 +151,7 @@ Optional repository variables are set under **Settings → Secrets and variables
 | --- | --- |
 | `SITE_ORIGIN` | HTTPS origin without a path; overrides the configured domain. |
 | `BASE_PATH` | Deployment prefix, such as `/tape-vault`; use `/` for the domain root. |
-| `INDEXABLE` | Set to `1` to allow indexing. The workflow defaults to `0`. |
+| `INDEXABLE` | Defaults to `1` (indexing enabled). Set to `0` only for non-public preview builds. |
 
 For a repository hosted under a GitHub Pages path instead of the custom domain:
 
@@ -162,7 +162,11 @@ npm test
 
 Localized page titles and descriptions are stored under the `seo.*` and `desc.*` keys in the translation files. The generator embeds canonical links, reciprocal `hreflang` links, Open Graph and Twitter metadata, and structured data directly in each HTML page. It also creates `sitemap.xml` and `robots.txt`.
 
-Indexing is disabled by default. No client-side rendering is required for search engines to read the page content or metadata.
+Indexing is enabled by default; the 404 page remains excluded. No client-side rendering is required for search engines to read the page content or metadata.
+
+Every localized page also has a static Markdown version at `index.md` alongside its `index.html` (for example `/it/guide/index.md`). HTML pages link to these versions using `rel="alternate"` and `type="text/markdown"`. The Markdown content comes from the rendered page, including the guide and its limitations, with absolute links that respect the configured domain and base path.
+
+`llms.txt` lists all 25 Markdown pages grouped by language, and `llms-full.txt` includes their complete content. These are discovery aids for AI bots. `robots.txt` allows all crawlers by default and points to the XML sitemap, which lists the canonical HTML pages and their language alternatives.
 
 ## Spoken introductions
 
@@ -179,5 +183,7 @@ This optional step requires the configured macOS system voices and `ffmpeg`. Com
 ## Privacy
 
 File and audio processing happens in the browser. No backend or external API credentials are required to run or build TapeBytes. Audio-device permission is requested when needed. Selected files and generated audio are held in the current tab and are cleared on reload.
+
+The HTML pages include the supplied standard Google Tag Manager snippets for container `GTM-WLRVCWSR`: the asynchronous loader in the head and the `noscript` iframe immediately after the opening body tag. Tags and their triggers are managed in that container. Set `GTM_CONTAINER_ID=` when building to omit both snippets, including for previews or offline use; otherwise the ID in `site.config.json` is used.
 
 Keep credentials and private research out of source files. The `.gitignore` excludes local environment files and research directories, but cannot protect a secret pasted into an otherwise tracked file.

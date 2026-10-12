@@ -39,7 +39,7 @@ jobs:
           JS
       - name: Generate and test static pages
         env:
-          INDEXABLE: ${{ vars.INDEXABLE || '0' }}
+          INDEXABLE: ${{ vars.INDEXABLE || '1' }}
         run: |
           npm run build
           npm test

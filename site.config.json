@@ -1,6 +1,7 @@
 {
   "origin": "https://tapebytes.lucasciacca.com",
-  "indexable": false,
+  "indexable": true,
+  "gtmContainerId": "GTM-WLRVCWSR",
   "languages": [
     "en",
     "it",

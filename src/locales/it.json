@@ -131,7 +131,7 @@
   "guide.limits": "Limiti pratici",
   "guide.limitsText": "Il riferimento corregge il tempo, non i campioni mancanti o le distorsioni gravi. Le velocità maggiori richiedono un segnale più pulito. Non è prevista la divisione automatica tra lati. Il recupero fallisce se non resta una copia valida di un blocco.",
   "guide.privacy": "Elaborazione locale",
-  "guide.privacyText": "File e audio restano in questa scheda. Nessun account, analisi dell’utilizzo o caricamento su server. I permessi per i dispositivi audio vengono richiesti solo quando usi i relativi controlli. Per l’ingresso audio servono un browser compatibile e HTTPS o localhost.",
+  "guide.privacyText": "File e audio restano in questa scheda. Nessun account o caricamento dei file su server. Il sito integra Google Tag Manager. I permessi per i dispositivi audio vengono richiesti solo quando usi i relativi controlli. Per l’ingresso audio servono un browser compatibile e HTTPS o localhost.",
   "guide.motion": "Animazioni e accessibilità",
   "guide.motionText": "Le animazioni delle operazioni seguono l’avanzamento reale. Gli indicatori usano il segnale audio. Il movimento ridotto disattiva le animazioni decorative; le schede nascoste fermano gli aggiornamenti visivi.",
   "footer": "GRATUITO · ELABORAZIONE LOCALE · NESSUN ACCOUNT",

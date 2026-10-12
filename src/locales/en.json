@@ -131,7 +131,7 @@
   "guide.limits": "Practical limits",
   "guide.limitsText": "The reference corrects timing, not missing samples or severe distortion. Higher data rates need a cleaner signal. There is no automatic splitting across tape sides. Recovery fails if no valid copy of a block remains.",
   "guide.privacy": "Local processing",
-  "guide.privacyText": "Files and audio stay in this tab. No accounts, analytics or uploads. Audio-device permissions are requested only when you use those controls. A compatible browser and HTTPS or localhost are needed for audio input.",
+  "guide.privacyText": "Files and audio stay in this tab. No accounts or file uploads. The site integrates Google Tag Manager. Audio-device permissions are requested only when you use those controls. A compatible browser and HTTPS or localhost are needed for audio input.",
   "guide.motion": "Motion and accessibility",
   "guide.motionText": "Operation animations follow actual progress. Audio meters use the live signal. Reduced motion disables decorative animation; hidden tabs stop visual updates.",
   "footer": "FREE TO USE · LOCAL PROCESSING · NO ACCOUNT",

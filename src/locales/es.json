@@ -131,7 +131,7 @@
   "guide.limits": "Limitaciones prácticas",
   "guide.limitsText": "La referencia corrige el tiempo, no los datos perdidos ni la distorsión grave. Las velocidades altas requieren una señal más limpia. No hay división automática entre caras. La recuperación falla si no queda una copia válida de un bloque.",
   "guide.privacy": "Procesamiento local",
-  "guide.privacyText": "Los archivos y el audio se quedan en esta pestaña. Sin cuentas, análisis de uso ni subidas a servidores. Los permisos de los dispositivos de audio solo se solicitan al usar esos controles. La entrada de audio requiere un navegador compatible y HTTPS o localhost.",
+  "guide.privacyText": "Los archivos y el audio se quedan en esta pestaña. Sin cuentas ni subidas de archivos a servidores. El sitio integra Google Tag Manager. Los permisos de los dispositivos de audio solo se solicitan al usar esos controles. La entrada de audio requiere un navegador compatible y HTTPS o localhost.",
   "guide.motion": "Movimiento y accesibilidad",
   "guide.motionText": "Las animaciones siguen el progreso real. Los medidores usan la señal de audio. El movimiento reducido desactiva la animación decorativa; las pestañas ocultas detienen las actualizaciones visuales.",
   "footer": "GRATIS · PROCESAMIENTO LOCAL · SIN CUENTA",

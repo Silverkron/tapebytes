@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import {PROFILES} from './src/assets/codec.js';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {pageMarkdown} from './scripts/page-markdown.mjs';
 const root=path.dirname(fileURLToPath(import.meta.url));
 process.chdir(root);
 const config=JSON.parse(fs.readFileSync('site.config.json','utf8'));
@@ -13,6 +14,19 @@ if(basePath&&!/^\/[A-Za-z0-9._~-]+(?:\/[A-Za-z0-9._~-]+)*$/.test(basePath))throw
 const origin=siteOrigin+basePath;
 if(!/^https:\/\/[^/]+$/.test(siteOrigin))throw Error('SITE_ORIGIN must be an HTTPS origin, without a path.');
 const indexable=process.env.INDEXABLE===undefined?config.indexable:process.env.INDEXABLE==='1';
+const gtmContainerId=process.env.GTM_CONTAINER_ID??config.gtmContainerId??'';
+if(gtmContainerId&&!/^GTM-[A-Z0-9]+$/.test(gtmContainerId))throw Error('Invalid GTM_CONTAINER_ID');
+const gtmHead=gtmContainerId?`<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${gtmContainerId}');</script>
+<!-- End Google Tag Manager -->`:'';
+const gtmBody=gtmContainerId?`<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${gtmContainerId}"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->`:'';
 export const route=(lang,page)=>`${lang==='en'?'':`/${lang}`}/${page==='home'?'':page+'/'}`;
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const json=v=>JSON.stringify(v).replace(/</g,'\\u003c');
@@ -50,13 +64,24 @@ function render(lang,page){
  const voiceData=fs.readFileSync(`src/assets/audio/${lang}.wav`);let voiceSamples=0;for(let i=12;i+8<=voiceData.length;){const n=voiceData.readUInt32LE(i+4);if(voiceData.toString('ascii',i,i+4)==='data'){voiceSamples=n/2;break;}i+=8+n+(n%2);}const selectedConfig={lang,page,strings:d,voiceSamples,basePath};
  return `<!doctype html><html lang="${lang}" data-page="${page}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f4f2f8"><title>${escape(title)}</title><meta name="description" content="${escape(description)}"><meta name="robots" content="${indexable&&page!=='404'?'index,follow':'noindex,nofollow'}">${page==='404'?'':`<link rel="canonical" href="${url}">${alternates}`}<meta property="og:type" content="website"><meta property="og:site_name" content="TapeBytes"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${escape(description)}"><meta property="og:url" content="${url}"><meta property="og:locale" content="${d.locale.replace('-','_')}">${languages.filter(l=>l!==lang).map(l=>`<meta property="og:locale:alternate" content="${catalogs[l].locale.replace('-','_')}">`).join('')}<meta property="og:image" content="${origin}/social.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TapeBytes — ${t('claim')}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escape(title)}"><meta name="twitter:description" content="${escape(description)}"><meta name="twitter:image" content="${origin}/social.png"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="manifest" href="/site.webmanifest"><script>(()=>{let choice='system';try{const saved=localStorage.getItem('tapevault.theme');if(['light','dark','system'].includes(saved))choice=saved;}catch{}document.documentElement.dataset.themeChoice=choice;document.documentElement.dataset.theme=choice==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):choice;})();</script><link rel="stylesheet" href="/style.css"><script type="application/ld+json">${json(schema)}</script><script id="page-data" type="application/json">${json(selectedConfig)}</script></head><body><a class="skip" href="#main">${t('skip')}</a><header><a data-route class="brand" href="${route(lang,'home')}" aria-label="TapeBytes"><span aria-hidden="true">▣</span> TAPE<span>BYTES</span></a><nav aria-label="${t('nav.label')}">${pages.map(p=>`<a data-route href="${route(lang,p)}"${p===page?' class="active" aria-current="page"':''}>${t('nav.'+p)}</a>`).join('')}</nav><div class="header-tools"><div class="languages" role="group" aria-label="${t('nav.language')}">${languages.map(l=>`<a data-route href="${route(l,actualPage)}" lang="${l}" hreflang="${l}" title="${escape(catalogs[l].language)}"${l===lang?' aria-current="true"':''}>${l.toUpperCase()}</a>`).join('')}</div><label class="theme-control"><span class="theme-symbol" aria-hidden="true">◐</span><span class="sr-only">${t('theme.label')}</span><select id="theme-mode">${['light','dark','system'].map(mode=>`<option value="${mode}">${t('theme.'+mode)}</option>`).join('')}</select></label></div></header><main id="main" tabindex="-1">${body}<section id="operation" class="operation" hidden aria-live="polite"><div class="operation-line"><span class="process-icon" aria-hidden="true"></span><strong id="operation-label"></strong><span id="operation-value"></span></div><progress id="operation-progress" max="1" aria-label="${t('process.progress')}"></progress>${button('cancel','cancel','button compact')}</section><div id="message" role="status" aria-live="polite" hidden></div></main><footer><span>▣ TAPEBYTES / ${t('claim')}</span><span>${t('footer')}</span></footer><script type="module" src="/app.js"></script></body></html>`;
 }
-const withBase=html=>html.replace(/(href|src)="\/(?!\/)/g,(_,attr)=>`${attr}="${basePath}/`);
+const withBase=html=>html.replace('<head>','<head>'+gtmHead).replace('<body>','<body>'+gtmBody).replace(/(href|src)="\/(?!\/)/g,(_,attr)=>`${attr}="${basePath}/`);
 fs.mkdirSync('dist',{recursive:true});
 // Dist is generated output; source assets and every route are rebuilt from src/.
 for(const entry of fs.readdirSync('dist'))fs.rmSync(path.join('dist',entry),{recursive:true,force:true});
 fs.cpSync('src/assets','dist',{recursive:true});
-const routes=[];
-for(const lang of languages)for(const page of pages){const pathname=route(lang,page),dir=path.join('dist',pathname);fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'index.html'),withBase(render(lang,page)));routes.push({lang,page,path:pathname});}
+const routes=[],markdownPages=[];
+for(const lang of languages)for(const page of pages){
+ const pathname=route(lang,page),dir=path.join('dist',pathname),url=origin+pathname;
+ const html=withBase(render(lang,page));
+ const markdown=pageMarkdown(html,{url,title:catalogs[lang]['seo.'+page],description:catalogs[lang]['desc.'+page],lang});
+ fs.mkdirSync(dir,{recursive:true});
+ fs.writeFileSync(path.join(dir,'index.html'),html.replace('</head>',`<link rel="alternate" type="text/markdown" href="${url}index.md"></head>`));
+ fs.writeFileSync(path.join(dir,'index.md'),markdown);
+ routes.push({lang,page,path:pathname});
+ markdownPages.push({lang,page,url,markdown});
+}
+fs.writeFileSync('dist/llms.txt',`# TapeBytes\n\n> Store digital files as audio, record them on cassette and recover verified files in your browser.\n\nAll processing happens locally. Physical tape remains experimental; consult the localized guides for equipment, capacity and compatibility limitations.\n\n`+languages.map(lang=>`## ${catalogs[lang].language} (${lang})\n\n`+markdownPages.filter(p=>p.lang===lang).map(p=>`- [${catalogs[lang]['seo.'+p.page]}](${p.url}index.md): ${catalogs[lang]['desc.'+p.page]}`).join('\n')).join('\n\n')+`\n\n## Complete content\n\n- [All languages](${origin}/llms-full.txt): Full Markdown content for every public page.\n`);
+fs.writeFileSync('dist/llms-full.txt','# TapeBytes — all localized pages\n\n'+markdownPages.map(p=>p.markdown).join('\n---\n\n'));
 fs.writeFileSync('dist/404.html',withBase(render('en','404')));
 fs.writeFileSync('dist/sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+routes.map(r=>`<url><loc>${origin+r.path}</loc>${languages.map(l=>`<xhtml:link rel="alternate" hreflang="${l}" href="${origin+route(l,r.page)}"/>`).join('')}<xhtml:link rel="alternate" hreflang="x-default" href="${origin+route('en',r.page)}"/></url>`).join('')+'</urlset>');
 fs.writeFileSync('dist/robots.txt',`User-agent: *\n${indexable?'Allow: /':'Disallow: /'}\nSitemap: ${origin}/sitemap.xml\n`);

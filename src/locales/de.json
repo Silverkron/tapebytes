@@ -131,7 +131,7 @@
   "guide.limits": "Praktische Grenzen",
   "guide.limitsText": "Die Referenz korrigiert das Timing, nicht fehlende Samples oder starke Verzerrungen. Höhere Datenraten erfordern ein saubereres Signal. Keine automatische Aufteilung auf Bandseiten. Ohne gültige Kopie eines Blocks scheitert die Wiederherstellung.",
   "guide.privacy": "Lokale Verarbeitung",
-  "guide.privacyText": "Dateien und Audio bleiben in diesem Tab. Keine Konten, Analysen oder Uploads. Berechtigungen für Audiogeräte werden erst angefordert, wenn du die entsprechenden Funktionen nutzt. Für Audioeingänge sind ein kompatibler Browser und HTTPS oder localhost erforderlich.",
+  "guide.privacyText": "Dateien und Audio bleiben in diesem Tab. Keine Konten oder Datei-Uploads. Die Website integriert Google Tag Manager. Berechtigungen für Audiogeräte werden erst angefordert, wenn du die entsprechenden Funktionen nutzt. Für Audioeingänge sind ein kompatibler Browser und HTTPS oder localhost erforderlich.",
   "guide.motion": "Animation und Barrierefreiheit",
   "guide.motionText": "Animationen folgen dem tatsächlichen Fortschritt. Anzeigen verwenden das Audiosignal. Reduzierte Bewegung deaktiviert dekorative Animationen; ausgeblendete Tabs stoppen visuelle Aktualisierungen.",
   "footer": "KOSTENLOS · LOKALE VERARBEITUNG · OHNE KONTO",

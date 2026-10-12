@@ -131,7 +131,7 @@
   "guide.limits": "Limites pratiques",
   "guide.limitsText": "La référence corrige le temps, pas les échantillons manquants ni les fortes distorsions. Les débits élevés demandent un signal plus propre. Pas de division automatique entre faces. La récupération échoue si aucune copie valide d’un bloc ne subsiste.",
   "guide.privacy": "Traitement local",
-  "guide.privacyText": "Les fichiers et l’audio restent dans cet onglet. Aucun compte, aucune analyse d’utilisation, aucun envoi en ligne. Les autorisations audio ne sont demandées que lorsque vous utilisez les commandes correspondantes. L’entrée audio nécessite un navigateur compatible et HTTPS ou localhost.",
+  "guide.privacyText": "Les fichiers et l’audio restent dans cet onglet. Aucun compte ni envoi de fichiers en ligne. Le site intègre Google Tag Manager. Les autorisations audio ne sont demandées que lorsque vous utilisez les commandes correspondantes. L’entrée audio nécessite un navigateur compatible et HTTPS ou localhost.",
   "guide.motion": "Animations et accessibilité",
   "guide.motionText": "Les animations suivent la progression réelle. Les indicateurs utilisent le signal audio. Le mouvement réduit désactive les animations décoratives ; les onglets masqués arrêtent les mises à jour visuelles.",
   "footer": "GRATUIT · TRAITEMENT LOCAL · SANS COMPTE",
