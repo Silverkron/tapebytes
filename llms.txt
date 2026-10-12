@@ -1,0 +1,49 @@
+# TapeBytes
+
+> Store digital files as audio, record them on cassette and recover verified files in your browser.
+
+All processing happens locally. Physical tape remains experimental; consult the localized guides for equipment, capacity and compatibility limitations.
+
+## English (en)
+
+- [TapeBytes — Store digital files on cassette tapes](https://tapebytes.lucasciacca.com/index.md): Store small files on cassette tapes with TapeBytes. Encode audio, record your tape and recover verified files in your browser. Free, with local processing.
+- [Files to cassette audio: WAV encoder — TapeBytes](https://tapebytes.lucasciacca.com/encode/index.md): Convert files and folders into cassette data audio. Choose modulation and redundancy, estimate tape capacity and generate a WAV in your browser.
+- [Record data on cassette: audio setup — TapeBytes](https://tapebytes.lucasciacca.com/studio/index.md): Record a TapeBytes WAV onto cassette. Select your audio output, calibrate recording levels and keep data and reference channels separate.
+- [Recover files from cassette audio — TapeBytes](https://tapebytes.lucasciacca.com/decode/index.md): Recover TapeBytes files from a recorded WAV or stereo audio input, with tape-speed correction and CRC32 and SHA-256 integrity checks.
+- [Cassette data storage: capacity and setup — TapeBytes](https://tapebytes.lucasciacca.com/guide/index.md): Learn how cassette data storage works, how much data fits on a tape, which equipment you need and how to record and recover files with TapeBytes.
+
+## Italiano (it)
+
+- [TapeBytes — Salva file digitali su musicassetta](https://tapebytes.lucasciacca.com/it/index.md): Salva piccoli file su musicassetta con TapeBytes. Genera l’audio, registra il nastro e recupera file verificati nel browser. Gratuito, con elaborazione locale.
+- [Da file ad audio per musicassetta — TapeBytes](https://tapebytes.lucasciacca.com/it/encode/index.md): Converti file e cartelle in audio per musicassetta. Scegli modulazione e ridondanza, stima la capacità del nastro e genera un WAV nel browser.
+- [Registra dati su cassetta: livelli e uscita — TapeBytes](https://tapebytes.lucasciacca.com/it/studio/index.md): Registra un WAV TapeBytes su musicassetta. Seleziona l’uscita audio, calibra i livelli e mantieni separati i canali dati e riferimento.
+- [Recupera file dall’audio della cassetta — TapeBytes](https://tapebytes.lucasciacca.com/it/decode/index.md): Recupera file TapeBytes da un WAV registrato o dall’ingresso stereo, con correzione della velocità del nastro e controlli CRC32 e SHA-256.
+- [Dati su musicassetta: capacità e guida — TapeBytes](https://tapebytes.lucasciacca.com/it/guide/index.md): Scopri quanti dati contiene una musicassetta, quale attrezzatura serve e come registrare e recuperare file con TapeBytes.
+
+## Español (es)
+
+- [TapeBytes — Guarda archivos digitales en casete](https://tapebytes.lucasciacca.com/es/index.md): Guarda archivos pequeños en casete con TapeBytes. Genera audio, graba la cinta y recupera archivos verificados en el navegador. Gratis y con procesamiento local.
+- [De archivos a audio para casete — TapeBytes](https://tapebytes.lucasciacca.com/es/encode/index.md): Convierte archivos y carpetas en audio para casete. Elige modulación y redundancia, estima la capacidad y genera un WAV en el navegador.
+- [Grabar datos en casete: ajustes de audio — TapeBytes](https://tapebytes.lucasciacca.com/es/studio/index.md): Graba un WAV de TapeBytes en casete. Selecciona la salida, calibra los niveles y mantén separados los canales de datos y referencia.
+- [Recuperar archivos del audio de casete — TapeBytes](https://tapebytes.lucasciacca.com/es/decode/index.md): Recupera archivos TapeBytes desde un WAV grabado o una entrada estéreo, con corrección de velocidad y verificación CRC32 y SHA-256.
+- [Datos en casete: capacidad y guía — TapeBytes](https://tapebytes.lucasciacca.com/es/guide/index.md): Descubre cuántos datos caben en un casete, qué equipo necesitas y cómo grabar y recuperar archivos con TapeBytes.
+
+## Deutsch (de)
+
+- [TapeBytes — Digitale Dateien auf Kassette speichern](https://tapebytes.lucasciacca.com/de/index.md): Speichere kleine Dateien mit TapeBytes auf Audiokassette. Audio erzeugen, aufnehmen und geprüfte Dateien im Browser wiederherstellen. Kostenlos und lokal.
+- [Dateien als Kassettenaudio kodieren — TapeBytes](https://tapebytes.lucasciacca.com/de/encode/index.md): Wandle Dateien und Ordner in Kassettenaudio um. Wähle Modulation und Redundanz, schätze die Kapazität und erzeuge eine WAV-Datei im Browser.
+- [Daten auf Kassette aufnehmen: Audio — TapeBytes](https://tapebytes.lucasciacca.com/de/studio/index.md): Nimm eine TapeBytes-WAV auf Kassette auf. Wähle den Audioausgang, kalibriere die Pegel und halte Daten- und Referenzkanal getrennt.
+- [Dateien aus Kassettenaudio wiederherstellen — TapeBytes](https://tapebytes.lucasciacca.com/de/decode/index.md): Stelle TapeBytes-Dateien aus einer WAV-Aufnahme oder einem Stereoeingang wieder her, mit Bandgeschwindigkeitskorrektur sowie CRC32- und SHA-256-Prüfung.
+- [Daten auf Kassette: Kapazität und Anleitung — TapeBytes](https://tapebytes.lucasciacca.com/de/guide/index.md): Erfahre, wie viele Daten auf eine Kassette passen, welche Geräte du brauchst und wie du Dateien mit TapeBytes aufnimmst und wiederherstellst.
+
+## Français (fr)
+
+- [TapeBytes — Stocker des fichiers sur cassette audio](https://tapebytes.lucasciacca.com/fr/index.md): Stockez de petits fichiers sur cassette avec TapeBytes. Générez l’audio, enregistrez et récupérez des fichiers vérifiés dans le navigateur. Gratuit et local.
+- [Encoder des fichiers en audio pour cassette — TapeBytes](https://tapebytes.lucasciacca.com/fr/encode/index.md): Convertissez des fichiers et dossiers en audio pour cassette. Choisissez modulation et redondance, estimez la capacité et générez un WAV dans le navigateur.
+- [Enregistrer des données sur cassette — TapeBytes](https://tapebytes.lucasciacca.com/fr/studio/index.md): Enregistrez un WAV TapeBytes sur cassette. Choisissez la sortie audio, calibrez les niveaux et séparez les canaux de données et de référence.
+- [Récupérer des fichiers depuis une cassette — TapeBytes](https://tapebytes.lucasciacca.com/fr/decode/index.md): Récupérez des fichiers TapeBytes depuis un WAV enregistré ou une entrée stéréo, avec correction de vitesse et vérifications CRC32 et SHA-256.
+- [Données sur cassette : capacité et guide — TapeBytes](https://tapebytes.lucasciacca.com/fr/guide/index.md): Découvrez combien de données contient une cassette, le matériel nécessaire et comment enregistrer et récupérer des fichiers avec TapeBytes.
+
+## Complete content
+
+- [All languages](https://tapebytes.lucasciacca.com/llms-full.txt): Full Markdown content for every public page.

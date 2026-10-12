@@ -1,0 +1,1659 @@
+# TapeBytes — all localized pages
+
+<!-- Language: en -->
+
+Source: https://tapebytes.lucasciacca.com/
+
+TapeBytes — Store digital files on cassette tapes
+
+Store small files on cassette tapes with TapeBytes. Encode audio, record your tape and recover verified files in your browser. Free, with local processing.
+
+CASSETTE DATA STORAGE / IN YOUR BROWSER
+
+# Store digital files. On cassette tape.
+
+Digital files on cassette tape.
+
+Encode small files as audio, record them on a music cassette and recover them with integrity checks. Explore analog data storage, directly in your browser.
+
+[▸ Encode files](https://tapebytes.lucasciacca.com/encode/) [↗ Recover files](https://tapebytes.lucasciacca.com/decode/)
+
+BROWSER AUDIO Free to use · Local processing · Verified file recovery
+
+TAPEBYTES / DATA DECK
+
+TB / FSK 00:00 STEREO 300 BIT/S
+
+DECORATIVE PREVIEW · NOT A LIVE SIGNAL
+
+■ FILES STAY ON YOUR DEVICE 1200 / 2400 Hz CRC32 + SHA-256
+
+From files to tape, and back 01 — 03
+
+[01 / Encode Encode Prepare files and generate a real FSK audio signal with a spoken introduction. Open tool ↗](https://tapebytes.lucasciacca.com/encode/) [02 / Studio Studio Record the signal onto your cassette. Open tool ↗](https://tapebytes.lucasciacca.com/studio/) [03 / Decode Decode Load a WAV or capture audio. Download files only after their integrity is verified. Open tool ↗](https://tapebytes.lucasciacca.com/decode/)
+
+## How to store data on cassette tapes
+
+For retrocomputing enthusiasts, makers and anyone interested in how digital data travels through analog sound.
+
+[Guide →](https://tapebytes.lucasciacca.com/guide/)
+
+---
+
+<!-- Language: en -->
+
+Source: https://tapebytes.lucasciacca.com/encode/
+
+Files to cassette audio: WAV encoder — TapeBytes
+
+Convert files and folders into cassette data audio. Choose modulation and redundancy, estimate tape capacity and generate a WAV in your browser.
+
+01 / FILES TO AUDIO
+
+# Encode files for cassette tape.
+
+Your files are processed in this browser. They are never uploaded.
+
+01 Encode 02 Studio 03 Decode
+
+01
+
+## Choose files
+
+Drop files here or click to choose files
+
+Choose a folder
+
+SELECT FILES TO ESTIMATE DURATION
+
+02
+
+## Set up the tape
+
+Cassette length
+
+Modulation
+
+Redundancy
+
+Choosing speed and redundancy
+
+Higher rates need a cleaner signal. Data is split into 1 KiB blocks with independent synchronization and CRC. With 3 or 5 copies, Decode selects a valid copy of each block. Headers and all copies count toward tape usage. Physical tape, especially 2400 bit/s, remains experimental.
+
+Correct tape-speed variations Stereo · data on the left, reference on the right
+
+Connections and operation
+
+Enabled by default. Left carries data; right carries a continuous 3 kHz reference to correct tape speed variations. Record both channels separately. File capacity is unchanged; the WAV is twice as large.
+
+Spoken introduction Include a spoken introduction in this language
+
+Read the recorded introduction
+
+“This cassette contains digital files. To recover them, visit tapebytes dot lucasciacca dot com.”
+
+The introduction identifies the recovery website: tapebytes.lucasciacca.com. Include it so the recording remains understandable later.
+
+Capacity and format limits
+
+Capacity is per side and includes the introduction, headers, metadata and redundancy. Adding files changes metadata overhead. No automatic splitting across sides. WAV generation uses browser memory; the RIFF format is limited to about 4 GiB.
+
+Your working session stays in this tab as you navigate. Reloading clears selected files and generated audio.
+
+03
+
+## Your tape
+
+RECORDING DURATION 00:00 Mono data
+
+Selected files 0 B
+
+Time per side 30:00
+
+SELECT FILES TO ESTIMATE DURATION
+
+Audio details and WAV size
+
+✓ Audio ready
+
+[Open Recording Studio](https://tapebytes.lucasciacca.com/studio/) [Verify this WAV](https://tapebytes.lucasciacca.com/decode/)
+
+✓ All processing stays on this device
+
+---
+
+<!-- Language: en -->
+
+Source: https://tapebytes.lucasciacca.com/studio/
+
+Record data on cassette: audio setup — TapeBytes
+
+Record a TapeBytes WAV onto cassette. Select your audio output, calibrate recording levels and keep data and reference channels separate.
+
+02 / AUDIO TO TAPE
+
+# Recording Studio.
+
+TapeBytes plays the signal. Press REC on your physical deck to record it.
+
+STEREO L: data / R: 3 kHz reference Left: data · Right: 3 kHz reference
+
+02 / TAPE DECK
+
+## TB / DATA DECK
+
+■ READY
+
+Generate a WAV in Encode first. [Encode →](https://tapebytes.lucasciacca.com/encode/)
+
+Generate a WAV in Encode first. 00:00 / 00:00
+
+My deck is connected and set to REC
+
+The meters show the actual digital output. Check the recording level on your deck’s own meter.
+
+OUTPUT SETTINGS
+
+## Connection & calibration
+
+01 Audio output
+
+L Data R Reference
+
+02 Playback level
+
+100%
+
+5% 100%
+
+03 Calibrate the deck 1 kHz · 5 s
+
+Set the recording level on your deck without reaching the red zone.
+
+Use Stop in the deck panel to end the tone early.
+
+Connection checklist
+
+- Connect the computer output to the deck’s LINE IN.
+- Select an output and play the calibration tone.
+- Set the deck level below clipping; disable Dolby and noise reduction.
+- Press REC on the deck, then start the countdown.
+
+Keep left and right channels separate. Match input and output sample rates in your audio settings and avoid mixing direct monitoring into playback. With a Fast Track Pro, set Mix to PB while recording.
+
+## After recording
+
+Rewind the tape and capture both channels in Decode. Keep the original files until recovery is verified.
+
+[Verify the recording in Decode →](https://tapebytes.lucasciacca.com/decode/)
+
+Recording quality depends on your deck, connections and levels. Verify recovered files before deleting originals.
+
+---
+
+<!-- Language: en -->
+
+Source: https://tapebytes.lucasciacca.com/decode/
+
+Recover files from cassette audio — TapeBytes
+
+Recover TapeBytes files from a recorded WAV or stereo audio input, with tape-speed correction and CRC32 and SHA-256 integrity checks.
+
+03 / AUDIO TO FILES
+
+# Recover files from cassette audio.
+
+Recover files from a TapeBytes WAV or your cassette deck. Everything happens in your browser.
+
+✓ All processing stays on this device CRC32 + SHA-256
+
+STEREO Use the right-channel reference
+
+Left: data · Right: 3 kHz reference
+
+01 / TAPE INPUT
+
+## From your tape deck
+
+PCM
+
+Captured WAV automatically preserves both channels from a stereo input, even when reference correction is off. Connect L to input 1 and R to input 2. Monitoring and Playback use L only.
+
+Audio input
+
+Live audio input −∞ dBFS
+
+Frequency spectrum PCM / CH 1
+
+Input and processing check
+
+Playback
+
+Choose an input, then enable the monitor. Capture starts separately.
+
+About Playback
+
+Listen through the default output. Off by default; use headphones with a microphone. Leaving this page turns it off.
+
+Audio permission is requested when needed. Capture continues until you stop it and uses browser memory.
+
+OR / WAV FILE
+
+## From an audio file
+
+Already have a recording? Open your TapeBytes WAV to recover its files.
+
+Choose a WAV file Automatic profile detection · left channel
+
+Generate a WAV in Encode to verify it here without recording a tape.
+
+Verified before download Recovered files appear below, only after every integrity check passes.
+
+✓ CRC32 + SHA-256
+
+Recovery settings & format details
+
+Enabled by default for stereo recordings. Turn off only for older recordings without the reference. Captured audio is preserved; Playback monitors the left channel. Missing audio cannot be reconstructed.
+
+Keep left and right channels separate. Match input and output sample rates in your audio settings and avoid mixing direct monitoring into playback. With a Fast Track Pro, set Mix to PB while recording.
+
+Correct constant tape-speed offset automatically
+
+Uses the initial pilot tone, within ±5% tested speed offset. This does not continuously track wow/flutter. Files are available only when every block, the archive CRC and all file hashes pass.
+
+The initial pilot should start within the first 60 seconds for speed correction. TVBLK003 blocks can be found later. TVFSK001/002 files remain readable.
+
+Recovered files VERIFIED
+
+---
+
+<!-- Language: en -->
+
+Source: https://tapebytes.lucasciacca.com/guide/
+
+Cassette data storage: capacity and setup — TapeBytes
+
+Learn how cassette data storage works, how much data fits on a tape, which equipment you need and how to record and recover files with TapeBytes.
+
+MANUAL / BEFORE YOU RECORD
+
+# How to store data on cassette tapes
+
+Your first complete round trip
+
+- Choose files, modulation and redundancy in Encode. The right-channel reference is enabled by default.
+- Generate the stereo WAV. Left carries data; right carries the 3 kHz reference. The spoken introduction is optional.
+- In Studio, connect both outputs to the deck, calibrate the level, press REC on the deck and start the countdown.
+- Rewind and capture both channels in Decode, or import a stereo WAV. Leave reference correction on and download the verified files.
+
+## TVBLK003 / FSK
+
+TVBLK003 uses 1 KiB blocks, each with synchronization, a 300-bit/s header and CRC. Profiles: FSK 300/600/1200, 4-FSK 1200/2400. Redundancy repeats the full sequence 1/3/5 times, allowing valid blocks from different copies to be combined. The archive CRC and each file’s SHA-256 must pass. TVFSK001/002 recordings remain readable.
+
+## Local processing
+
+Files and audio stay in this tab. No accounts or file uploads. The site integrates Google Tag Manager. Audio-device permissions are requested only when you use those controls. A compatible browser and HTTPS or localhost are needed for audio input.
+
+Available today
+
+The right-channel reference tracks tape speed variations before decoding. Stereo recording and recovery are available, with CRC and SHA-256 integrity checks. Disable reference correction for legacy mono recordings.
+
+## Practical limits
+
+The reference corrects timing, not missing samples or severe distortion. Higher data rates need a cleaner signal. There is no automatic splitting across tape sides. Recovery fails if no valid copy of a block remains.
+
+## Connection checklist
+
+Keep left and right channels separate. Match input and output sample rates in your audio settings and avoid mixing direct monitoring into playback. With a Fast Track Pro, set Mix to PB while recording.
+
+## Crackles or missing reference?
+
+Disable and re-enable the input after changing its format. Check stereo connections, levels and sample rates. Import a stereo WAV from Audacity to compare capture paths. The reference cannot restore missing audio.
+
+## Motion and accessibility
+
+Operation animations follow actual progress. Audio meters use the live signal. Reduced motion disables decorative animation; hidden tabs stop visual updates.
+
+The introduction identifies the recovery website: tapebytes.lucasciacca.com. Include it so the recording remains understandable later.
+
+## How much data can a cassette tape hold?
+
+Capacity depends on recording time, data rate and redundancy. A C60 has 30 minutes per side: at 300 bit/s, the theoretical ceiling is 67,500 bytes before headers, metadata and pauses. At 2400 bit/s it is 540,000 bytes. Usable capacity is lower; three or five copies take more time. Encode calculates the estimate for your selected files and settings. The stereo reference improves timing recovery, not capacity.
+
+## What equipment do I need?
+
+A stereo cassette recorder with line input and output, suitable cables, and a computer with stereo audio input and output. A USB audio interface can provide these connections. For a first software check, generate a WAV and verify it directly in Decode before recording a cassette.
+
+## Can I decode any cassette recording?
+
+TapeBytes reads its own data format, including supported earlier versions. It is not a general decoder for Commodore, ZX Spectrum or Kansas City Standard tapes, nor a tool for converting music recordings into digital files. Start with a small file and verify a complete recording and recovery on your own equipment.
+
+[Estimate capacity in Encode](https://tapebytes.lucasciacca.com/encode/)
+
+---
+
+<!-- Language: it -->
+
+Source: https://tapebytes.lucasciacca.com/it/
+
+TapeBytes — Salva file digitali su musicassetta
+
+Salva piccoli file su musicassetta con TapeBytes. Genera l’audio, registra il nastro e recupera file verificati nel browser. Gratuito, con elaborazione locale.
+
+DATI SU MUSICASSETTA / NEL BROWSER
+
+# Salva file digitali. Su musicassetta.
+
+File digitali su musicassetta.
+
+Codifica piccoli file in audio, registrali su musicassetta e recuperali con verifica dell’integrità. Esplora la registrazione analogica dei dati, direttamente nel browser.
+
+[▸ Codifica i file](https://tapebytes.lucasciacca.com/it/encode/) [↗ Recupera i file](https://tapebytes.lucasciacca.com/it/decode/)
+
+BROWSER AUDIO Gratuito · Elaborazione locale · Recupero verificato
+
+TAPEBYTES / DATA DECK
+
+TB / FSK 00:00 STEREO 300 BIT/S
+
+ANTEPRIMA DECORATIVA · NON È UN SEGNALE IN TEMPO REALE
+
+■ I FILE RESTANO SUL TUO DISPOSITIVO 1200 / 2400 Hz CRC32 + SHA-256
+
+Dai file al nastro, e ritorno 01 — 03
+
+[01 / Codifica Codifica Prepara i file e genera un vero segnale audio FSK con un’introduzione vocale. Apri lo strumento ↗](https://tapebytes.lucasciacca.com/it/encode/) [02 / Studio Studio Registra il segnale sulla tua cassetta. Apri lo strumento ↗](https://tapebytes.lucasciacca.com/it/studio/) [03 / Decodifica Decodifica Carica un WAV o acquisisci l’audio. Scarica i file solo dopo la verifica della loro integrità. Apri lo strumento ↗](https://tapebytes.lucasciacca.com/it/decode/)
+
+## Come salvare dati su musicassetta
+
+Per appassionati di retrocomputing, maker e chi vuole capire come i dati digitali possono viaggiare attraverso il suono analogico.
+
+[Guida →](https://tapebytes.lucasciacca.com/it/guide/)
+
+---
+
+<!-- Language: it -->
+
+Source: https://tapebytes.lucasciacca.com/it/encode/
+
+Da file ad audio per musicassetta — TapeBytes
+
+Converti file e cartelle in audio per musicassetta. Scegli modulazione e ridondanza, stima la capacità del nastro e genera un WAV nel browser.
+
+01 / DAI FILE ALL’AUDIO
+
+# Codifica file per la musicassetta.
+
+I file vengono elaborati in questo browser. Non vengono mai caricati su un server.
+
+01 Codifica 02 Studio 03 Decodifica
+
+01
+
+## Scegli i file
+
+Trascina qui i file oppure fai clic per scegliere i file
+
+Scegli una cartella
+
+SELEZIONA I FILE PER STIMARE LA DURATA
+
+02
+
+## Imposta la cassetta
+
+Durata della cassetta
+
+Modulazione
+
+Ridondanza
+
+Come scegliere velocità e ridondanza
+
+Velocità maggiori richiedono un segnale più pulito. I dati sono divisi in blocchi da 1 KiB, con sincronizzazione e CRC indipendenti. Con 3 o 5 copie, Decode sceglie una copia valida di ogni blocco. Intestazioni e copie sono incluse nella durata. Il nastro fisico, soprattutto a 2400 bit/s, resta sperimentale.
+
+Correggi la velocità del nastro Stereo · dati a sinistra, riferimento a destra
+
+Collegamenti e funzionamento
+
+Attivo di default. Sinistra: dati. Destra: riferimento continuo a 3 kHz per correggere le variazioni di velocità del nastro. Registra entrambi i canali separatamente. Capacità invariata; WAV di dimensioni doppie.
+
+Introduzione vocale Includi un’introduzione vocale in questa lingua
+
+Testo dell’introduzione registrata
+
+“Questa cassetta contiene file digitali. Per recuperarli, visita tapebytes punto lucasciacca punto com.”
+
+L’introduzione indica il sito per il recupero: tapebytes.lucasciacca.com. Includila per riconoscere il contenuto della registrazione anche in futuro.
+
+Capacità e limiti del formato
+
+La capacità è per lato e include voce, intestazioni, metadati e ridondanza. Aggiungere file modifica lo spazio dei metadati. Nessuna suddivisione automatica tra lati. La generazione usa la memoria del browser; il formato RIFF ha un limite di circa 4 GiB.
+
+La sessione di lavoro resta in questa scheda durante la navigazione. Ricaricando la pagina, i file selezionati e l’audio generato vengono rimossi.
+
+03
+
+## La tua cassetta
+
+DURATA DELLA REGISTRAZIONE 00:00 Dati mono
+
+File selezionati 0 B
+
+Tempo per lato 30:00
+
+SELEZIONA I FILE PER STIMARE LA DURATA
+
+Dettagli audio e dimensione WAV
+
+✓ Audio pronto
+
+[Apri lo studio di registrazione](https://tapebytes.lucasciacca.com/it/studio/) [Verifica questo WAV](https://tapebytes.lucasciacca.com/it/decode/)
+
+✓ Tutto sul tuo dispositivo
+
+---
+
+<!-- Language: it -->
+
+Source: https://tapebytes.lucasciacca.com/it/studio/
+
+Registra dati su cassetta: livelli e uscita — TapeBytes
+
+Registra un WAV TapeBytes su musicassetta. Seleziona l’uscita audio, calibra i livelli e mantieni separati i canali dati e riferimento.
+
+02 / DALL’AUDIO AL NASTRO
+
+# Studio di registrazione.
+
+TapeBytes riproduce il segnale. Premi REC sul registratore a cassette per registrarlo.
+
+STEREO S: dati / D: riferimento 3 kHz Sinistra: dati · Destra: riferimento 3 kHz
+
+02 / TAPE DECK
+
+## TB / DATA DECK
+
+■ PRONTO
+
+Genera prima un WAV in Codifica. [Codifica →](https://tapebytes.lucasciacca.com/it/encode/)
+
+Genera prima un WAV in Codifica. 00:00 / 00:00
+
+Il registratore è collegato e impostato su REC
+
+Gli indicatori mostrano l’uscita digitale effettiva. Controlla il livello di registrazione sull’indicatore del registratore.
+
+IMPOSTAZIONI DI USCITA
+
+## Collegamento e calibrazione
+
+01 Uscita audio
+
+L Dati R Riferimento
+
+02 Livello di riproduzione
+
+100%
+
+5% 100%
+
+03 Calibra la piastra 1 kHz · 5 s
+
+Regola il livello sulla piastra senza raggiungere la zona rossa.
+
+Puoi fermare il tono con Interrompi nel pannello della cassetta.
+
+Controlla i collegamenti
+
+- Collega l’uscita del computer all’ingresso LINE IN del registratore.
+- Seleziona un’uscita e riproduci il tono di calibrazione.
+- Imposta il livello del registratore sotto la soglia di saturazione; disattiva Dolby e riduzione del rumore.
+- Premi REC sul registratore, poi avvia il conto alla rovescia.
+
+Mantieni separati i canali sinistro e destro. Allinea le frequenze di ingresso e uscita nelle impostazioni audio ed evita di mescolare il monitoraggio diretto con la riproduzione. Con Fast Track Pro, imposta Mix su PB durante la registrazione.
+
+## Dopo la registrazione
+
+Riavvolgi la cassetta e acquisisci entrambi i canali in Decodifica. Conserva gli originali fino alla verifica del recupero.
+
+[Verifica la registrazione in Decodifica →](https://tapebytes.lucasciacca.com/it/decode/)
+
+La qualità dipende da piastra, collegamenti e livelli. Verifica i file recuperati prima di eliminare gli originali.
+
+---
+
+<!-- Language: it -->
+
+Source: https://tapebytes.lucasciacca.com/it/decode/
+
+Recupera file dall’audio della cassetta — TapeBytes
+
+Recupera file TapeBytes da un WAV registrato o dall’ingresso stereo, con correzione della velocità del nastro e controlli CRC32 e SHA-256.
+
+03 / DALL’AUDIO AI FILE
+
+# Recupera file dall’audio della cassetta.
+
+Recupera i file da un WAV di TapeBytes o dal tuo registratore. Tutto avviene nel browser.
+
+✓ Tutto sul tuo dispositivo CRC32 + SHA-256
+
+STEREO Usa il riferimento sul canale destro
+
+Sinistra: dati · Destra: riferimento 3 kHz
+
+01 / INGRESSO CASSETTA
+
+## Dal registratore a cassette
+
+PCM
+
+Il WAV acquisito conserva automaticamente i due canali se l’ingresso è stereo, anche con la correzione disattivata. Collega L all’ingresso 1 e R all’ingresso 2. Monitor e Playback ascoltano solo L.
+
+Ingresso audio
+
+Audio in ingresso −∞ dBFS
+
+Spettro delle frequenze PCM / CH 1
+
+Verifica ingresso e filtri
+
+Playback
+
+Scegli un ingresso e abilita il monitor. L’acquisizione si avvia separatamente.
+
+Come funziona Playback
+
+Ascolta dall’uscita predefinita. Spento di default; usa cuffie con un microfono. Si spegne uscendo dalla pagina.
+
+Il permesso audio viene richiesto quando serve. L’acquisizione continua finché la interrompi e usa la memoria del browser.
+
+OPPURE / FILE WAV
+
+## Da un file audio
+
+Hai già una registrazione? Apri il WAV di TapeBytes per recuperare i file.
+
+Scegli un file WAV Rilevamento automatico del profilo · canale sinistro
+
+Genera un WAV in Codifica per verificarlo qui senza registrare una cassetta.
+
+Verificati prima del download I file recuperati compariranno qui sotto, solo dopo aver superato tutti i controlli di integrità.
+
+✓ CRC32 + SHA-256
+
+Impostazioni di recupero e dettagli del formato
+
+Attivo di default per le registrazioni stereo. Disattivalo solo per le vecchie registrazioni senza riferimento. L’audio acquisito viene conservato; Playback ascolta il canale sinistro. Non ricostruisce audio mancante.
+
+Mantieni separati i canali sinistro e destro. Allinea le frequenze di ingresso e uscita nelle impostazioni audio ed evita di mescolare il monitoraggio diretto con la riproduzione. Con Fast Track Pro, imposta Mix su PB durante la registrazione.
+
+Correggi automaticamente lo scostamento costante di velocità
+
+Usa il tono pilota iniziale; verificato con scostamenti entro ±5%. Non segue continuamente le oscillazioni di velocità (wow/flutter). I file sono disponibili solo quando tutti i blocchi, il CRC dell’archivio e gli hash dei file sono validi.
+
+Per correggere la velocità, il tono pilota iniziale deve trovarsi nei primi 60 secondi. I blocchi TVBLK003 possono essere trovati anche dopo. I file TVFSK001/002 restano leggibili.
+
+File recuperati VERIFICATO
+
+---
+
+<!-- Language: it -->
+
+Source: https://tapebytes.lucasciacca.com/it/guide/
+
+Dati su musicassetta: capacità e guida — TapeBytes
+
+Scopri quanti dati contiene una musicassetta, quale attrezzatura serve e come registrare e recuperare file con TapeBytes.
+
+MANUALE / PRIMA DI REGISTRARE
+
+# Come salvare dati su musicassetta
+
+La tua prima conversione completa di andata e ritorno
+
+- In Codifica scegli file, modulazione e ridondanza. Il riferimento sul canale destro è già attivo.
+- Genera il WAV stereo: dati a sinistra, riferimento a 3 kHz a destra. L’introduzione vocale è facoltativa.
+- In Studio collega entrambe le uscite alla piastra, calibra il livello, premi REC sulla piastra e avvia il conto alla rovescia.
+- Riavvolgi e acquisisci entrambi i canali in Decodifica, oppure importa un WAV stereo. Lascia attiva la correzione tramite riferimento e scarica i file verificati.
+
+## TVBLK003 / FSK
+
+TVBLK003 usa blocchi da 1 KiB, ciascuno con sincronizzazione, intestazione a 300 bit/s e CRC. Profili: FSK 300/600/1200, 4-FSK 1200/2400. La ridondanza ripete la sequenza completa 1/3/5 volte, permettendo di combinare blocchi validi da copie diverse. Devono risultare validi il CRC dell’archivio e lo SHA-256 di ogni file. Le registrazioni TVFSK001/002 restano leggibili.
+
+## Elaborazione locale
+
+File e audio restano in questa scheda. Nessun account o caricamento dei file su server. Il sito integra Google Tag Manager. I permessi per i dispositivi audio vengono richiesti solo quando usi i relativi controlli. Per l’ingresso audio servono un browser compatibile e HTTPS o localhost.
+
+Disponibile oggi
+
+Il riferimento sul canale destro segue le variazioni di velocità del nastro prima della decodifica. Registrazione e recupero stereo sono disponibili, con verifiche CRC e SHA-256. Per le vecchie registrazioni mono disattiva la correzione tramite riferimento.
+
+## Limiti pratici
+
+Il riferimento corregge il tempo, non i campioni mancanti o le distorsioni gravi. Le velocità maggiori richiedono un segnale più pulito. Non è prevista la divisione automatica tra lati. Il recupero fallisce se non resta una copia valida di un blocco.
+
+## Controlla i collegamenti
+
+Mantieni separati i canali sinistro e destro. Allinea le frequenze di ingresso e uscita nelle impostazioni audio ed evita di mescolare il monitoraggio diretto con la riproduzione. Con Fast Track Pro, imposta Mix su PB durante la registrazione.
+
+## Scoppiettii o riferimento assente?
+
+Disabilita e riabilita l’ingresso dopo aver cambiato formato. Controlla collegamenti stereo, livelli e frequenze di campionamento. Importa un WAV stereo da Audacity per confrontare le acquisizioni. Il riferimento non ripristina audio mancante.
+
+## Animazioni e accessibilità
+
+Le animazioni delle operazioni seguono l’avanzamento reale. Gli indicatori usano il segnale audio. Il movimento ridotto disattiva le animazioni decorative; le schede nascoste fermano gli aggiornamenti visivi.
+
+L’introduzione indica il sito per il recupero: tapebytes.lucasciacca.com. Includila per riconoscere il contenuto della registrazione anche in futuro.
+
+## Quanti dati può contenere una musicassetta?
+
+La capacità dipende da durata, velocità dei dati e ridondanza. Una C60 offre 30 minuti per lato: a 300 bit/s il massimo teorico è 67.500 byte prima di intestazioni, metadati e pause. A 2400 bit/s è 540.000 byte. La capacità utile è inferiore; tre o cinque copie richiedono più tempo. Codifica calcola la stima per i file e le impostazioni scelti. Il riferimento stereo migliora il recupero della temporizzazione, non aumenta la capacità.
+
+## Quale attrezzatura serve?
+
+Un registratore stereo con ingresso e uscita di linea, cavi adatti e un computer con ingresso e uscita audio stereo. Puoi usare un’interfaccia audio USB per i collegamenti. Per una prima verifica del software, genera un WAV e verificalo direttamente in Decodifica prima di registrare una cassetta.
+
+## Posso decodificare qualsiasi registrazione su cassetta?
+
+TapeBytes legge il proprio formato dati, incluse le versioni precedenti supportate. Non è un decoder generico per nastri Commodore, ZX Spectrum o Kansas City Standard, né uno strumento per digitalizzare registrazioni musicali. Inizia con un piccolo file e verifica registrazione e recupero completi sulla tua attrezzatura.
+
+[Stima la capacità in Codifica](https://tapebytes.lucasciacca.com/it/encode/)
+
+---
+
+<!-- Language: es -->
+
+Source: https://tapebytes.lucasciacca.com/es/
+
+TapeBytes — Guarda archivos digitales en casete
+
+Guarda archivos pequeños en casete con TapeBytes. Genera audio, graba la cinta y recupera archivos verificados en el navegador. Gratis y con procesamiento local.
+
+DATOS EN CASETE / EN EL NAVEGADOR
+
+# Guarda archivos digitales. En cintas de casete.
+
+Archivos digitales en cinta de casete.
+
+Codifica archivos pequeños como audio, grábalos en casete y recupéralos con verificación de integridad. Explora el almacenamiento analógico de datos desde el navegador.
+
+[▸ Codificar archivos](https://tapebytes.lucasciacca.com/es/encode/) [↗ Recupera archivos](https://tapebytes.lucasciacca.com/es/decode/)
+
+BROWSER AUDIO Gratis · Procesamiento local · Recuperación verificada
+
+TAPEBYTES / DATA DECK
+
+TB / FSK 00:00 STEREO 300 BIT/S
+
+VISTA PREVIA DECORATIVA · NO ES UNA SEÑAL EN DIRECTO
+
+■ LOS ARCHIVOS SE QUEDAN EN TU DISPOSITIVO 1200 / 2400 Hz CRC32 + SHA-256
+
+De los archivos a la cinta, y de vuelta 01 — 03
+
+[01 / Codificar Codificar Prepara archivos y genera una señal de audio FSK real con una introducción hablada. Abrir herramienta ↗](https://tapebytes.lucasciacca.com/es/encode/) [02 / Estudio Estudio Graba la señal en tu casete. Abrir herramienta ↗](https://tapebytes.lucasciacca.com/es/studio/) [03 / Decodificar Decodificar Carga un WAV o captura audio. Descarga los archivos solo después de verificar su integridad. Abrir herramienta ↗](https://tapebytes.lucasciacca.com/es/decode/)
+
+## Cómo guardar datos en cintas de casete
+
+Para aficionados a la retroinformática, makers y personas interesadas en transmitir datos digitales mediante sonido analógico.
+
+[Guía →](https://tapebytes.lucasciacca.com/es/guide/)
+
+---
+
+<!-- Language: es -->
+
+Source: https://tapebytes.lucasciacca.com/es/encode/
+
+De archivos a audio para casete — TapeBytes
+
+Convierte archivos y carpetas en audio para casete. Elige modulación y redundancia, estima la capacidad y genera un WAV en el navegador.
+
+01 / DE ARCHIVOS A AUDIO
+
+# Codifica archivos para casete.
+
+Tus archivos se procesan en este navegador. Nunca se suben a un servidor.
+
+01 Codificar 02 Estudio 03 Decodificar
+
+01
+
+## Elige archivos
+
+Arrastra los archivos aquí o haz clic para elegir archivos
+
+Elige una carpeta
+
+SELECCIONA ARCHIVOS PARA ESTIMAR LA DURACIÓN
+
+02
+
+## Configura la cinta
+
+Duración de la cinta
+
+Modulación
+
+Redundancia
+
+Elegir velocidad y redundancia
+
+Las velocidades mayores requieren una señal más limpia. Los datos se dividen en bloques de 1 KiB con sincronización y CRC propios. Con 3 o 5 copias, Decode elige una copia válida de cada bloque. Las cabeceras y copias cuentan en la duración. La cinta física, especialmente a 2400 bit/s, sigue siendo experimental.
+
+Corregir la velocidad de la cinta Estéreo · datos a la izquierda, referencia a la derecha
+
+Conexiones y funcionamiento
+
+Activado por defecto. Datos a la izquierda y referencia continua de 3 kHz a la derecha para corregir la velocidad. Graba los canales por separado. Misma capacidad; WAV del doble de tamaño.
+
+Introducción de voz Incluir una introducción hablada en este idioma
+
+Texto de la introducción grabada
+
+“Este casete contiene archivos digitales. Para recuperarlos, visita tapebytes punto lucasciacca punto com.”
+
+La introducción indica el sitio de recuperación: tapebytes.lucasciacca.com. Inclúyela para poder identificar la grabación en el futuro.
+
+Capacidad y límites del formato
+
+La capacidad es por cara e incluye voz, cabeceras, metadatos y redundancia. Añadir archivos cambia los metadatos. No hay división automática entre caras. La generación usa memoria del navegador; RIFF tiene un límite de unos 4 GiB.
+
+Tu sesión de trabajo permanece en esta pestaña mientras navegas. Al recargar se eliminan los archivos seleccionados y el audio generado.
+
+03
+
+## Tu cinta
+
+DURACIÓN DE LA GRABACIÓN 00:00 Datos mono
+
+Archivos seleccionados 0 B
+
+Tiempo por cara 30:00
+
+SELECCIONA ARCHIVOS PARA ESTIMAR LA DURACIÓN
+
+Detalles de audio y tamaño WAV
+
+✓ Audio listo
+
+[Abrir el estudio de grabación](https://tapebytes.lucasciacca.com/es/studio/) [Verificar este WAV](https://tapebytes.lucasciacca.com/es/decode/)
+
+✓ Todo en tu dispositivo
+
+---
+
+<!-- Language: es -->
+
+Source: https://tapebytes.lucasciacca.com/es/studio/
+
+Grabar datos en casete: ajustes de audio — TapeBytes
+
+Graba un WAV de TapeBytes en casete. Selecciona la salida, calibra los niveles y mantén separados los canales de datos y referencia.
+
+02 / DE AUDIO A CINTA
+
+# Estudio de grabación.
+
+TapeBytes reproduce la señal. Pulsa REC en tu pletina para grabarla.
+
+STEREO I: datos / D: referencia de 3 kHz Izquierda: datos · Derecha: referencia de 3 kHz
+
+02 / TAPE DECK
+
+## TB / DATA DECK
+
+■ LISTO
+
+Primero genera un WAV en Codificar. [Codificar →](https://tapebytes.lucasciacca.com/es/encode/)
+
+Primero genera un WAV en Codificar. 00:00 / 00:00
+
+Mi pletina está conectada y en modo REC
+
+Los medidores muestran la salida digital real. Comprueba el nivel de grabación en el medidor de tu pletina.
+
+AJUSTES DE SALIDA
+
+## Conexión y calibración
+
+01 Salida de audio
+
+L Datos R Referencia
+
+02 Nivel de reproducción
+
+100%
+
+5% 100%
+
+03 Calibra la pletina 1 kHz · 5 s
+
+Ajusta el nivel de grabación en la pletina sin llegar a la zona roja.
+
+Usa Detener en el panel de la cinta para terminar antes.
+
+Revisa las conexiones
+
+- Conecta la salida del ordenador a LINE IN de la pletina.
+- Selecciona una salida y reproduce el tono de calibración.
+- Ajusta el nivel de la pletina por debajo de la saturación; desactiva Dolby y la reducción de ruido.
+- Pulsa REC en la pletina y después inicia la cuenta atrás.
+
+Mantén separados los canales izquierdo y derecho. Iguala las frecuencias de muestreo de entrada y salida y evita mezclar la monitorización directa con la reproducción. En Fast Track Pro, ajusta Mix a PB al grabar.
+
+## Después de grabar
+
+Rebobina y captura ambos canales en Decodificar. Conserva los originales hasta verificar la recuperación.
+
+[Verificar la grabación en Decodificar →](https://tapebytes.lucasciacca.com/es/decode/)
+
+La calidad depende de la pletina, las conexiones y los niveles. Verifica los archivos recuperados antes de borrar los originales.
+
+---
+
+<!-- Language: es -->
+
+Source: https://tapebytes.lucasciacca.com/es/decode/
+
+Recuperar archivos del audio de casete — TapeBytes
+
+Recupera archivos TapeBytes desde un WAV grabado o una entrada estéreo, con corrección de velocidad y verificación CRC32 y SHA-256.
+
+03 / DE AUDIO A ARCHIVOS
+
+# Recupera archivos del audio de casete.
+
+Recupera archivos de un WAV de TapeBytes o de tu grabadora. Todo sucede en el navegador.
+
+✓ Todo en tu dispositivo CRC32 + SHA-256
+
+STEREO Usar la referencia del canal derecho
+
+Izquierda: datos · Derecha: referencia de 3 kHz
+
+01 / ENTRADA DE CINTA
+
+## Desde tu pletina
+
+PCM
+
+El WAV conserva ambos canales de una entrada estéreo, aunque la corrección esté desactivada. Conecta L a la entrada 1 y R a la entrada 2. Monitor y Playback reproducen solo L.
+
+Entrada de audio
+
+Audio de entrada en directo −∞ dBFS
+
+Espectro de frecuencias PCM / CH 1
+
+Verificar entrada y filtros
+
+Playback
+
+Elige una entrada y activa el monitor. La captura se inicia por separado.
+
+Acerca de Playback
+
+Escucha por la salida predeterminada. Desactivado por defecto; usa auriculares con un micrófono. Se apaga al salir.
+
+El permiso de audio se solicita cuando hace falta. La captura continúa hasta detenerla y usa memoria del navegador.
+
+O / ARCHIVO WAV
+
+## Desde un archivo de audio
+
+¿Ya tienes una grabación? Abre el WAV de TapeBytes para recuperar los archivos.
+
+Elige un archivo WAV Detección automática del perfil · canal izquierdo
+
+Genera un WAV en Codificar para verificarlo aquí sin grabar una cinta.
+
+Verificados antes de descargar Los archivos recuperados aparecerán debajo tras superar todos los controles de integridad.
+
+✓ CRC32 + SHA-256
+
+Ajustes de recuperación y detalles del formato
+
+Activado por defecto para grabaciones estéreo. Desactívalo solo en grabaciones antiguas sin referencia. Se conserva el audio capturado; Playback escucha el canal izquierdo. No reconstruye audio perdido.
+
+Mantén separados los canales izquierdo y derecho. Iguala las frecuencias de muestreo de entrada y salida y evita mezclar la monitorización directa con la reproducción. En Fast Track Pro, ajusta Mix a PB al grabar.
+
+Corregir automáticamente la desviación constante de velocidad
+
+Usa el tono piloto inicial; probado hasta ±5% de desviación. No sigue continuamente las fluctuaciones wow/flutter. Los archivos solo se ofrecen si todos los bloques, el CRC del archivo y los hashes son válidos.
+
+Para corregir la velocidad, el piloto inicial debe estar en los primeros 60 segundos. Los bloques TVBLK003 pueden encontrarse después. TVFSK001/002 siguen siendo legibles.
+
+Archivos recuperados VERIFICADO
+
+---
+
+<!-- Language: es -->
+
+Source: https://tapebytes.lucasciacca.com/es/guide/
+
+Datos en casete: capacidad y guía — TapeBytes
+
+Descubre cuántos datos caben en un casete, qué equipo necesitas y cómo grabar y recuperar archivos con TapeBytes.
+
+MANUAL / ANTES DE GRABAR
+
+# Cómo guardar datos en cintas de casete
+
+Tu primera conversión completa de ida y vuelta
+
+- Elige archivos, modulación y redundancia en Codificar. La referencia derecha está activada por defecto.
+- Genera el WAV estéreo: datos a la izquierda, referencia de 3 kHz a la derecha. La introducción hablada es opcional.
+- En Estudio conecta ambas salidas a la pletina, calibra el nivel, pulsa REC en la pletina e inicia la cuenta atrás.
+- Rebobina y captura ambos canales en Decodificar, o importa un WAV estéreo. Mantén la corrección activada y descarga los archivos verificados.
+
+## TVBLK003 / FSK
+
+TVBLK003 usa bloques de 1 KiB con sincronización, cabecera a 300 bit/s y CRC. Perfiles: FSK 300/600/1200, 4-FSK 1200/2400. Repite la secuencia 1/3/5 veces para combinar bloques válidos de distintas copias. Se verifican CRC global y SHA-256 de cada archivo. TVFSK001/002 siguen siendo legibles.
+
+## Procesamiento local
+
+Los archivos y el audio se quedan en esta pestaña. Sin cuentas ni subidas de archivos a servidores. El sitio integra Google Tag Manager. Los permisos de los dispositivos de audio solo se solicitan al usar esos controles. La entrada de audio requiere un navegador compatible y HTTPS o localhost.
+
+Disponible hoy
+
+La referencia derecha sigue las variaciones de velocidad antes de decodificar. Grabación y recuperación estéreo disponibles con verificaciones CRC y SHA-256. Desactiva la referencia para grabaciones mono antiguas.
+
+## Limitaciones prácticas
+
+La referencia corrige el tiempo, no los datos perdidos ni la distorsión grave. Las velocidades altas requieren una señal más limpia. No hay división automática entre caras. La recuperación falla si no queda una copia válida de un bloque.
+
+## Revisa las conexiones
+
+Mantén separados los canales izquierdo y derecho. Iguala las frecuencias de muestreo de entrada y salida y evita mezclar la monitorización directa con la reproducción. En Fast Track Pro, ajusta Mix a PB al grabar.
+
+## ¿Chasquidos o falta de referencia?
+
+Desactiva y activa la entrada tras cambiar su formato. Revisa conexiones estéreo, niveles y frecuencias. Importa un WAV estéreo de Audacity para comparar las capturas. La referencia no restaura audio perdido.
+
+## Movimiento y accesibilidad
+
+Las animaciones siguen el progreso real. Los medidores usan la señal de audio. El movimiento reducido desactiva la animación decorativa; las pestañas ocultas detienen las actualizaciones visuales.
+
+La introducción indica el sitio de recuperación: tapebytes.lucasciacca.com. Inclúyela para poder identificar la grabación en el futuro.
+
+## ¿Cuántos datos caben en un casete?
+
+La capacidad depende de la duración, la velocidad de datos y la redundancia. Un C60 tiene 30 minutos por cara: a 300 bit/s, el máximo teórico es de 67.500 bytes antes de cabeceras, metadatos y pausas; a 2400 bit/s, 540.000 bytes. La capacidad útil es menor y tres o cinco copias requieren más tiempo. Codificar calcula una estimación con tus archivos y ajustes. La referencia estéreo mejora la recuperación de la temporización, no la capacidad.
+
+## ¿Qué equipo necesito?
+
+Un grabador de casete estéreo con entrada y salida de línea, cables adecuados y un ordenador con entrada y salida de audio estéreo. Puedes utilizar una interfaz USB. Para comprobar el software, genera un WAV y verifícalo en Decodificar antes de grabar una cinta.
+
+## ¿Puedo decodificar cualquier grabación en casete?
+
+TapeBytes lee su propio formato de datos y las versiones anteriores compatibles. No es un decodificador genérico para cintas Commodore, ZX Spectrum o Kansas City Standard, ni una herramienta para digitalizar música. Empieza con un archivo pequeño y comprueba la grabación y recuperación completas con tu equipo.
+
+[Estimar capacidad en Codificar](https://tapebytes.lucasciacca.com/es/encode/)
+
+---
+
+<!-- Language: de -->
+
+Source: https://tapebytes.lucasciacca.com/de/
+
+TapeBytes — Digitale Dateien auf Kassette speichern
+
+Speichere kleine Dateien mit TapeBytes auf Audiokassette. Audio erzeugen, aufnehmen und geprüfte Dateien im Browser wiederherstellen. Kostenlos und lokal.
+
+DATEN AUF KASSETTE / IM BROWSER
+
+# Digitale Dateien speichern. Auf Audiokassette.
+
+Digitale Dateien auf Audiokassette.
+
+Kodiere kleine Dateien als Audio, zeichne sie auf Kassette auf und stelle sie mit Integritätsprüfung wieder her. Erkunde analoge Datenspeicherung direkt im Browser.
+
+[▸ Dateien kodieren](https://tapebytes.lucasciacca.com/de/encode/) [↗ Dateien wiederherstellen](https://tapebytes.lucasciacca.com/de/decode/)
+
+BROWSER AUDIO Kostenlos · Lokale Verarbeitung · Geprüfte Wiederherstellung
+
+TAPEBYTES / DATA DECK
+
+TB / FSK 00:00 STEREO 300 BIT/S
+
+DEKORATIVE VORSCHAU · KEIN LIVE-SIGNAL
+
+■ DATEIEN BLEIBEN AUF DEINEM GERÄT 1200 / 2400 Hz CRC32 + SHA-256
+
+Von Dateien auf Band und zurück 01 — 03
+
+[01 / Kodieren Kodieren Bereite Dateien vor und erzeuge ein echtes FSK-Audiosignal mit gesprochener Einleitung. Werkzeug öffnen ↗](https://tapebytes.lucasciacca.com/de/encode/) [02 / Studio Studio Das Signal auf Kassette aufnehmen. Werkzeug öffnen ↗](https://tapebytes.lucasciacca.com/de/studio/) [03 / Dekodieren Dekodieren Lade eine WAV oder erfasse Audio. Lade Dateien erst herunter, wenn ihre Integrität geprüft wurde. Werkzeug öffnen ↗](https://tapebytes.lucasciacca.com/de/decode/)
+
+## Daten auf Audiokassetten speichern
+
+Für Retrocomputing-Begeisterte, Maker und alle, die digitale Daten durch analogen Klang übertragen möchten.
+
+[Anleitung →](https://tapebytes.lucasciacca.com/de/guide/)
+
+---
+
+<!-- Language: de -->
+
+Source: https://tapebytes.lucasciacca.com/de/encode/
+
+Dateien als Kassettenaudio kodieren — TapeBytes
+
+Wandle Dateien und Ordner in Kassettenaudio um. Wähle Modulation und Redundanz, schätze die Kapazität und erzeuge eine WAV-Datei im Browser.
+
+01 / DATEIEN ZU AUDIO
+
+# Dateien für Audiokassetten kodieren.
+
+Deine Dateien werden in diesem Browser verarbeitet. Sie werden niemals hochgeladen.
+
+01 Kodieren 02 Studio 03 Dekodieren
+
+01
+
+## Dateien wählen
+
+Dateien hier ablegen oder klicken, um Dateien auszuwählen
+
+Ordner auswählen
+
+DATEIEN FÜR EINE DAUERSCHÄTZUNG WÄHLEN
+
+02
+
+## Kassette einrichten
+
+Kassettenlänge
+
+Modulation
+
+Redundanz
+
+Geschwindigkeit und Redundanz wählen
+
+Höhere Raten benötigen ein saubereres Signal. Daten werden in 1-KiB-Blöcke mit eigener Synchronisation und CRC aufgeteilt. Bei 3 oder 5 Kopien wählt Decode je Block eine gültige Kopie. Header und Kopien zählen zur Banddauer. Echtes Band, besonders bei 2400 bit/s, bleibt experimentell.
+
+Bandschwankungen korrigieren Stereo · Daten links, Referenz rechts
+
+Anschlüsse und Funktionsweise
+
+Standardmäßig aktiv. Daten links, kontinuierliche 3-kHz-Referenz rechts zur Korrektur der Bandgeschwindigkeit. Kanäle getrennt aufnehmen. Gleiche Kapazität; doppelte WAV-Größe.
+
+Gesprochene Einleitung Gesprochene Einleitung in dieser Sprache hinzufügen
+
+Text der aufgezeichneten Einleitung
+
+“Diese Kassette enthält digitale Dateien. Zum Wiederherstellen besuche tapebytes Punkt lucasciacca Punkt com.”
+
+Die Ansage nennt die Website zur Wiederherstellung: tapebytes.lucasciacca.com. Sie hilft, die Aufnahme später zuzuordnen.
+
+Kapazität und Formatgrenzen
+
+Die Kapazität gilt pro Seite einschließlich Ansage, Header, Metadaten und Redundanz. Weitere Dateien benötigen zusätzliche Metadaten. Keine automatische Aufteilung auf Seiten. Die Erzeugung nutzt Browserspeicher; RIFF ist auf etwa 4 GiB begrenzt.
+
+Deine Arbeitssitzung bleibt beim Navigieren in diesem Tab erhalten. Ein Neuladen löscht die ausgewählten Dateien und das erzeugte Audio.
+
+03
+
+## Deine Kassette
+
+AUFNAHMEDAUER 00:00 Mono-Daten
+
+Ausgewählte Dateien 0 B
+
+Zeit pro Seite 30:00
+
+DATEIEN FÜR EINE DAUERSCHÄTZUNG WÄHLEN
+
+Audiodetails und WAV-Größe
+
+✓ Audio bereit
+
+[Aufnahmestudio öffnen](https://tapebytes.lucasciacca.com/de/studio/) [Diese WAV prüfen](https://tapebytes.lucasciacca.com/de/decode/)
+
+✓ Alles bleibt auf diesem Gerät
+
+---
+
+<!-- Language: de -->
+
+Source: https://tapebytes.lucasciacca.com/de/studio/
+
+Daten auf Kassette aufnehmen: Audio — TapeBytes
+
+Nimm eine TapeBytes-WAV auf Kassette auf. Wähle den Audioausgang, kalibriere die Pegel und halte Daten- und Referenzkanal getrennt.
+
+02 / AUDIO AUF KASSETTE
+
+# Aufnahmestudio.
+
+TapeBytes spielt das Signal ab. Drücke REC an deinem Kassettendeck, um es aufzunehmen.
+
+STEREO L: Daten / R: 3-kHz-Referenz Links: Daten · Rechts: 3-kHz-Referenz
+
+02 / TAPE DECK
+
+## TB / DATA DECK
+
+■ BEREIT
+
+Erzeuge zuerst unter Kodieren eine WAV. [Kodieren →](https://tapebytes.lucasciacca.com/de/encode/)
+
+Erzeuge zuerst unter Kodieren eine WAV. 00:00 / 00:00
+
+Mein Deck ist angeschlossen und auf REC gestellt
+
+Die Anzeigen zeigen das tatsächliche digitale Ausgangssignal. Prüfe den Aufnahmepegel an der Anzeige deines Kassettendecks.
+
+AUSGANGSEINSTELLUNGEN
+
+## Anschluss und Kalibrierung
+
+01 Audioausgang
+
+L Daten R Referenz
+
+02 Wiedergabepegel
+
+100%
+
+5% 100%
+
+03 Deck kalibrieren 1 kHz · 5 s
+
+Aufnahmepegel am Deck einstellen, ohne den roten Bereich zu erreichen.
+
+Mit Stopp im Kassettenbereich lässt sich der Ton vorzeitig beenden.
+
+Anschlüsse prüfen
+
+- Verbinde den Computerausgang mit LINE IN am Kassettendeck.
+- Wähle einen Ausgang und spiele den Kalibrierton ab.
+- Stelle den Pegel am Deck unterhalb der Übersteuerungsgrenze ein; deaktiviere Dolby und Rauschunterdrückung.
+- Drücke REC am Deck und starte dann den Countdown.
+
+Halte linken und rechten Kanal getrennt. Gleiche die Abtastraten von Ein- und Ausgang ab und vermeide eine Mischung aus Direktmonitoring und Wiedergabe. Stelle bei der Fast Track Pro während der Aufnahme Mix auf PB.
+
+## Nach der Aufnahme
+
+Band zurückspulen und beide Kanäle unter Decodieren aufnehmen. Originaldateien bis zur erfolgreichen Prüfung behalten.
+
+[Aufnahme unter Dekodieren prüfen →](https://tapebytes.lucasciacca.com/de/decode/)
+
+Die Qualität hängt von Deck, Anschlüssen und Pegeln ab. Wiederhergestellte Dateien vor dem Löschen der Originale prüfen.
+
+---
+
+<!-- Language: de -->
+
+Source: https://tapebytes.lucasciacca.com/de/decode/
+
+Dateien aus Kassettenaudio wiederherstellen — TapeBytes
+
+Stelle TapeBytes-Dateien aus einer WAV-Aufnahme oder einem Stereoeingang wieder her, mit Bandgeschwindigkeitskorrektur sowie CRC32- und SHA-256-Prüfung.
+
+03 / AUDIO ZU DATEIEN
+
+# Dateien aus Kassettenaudio wiederherstellen.
+
+Dateien aus einer TapeBytes-WAV oder vom Kassettendeck wiederherstellen. Alles läuft im Browser.
+
+✓ Alles bleibt auf diesem Gerät CRC32 + SHA-256
+
+STEREO Referenz des rechten Kanals verwenden
+
+Links: Daten · Rechts: 3-kHz-Referenz
+
+01 / BANDEINGANG
+
+## Von deinem Kassettendeck
+
+PCM
+
+Die WAV-Aufnahme erhält beide Kanäle eines Stereoeingangs, auch ohne Referenzkorrektur. L mit Eingang 1 und R mit Eingang 2 verbinden. Monitor und Playback nutzen nur L.
+
+Audioeingang
+
+Live-Audioeingang −∞ dBFS
+
+Frequenzspektrum PCM / CH 1
+
+Eingang und Filter prüfen
+
+Playback
+
+Eingang auswählen und Monitor aktivieren. Die Aufnahme startet separat.
+
+Über Playback
+
+Über den Standardausgang hören. Anfangs aus; bei Mikrofonen Kopfhörer verwenden. Beim Verlassen wird es ausgeschaltet.
+
+Audioberechtigung wird bei Bedarf angefordert. Die Aufnahme läuft bis zum Stopp und nutzt Browserspeicher.
+
+ODER / WAV-DATEI
+
+## Aus einer Audiodatei
+
+Schon eine Aufnahme vorhanden? Öffne die TapeBytes-WAV, um Dateien wiederherzustellen.
+
+WAV-Datei auswählen Automatische Profilerkennung · linker Kanal
+
+Erzeuge unter Kodieren eine WAV und prüfe sie hier ohne Kassettenaufnahme.
+
+Vor dem Download geprüft Wiederhergestellte Dateien erscheinen unten, sobald alle Integritätsprüfungen bestanden sind.
+
+✓ CRC32 + SHA-256
+
+Wiederherstellung und Formatdetails
+
+Für Stereoaufnahmen standardmäßig aktiv. Nur für alte Aufnahmen ohne Referenz ausschalten. Das aufgenommene Audio bleibt erhalten; Playback gibt den linken Kanal wieder. Fehlendes Audio wird nicht rekonstruiert.
+
+Halte linken und rechten Kanal getrennt. Gleiche die Abtastraten von Ein- und Ausgang ab und vermeide eine Mischung aus Direktmonitoring und Wiedergabe. Stelle bei der Fast Track Pro während der Aufnahme Mix auf PB.
+
+Konstante Bandgeschwindigkeitsabweichung automatisch korrigieren
+
+Nutzt den anfänglichen Pilotton; mit Abweichungen bis ±5% getestet. Keine kontinuierliche Nachführung von Gleichlaufschwankungen. Dateien werden nur bei gültigen Blöcken, Archiv-CRC und Datei-Hashes angeboten.
+
+Zur Geschwindigkeitskorrektur muss der anfängliche Pilot in den ersten 60 Sekunden liegen. TVBLK003-Blöcke können später gefunden werden. TVFSK001/002 bleiben lesbar.
+
+Wiederhergestellte Dateien GEPRÜFT
+
+---
+
+<!-- Language: de -->
+
+Source: https://tapebytes.lucasciacca.com/de/guide/
+
+Daten auf Kassette: Kapazität und Anleitung — TapeBytes
+
+Erfahre, wie viele Daten auf eine Kassette passen, welche Geräte du brauchst und wie du Dateien mit TapeBytes aufnimmst und wiederherstellst.
+
+HANDBUCH / VOR DER AUFNAHME
+
+# Daten auf Audiokassetten speichern
+
+Deine erste vollständige Hin- und Rückwandlung
+
+- Unter Codieren Dateien, Modulation und Redundanz wählen. Die rechte Referenz ist standardmäßig aktiv.
+- Stereo-WAV erzeugen: Daten links, 3-kHz-Referenz rechts. Die Sprachansage ist optional.
+- Im Studio beide Ausgänge mit dem Deck verbinden, Pegel einstellen, REC am Deck drücken und den Countdown starten.
+- Zurückspulen und beide Kanäle unter Decodieren aufnehmen oder eine Stereo-WAV importieren. Referenzkorrektur aktiviert lassen und geprüfte Dateien herunterladen.
+
+## TVBLK003 / FSK
+
+TVBLK003 nutzt 1-KiB-Blöcke mit Synchronisation, 300-bit/s-Header und CRC. Profile: FSK 300/600/1200, 4-FSK 1200/2400. Die Folge wird 1/3/5-mal wiederholt, um gültige Blöcke verschiedener Kopien zu kombinieren. Archiv-CRC und Datei-SHA-256 müssen stimmen. TVFSK001/002 bleiben lesbar.
+
+## Lokale Verarbeitung
+
+Dateien und Audio bleiben in diesem Tab. Keine Konten oder Datei-Uploads. Die Website integriert Google Tag Manager. Berechtigungen für Audiogeräte werden erst angefordert, wenn du die entsprechenden Funktionen nutzt. Für Audioeingänge sind ein kompatibler Browser und HTTPS oder localhost erforderlich.
+
+Bereits verfügbar
+
+Die rechte Referenz verfolgt Geschwindigkeitsschwankungen vor der Decodierung. Stereoaufnahme und Wiederherstellung mit CRC- und SHA-256-Prüfung sind verfügbar. Für alte Monoaufnahmen Referenzkorrektur ausschalten.
+
+## Praktische Grenzen
+
+Die Referenz korrigiert das Timing, nicht fehlende Samples oder starke Verzerrungen. Höhere Datenraten erfordern ein saubereres Signal. Keine automatische Aufteilung auf Bandseiten. Ohne gültige Kopie eines Blocks scheitert die Wiederherstellung.
+
+## Anschlüsse prüfen
+
+Halte linken und rechten Kanal getrennt. Gleiche die Abtastraten von Ein- und Ausgang ab und vermeide eine Mischung aus Direktmonitoring und Wiedergabe. Stelle bei der Fast Track Pro während der Aufnahme Mix auf PB.
+
+## Knacken oder fehlende Referenz?
+
+Nach Formatänderungen den Eingang aus- und einschalten. Stereoanschlüsse, Pegel und Abtastraten prüfen. Zum Vergleich eine Stereo-WAV aus Audacity importieren. Die Referenz ersetzt kein fehlendes Audio.
+
+## Animation und Barrierefreiheit
+
+Animationen folgen dem tatsächlichen Fortschritt. Anzeigen verwenden das Audiosignal. Reduzierte Bewegung deaktiviert dekorative Animationen; ausgeblendete Tabs stoppen visuelle Aktualisierungen.
+
+Die Ansage nennt die Website zur Wiederherstellung: tapebytes.lucasciacca.com. Sie hilft, die Aufnahme später zuzuordnen.
+
+## Wie viele Daten passen auf eine Audiokassette?
+
+Die Kapazität hängt von Laufzeit, Datenrate und Redundanz ab. Eine C60 bietet 30 Minuten pro Seite: Bei 300 bit/s liegt die theoretische Obergrenze vor Headern, Metadaten und Pausen bei 67.500 Bytes, bei 2400 bit/s bei 540.000 Bytes. Die nutzbare Kapazität ist geringer; drei oder fünf Kopien benötigen mehr Zeit. Kodieren berechnet die Schätzung anhand deiner Dateien und Einstellungen. Die Stereoreferenz verbessert die Zeitkorrektur, nicht die Kapazität.
+
+## Welche Geräte brauche ich?
+
+Einen Stereo-Kassettenrekorder mit Line-Eingang und -Ausgang, passende Kabel und einen Computer mit Stereo-Audioeingang und -ausgang. Eine USB-Audioschnittstelle kann diese Anschlüsse bereitstellen. Erzeuge zunächst eine WAV-Datei und prüfe sie direkt unter Dekodieren, bevor du eine Kassette aufnimmst.
+
+## Kann ich jede Kassettenaufnahme dekodieren?
+
+TapeBytes liest sein eigenes Datenformat einschließlich unterstützter älterer Versionen. Es ist kein allgemeiner Decoder für Commodore-, ZX-Spectrum- oder Kansas-City-Standard-Kassetten und kein Werkzeug zur Musikdigitalisierung. Beginne mit einer kleinen Datei und prüfe Aufnahme und Wiederherstellung mit deinen Geräten.
+
+[Kapazität unter Kodieren schätzen](https://tapebytes.lucasciacca.com/de/encode/)
+
+---
+
+<!-- Language: fr -->
+
+Source: https://tapebytes.lucasciacca.com/fr/
+
+TapeBytes — Stocker des fichiers sur cassette audio
+
+Stockez de petits fichiers sur cassette avec TapeBytes. Générez l’audio, enregistrez et récupérez des fichiers vérifiés dans le navigateur. Gratuit et local.
+
+DONNÉES SUR CASSETTE / DANS LE NAVIGATEUR
+
+# Stockez des fichiers numériques. Sur cassette audio.
+
+Des fichiers numériques sur cassette audio.
+
+Encodez de petits fichiers en audio, enregistrez-les sur cassette et récupérez-les avec vérification d’intégrité. Explorez le stockage analogique de données dans votre navigateur.
+
+[▸ Encoder des fichiers](https://tapebytes.lucasciacca.com/fr/encode/) [↗ Récupérer des fichiers](https://tapebytes.lucasciacca.com/fr/decode/)
+
+BROWSER AUDIO Gratuit · Traitement local · Récupération vérifiée
+
+TAPEBYTES / DATA DECK
+
+TB / FSK 00:00 STEREO 300 BIT/S
+
+APERÇU DÉCORATIF · AUCUN SIGNAL EN DIRECT
+
+■ VOS FICHIERS RESTENT SUR VOTRE APPAREIL 1200 / 2400 Hz CRC32 + SHA-256
+
+Des fichiers à la bande, et retour 01 — 03
+
+[01 / Encoder Encoder Préparez vos fichiers et générez un véritable signal audio FSK avec une introduction parlée. Ouvrir l’outil ↗](https://tapebytes.lucasciacca.com/fr/encode/) [02 / Studio Studio Enregistrez le signal sur votre cassette. Ouvrir l’outil ↗](https://tapebytes.lucasciacca.com/fr/studio/) [03 / Décoder Décoder Chargez un WAV ou capturez du son. Téléchargez les fichiers uniquement après vérification de leur intégrité. Ouvrir l’outil ↗](https://tapebytes.lucasciacca.com/fr/decode/)
+
+## Comment stocker des données sur cassette audio
+
+Pour les passionnés de rétro-informatique, les makers et tous ceux qui s’intéressent au transport de données numériques par le son analogique.
+
+[Guide →](https://tapebytes.lucasciacca.com/fr/guide/)
+
+---
+
+<!-- Language: fr -->
+
+Source: https://tapebytes.lucasciacca.com/fr/encode/
+
+Encoder des fichiers en audio pour cassette — TapeBytes
+
+Convertissez des fichiers et dossiers en audio pour cassette. Choisissez modulation et redondance, estimez la capacité et générez un WAV dans le navigateur.
+
+01 / DES FICHIERS AU SON
+
+# Encoder des fichiers pour cassette.
+
+Vos fichiers sont traités dans ce navigateur. Ils ne sont jamais envoyés en ligne.
+
+01 Encoder 02 Studio 03 Décoder
+
+01
+
+## Choisir les fichiers
+
+Déposez les fichiers ici ou cliquez pour choisir des fichiers
+
+Choisir un dossier
+
+CHOISISSEZ DES FICHIERS POUR ESTIMER LA DURÉE
+
+02
+
+## Configurer la cassette
+
+Durée de la cassette
+
+Modulation
+
+Redondance
+
+Choisir la vitesse et la redondance
+
+Les débits élevés nécessitent un signal plus propre. Les données sont divisées en blocs de 1 KiB avec synchronisation et CRC propres. Avec 3 ou 5 copies, Decode choisit une copie valide de chaque bloc. En-têtes et copies comptent dans la durée. La cassette physique, surtout à 2400 bit/s, reste expérimentale.
+
+Corriger la vitesse de la bande Stéréo · données à gauche, référence à droite
+
+Branchements et fonctionnement
+
+Activé par défaut. Données à gauche, référence continue de 3 kHz à droite pour corriger la vitesse. Enregistrez les canaux séparément. Capacité inchangée ; WAV deux fois plus volumineux.
+
+Introduction vocale Inclure une introduction parlée dans cette langue
+
+Texte de l’introduction enregistrée
+
+“Cette cassette contient des fichiers numériques. Pour les récupérer, consultez tapebytes point lucasciacca point com.”
+
+L’introduction indique le site de récupération : tapebytes.lucasciacca.com. Incluez-la pour identifier l’enregistrement à l’avenir.
+
+Capacité et limites du format
+
+La capacité par face inclut voix, en-têtes, métadonnées et redondance. Ajouter des fichiers modifie les métadonnées. Aucune répartition automatique entre faces. La génération utilise la mémoire du navigateur ; RIFF est limité à environ 4 GiB.
+
+Votre session de travail reste dans cet onglet pendant la navigation. Recharger la page efface les fichiers sélectionnés et l’audio généré.
+
+03
+
+## Votre cassette
+
+DURÉE DE L’ENREGISTREMENT 00:00 Données mono
+
+Fichiers sélectionnés 0 B
+
+Temps par face 30:00
+
+CHOISISSEZ DES FICHIERS POUR ESTIMER LA DURÉE
+
+Détails audio et taille WAV
+
+✓ Audio prêt
+
+[Ouvrir le studio d’enregistrement](https://tapebytes.lucasciacca.com/fr/studio/) [Vérifier ce WAV](https://tapebytes.lucasciacca.com/fr/decode/)
+
+✓ Tout reste sur cet appareil
+
+---
+
+<!-- Language: fr -->
+
+Source: https://tapebytes.lucasciacca.com/fr/studio/
+
+Enregistrer des données sur cassette — TapeBytes
+
+Enregistrez un WAV TapeBytes sur cassette. Choisissez la sortie audio, calibrez les niveaux et séparez les canaux de données et de référence.
+
+02 / DU SON À LA CASSETTE
+
+# Studio d’enregistrement.
+
+TapeBytes lit le signal. Appuyez sur REC sur votre platine cassette pour l’enregistrer.
+
+STEREO G : données / D : référence 3 kHz Gauche : données · Droite : référence 3 kHz
+
+02 / TAPE DECK
+
+## TB / DATA DECK
+
+■ PRÊT
+
+Générez d’abord un WAV dans Encoder. [Encoder →](https://tapebytes.lucasciacca.com/fr/encode/)
+
+Générez d’abord un WAV dans Encoder. 00:00 / 00:00
+
+Ma platine est branchée et réglée sur REC
+
+Les indicateurs affichent la sortie numérique réelle. Vérifiez le niveau d’enregistrement sur le vumètre de votre platine.
+
+RÉGLAGES DE SORTIE
+
+## Branchement et étalonnage
+
+01 Sortie audio
+
+L Données R Référence
+
+02 Niveau de lecture
+
+100%
+
+5% 100%
+
+03 Calibrer la platine 1 kHz · 5 s
+
+Réglez le niveau sur la platine sans atteindre la zone rouge.
+
+Utilisez Arrêter dans le panneau cassette pour interrompre la tonalité.
+
+Vérifier les branchements
+
+- Reliez la sortie de l’ordinateur à l’entrée LINE IN de la platine.
+- Choisissez une sortie et lancez le signal d’étalonnage.
+- Réglez le niveau de la platine sous le seuil de saturation ; désactivez Dolby et la réduction de bruit.
+- Appuyez sur REC sur la platine, puis lancez le compte à rebours.
+
+Gardez les canaux gauche et droit séparés. Alignez les fréquences d’échantillonnage d’entrée et de sortie et évitez de mélanger l’écoute directe à la lecture. Avec la Fast Track Pro, réglez Mix sur PB pendant l’enregistrement.
+
+## Après l’enregistrement
+
+Rembobinez et capturez les deux canaux dans Décodage. Conservez les originaux jusqu’à la vérification des fichiers.
+
+[Vérifier l’enregistrement dans Décoder →](https://tapebytes.lucasciacca.com/fr/decode/)
+
+La qualité dépend de la platine, des branchements et des niveaux. Vérifiez les fichiers récupérés avant de supprimer les originaux.
+
+---
+
+<!-- Language: fr -->
+
+Source: https://tapebytes.lucasciacca.com/fr/decode/
+
+Récupérer des fichiers depuis une cassette — TapeBytes
+
+Récupérez des fichiers TapeBytes depuis un WAV enregistré ou une entrée stéréo, avec correction de vitesse et vérifications CRC32 et SHA-256.
+
+03 / DU SON AUX FICHIERS
+
+# Récupérer des fichiers depuis une cassette.
+
+Récupérez les fichiers d’un WAV TapeBytes ou de votre lecteur de cassettes. Tout se passe dans le navigateur.
+
+✓ Tout reste sur cet appareil CRC32 + SHA-256
+
+STEREO Utiliser la référence du canal droit
+
+Gauche : données · Droite : référence 3 kHz
+
+01 / ENTRÉE CASSETTE
+
+## Depuis votre platine cassette
+
+PCM
+
+Le WAV conserve les deux canaux d’une entrée stéréo, même sans correction par référence. Reliez L à l’entrée 1 et R à l’entrée 2. Monitor et Playback utilisent uniquement L.
+
+Entrée audio
+
+Entrée audio en direct −∞ dBFS
+
+Spectre des fréquences PCM / CH 1
+
+Vérifier l’entrée et les filtres
+
+Playback
+
+Choisissez une entrée et activez le moniteur. La capture démarre séparément.
+
+À propos de Playback
+
+Écoutez sur la sortie par défaut. Désactivé au départ ; utilisez un casque avec un micro. S’arrête en quittant la page.
+
+L’autorisation audio est demandée au besoin. La capture continue jusqu’à l’arrêt et utilise la mémoire du navigateur.
+
+OU / FICHIER WAV
+
+## Depuis un fichier audio
+
+Déjà un enregistrement ? Ouvrez le WAV TapeBytes pour récupérer les fichiers.
+
+Choisir un fichier WAV Détection automatique du profil · canal gauche
+
+Générez un WAV dans Encoder pour le vérifier ici sans enregistrer de cassette.
+
+Vérifiés avant le téléchargement Les fichiers récupérés apparaîtront ci-dessous après tous les contrôles d’intégrité.
+
+✓ CRC32 + SHA-256
+
+Réglages de récupération et détails du format
+
+Activé par défaut pour les enregistrements stéréo. Désactivez uniquement pour les anciens enregistrements sans référence. L’audio capturé est conservé ; Playback écoute le canal gauche. L’audio manquant n’est pas reconstruit.
+
+Gardez les canaux gauche et droit séparés. Alignez les fréquences d’échantillonnage d’entrée et de sortie et évitez de mélanger l’écoute directe à la lecture. Avec la Fast Track Pro, réglez Mix sur PB pendant l’enregistrement.
+
+Corriger automatiquement l’écart constant de vitesse
+
+Utilise le signal pilote initial ; testé jusqu’à ±5% d’écart. Ne suit pas en continu le pleurage et le scintillement. Les fichiers ne sont proposés que si tous les blocs, le CRC et les empreintes sont valides.
+
+Pour corriger la vitesse, le pilote initial doit être dans les 60 premières secondes. Les blocs TVBLK003 peuvent être trouvés après. TVFSK001/002 restent lisibles.
+
+Fichiers récupérés VÉRIFIÉ
+
+---
+
+<!-- Language: fr -->
+
+Source: https://tapebytes.lucasciacca.com/fr/guide/
+
+Données sur cassette : capacité et guide — TapeBytes
+
+Découvrez combien de données contient une cassette, le matériel nécessaire et comment enregistrer et récupérer des fichiers avec TapeBytes.
+
+MANUEL / AVANT D’ENREGISTRER
+
+# Comment stocker des données sur cassette audio
+
+Votre premier aller-retour complet
+
+- Dans Encodage, choisissez fichiers, modulation et redondance. La référence droite est activée par défaut.
+- Générez le WAV stéréo : données à gauche, référence 3 kHz à droite. L’introduction parlée est facultative.
+- Dans Studio, reliez les deux sorties à la platine, réglez le niveau, appuyez sur REC puis lancez le compte à rebours.
+- Rembobinez et capturez les deux canaux dans Décodage, ou importez un WAV stéréo. Gardez la correction activée et téléchargez les fichiers vérifiés.
+
+## TVBLK003 / FSK
+
+TVBLK003 utilise des blocs de 1 KiB avec synchronisation, en-tête à 300 bit/s et CRC. Profils : FSK 300/600/1200, 4-FSK 1200/2400. La séquence est répétée 1/3/5 fois pour combiner les blocs valides de copies différentes. CRC global et SHA-256 de chaque fichier sont vérifiés. TVFSK001/002 restent lisibles.
+
+## Traitement local
+
+Les fichiers et l’audio restent dans cet onglet. Aucun compte ni envoi de fichiers en ligne. Le site intègre Google Tag Manager. Les autorisations audio ne sont demandées que lorsque vous utilisez les commandes correspondantes. L’entrée audio nécessite un navigateur compatible et HTTPS ou localhost.
+
+Disponible aujourd’hui
+
+La référence droite suit les variations de vitesse avant le décodage. Enregistrement et récupération stéréo disponibles avec vérifications CRC et SHA-256. Désactivez la référence pour les anciens enregistrements mono.
+
+## Limites pratiques
+
+La référence corrige le temps, pas les échantillons manquants ni les fortes distorsions. Les débits élevés demandent un signal plus propre. Pas de division automatique entre faces. La récupération échoue si aucune copie valide d’un bloc ne subsiste.
+
+## Vérifier les branchements
+
+Gardez les canaux gauche et droit séparés. Alignez les fréquences d’échantillonnage d’entrée et de sortie et évitez de mélanger l’écoute directe à la lecture. Avec la Fast Track Pro, réglez Mix sur PB pendant l’enregistrement.
+
+## Craquements ou référence absente ?
+
+Désactivez puis réactivez l’entrée après un changement de format. Vérifiez les branchements stéréo, les niveaux et les fréquences. Importez un WAV stéréo d’Audacity pour comparer les captures. La référence ne restaure pas l’audio manquant.
+
+## Animations et accessibilité
+
+Les animations suivent la progression réelle. Les indicateurs utilisent le signal audio. Le mouvement réduit désactive les animations décoratives ; les onglets masqués arrêtent les mises à jour visuelles.
+
+L’introduction indique le site de récupération : tapebytes.lucasciacca.com. Incluez-la pour identifier l’enregistrement à l’avenir.
+
+## Combien de données peut contenir une cassette ?
+
+La capacité dépend de la durée, du débit et de la redondance. Une C60 offre 30 minutes par face : à 300 bit/s, le plafond théorique est de 67 500 octets avant en-têtes, métadonnées et pauses ; à 2400 bit/s, de 540 000 octets. La capacité utile est inférieure ; trois ou cinq copies prennent plus de temps. Encoder calcule l’estimation selon vos fichiers et réglages. La référence stéréo améliore la correction temporelle, pas la capacité.
+
+## Quel matériel faut-il ?
+
+Un magnétophone stéréo avec entrée et sortie ligne, des câbles adaptés et un ordinateur avec entrée et sortie audio stéréo. Une interface audio USB peut fournir ces connexions. Pour vérifier le logiciel, générez un WAV et vérifiez-le dans Décoder avant d’enregistrer une cassette.
+
+## Puis-je décoder n’importe quelle cassette ?
+
+TapeBytes lit son propre format de données, y compris les anciennes versions prises en charge. Ce n’est pas un décodeur universel pour les cassettes Commodore, ZX Spectrum ou Kansas City Standard, ni un outil de numérisation musicale. Commencez par un petit fichier et vérifiez un cycle complet d’enregistrement et de récupération avec votre matériel.
+
+[Estimer la capacité dans Encoder](https://tapebytes.lucasciacca.com/fr/encode/)
