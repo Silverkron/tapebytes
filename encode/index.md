@@ -36,13 +36,21 @@ Redundancy
 
 Choosing speed and redundancy
 
-Higher rates need a cleaner signal. Data is split into 1 KiB blocks with independent synchronization and CRC. With 3 or 5 copies, Decode selects a valid copy of each block. Headers and all copies count toward tape usage. Physical tape, especially 2400 bit/s, remains experimental.
+Higher rates require a cleaner signal. Each 1 KiB block has synchronization and CRC. With 2, 3 or 5 copies, Decode uses valid copies; in stereo-data mode copies cross channels. Headers, padding and all copies are included in the estimate.
 
-Correct tape-speed variations Stereo · data on the left, reference on the right
+Audio channels Stereo
+
+Mono
+
+Reference tone Stereo · data on the left, reference on the right
 
 Connections and operation
 
 Enabled by default. Left carries data; right carries a continuous 3 kHz reference to correct tape speed variations. Record both channels separately. File capacity is unchanged; the WAV is twice as large.
+
+Mono input: connect one isolated channel, never a sum of L + R. Stereo data with ×1 needs both channels; with ×2, either complete channel contains all blocks. Reference correction requires stereo. Without it, the left data channel can be read with correction disabled. Hardware validation is still required for the new stereo-data mode.
+
+Reference enabled: data on the left, 3 kHz reference on the right. Disable it to store data on both channels. With two copies, blocks cross channels at different times; capacity is similar to one data channel.
 
 Spoken introduction Include a spoken introduction in this language
 

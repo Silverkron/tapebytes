@@ -12,9 +12,7 @@ Nimm eine TapeBytes-WAV auf Kassette auf. Wähle den Audioausgang, kalibriere di
 
 TapeBytes spielt das Signal ab. Drücke REC an deinem Kassettendeck, um es aufzunehmen.
 
-STEREO L: Daten / R: 3-kHz-Referenz Links: Daten · Rechts: 3-kHz-Referenz
-
-02 / TAPE DECK
+SIGNALAUSGANG
 
 ## TB / DATA DECK
 
@@ -22,31 +20,45 @@ STEREO L: Daten / R: 3-kHz-Referenz Links: Daten · Rechts: 3-kHz-Referenz
 
 Erzeuge zuerst unter Kodieren eine WAV. [Kodieren →](https://tapebytes.lucasciacca.com/de/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Daten R Referenz · 3 kHz
+
 Erzeuge zuerst unter Kodieren eine WAV. 00:00 / 00:00
 
-Mein Deck ist angeschlossen und auf REC gestellt
+L: Daten / R: 3-kHz-Referenz
+
+Wellenform und Wiedergabeposition
+
+Live-Ausgangsspektrum
 
 Die Anzeigen zeigen das tatsächliche digitale Ausgangssignal. Prüfe den Aufnahmepegel an der Anzeige deines Kassettendecks.
 
-AUSGANGSEINSTELLUNGEN
+01
 
-## Anschluss und Kalibrierung
+## Audioausgang
 
-01 Audioausgang
+Audioausgang
 
-L Daten R Referenz
+02
 
-02 Wiedergabepegel
+## Deck kalibrieren
+
+1 kHz · 5 s
+
+Wiedergabepegel
 
 100%
 
 5% 100%
 
-03 Deck kalibrieren 1 kHz · 5 s
-
 Aufnahmepegel am Deck einstellen, ohne den roten Bereich zu erreichen.
 
-Mit Stopp im Kassettenbereich lässt sich der Ton vorzeitig beenden.
+03
+
+## Auf Kassette aufnehmen
+
+Stopp beendet die Wiedergabe, einschließlich des Kalibriertons.
 
 Anschlüsse prüfen
 

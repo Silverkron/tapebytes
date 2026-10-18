@@ -36,13 +36,21 @@ Redondance
 
 Choisir la vitesse et la redondance
 
-Les débits élevés nécessitent un signal plus propre. Les données sont divisées en blocs de 1 KiB avec synchronisation et CRC propres. Avec 3 ou 5 copies, Decode choisit une copie valide de chaque bloc. En-têtes et copies comptent dans la durée. La cassette physique, surtout à 2400 bit/s, reste expérimentale.
+Les débits élevés nécessitent un signal plus propre. Chaque bloc de 1 Kio dispose de synchronisation et de CRC. Avec 2, 3 ou 5 copies, les blocs valides sont récupérés ; en données stéréo les copies changent de canal. En-têtes, alignement et copies sont inclus dans l’estimation.
 
-Corriger la vitesse de la bande Stéréo · données à gauche, référence à droite
+Canaux audio Stéréo
+
+Mono
+
+Signal de référence Stéréo · données à gauche, référence à droite
 
 Branchements et fonctionnement
 
 Activé par défaut. Données à gauche, référence continue de 3 kHz à droite pour corriger la vitesse. Enregistrez les canaux séparément. Capacité inchangée ; WAV deux fois plus volumineux.
+
+Entrée mono : connectez un canal isolé, jamais la somme G + D. Les données stéréo ×1 nécessitent les deux canaux ; avec ×2 chaque canal complet contient tous les blocs. La correction par référence nécessite la stéréo. Le canal gauche peut être lu sans correction. Le nouveau mode de données stéréo doit encore être testé sur la platine.
+
+Référence activée : données à gauche, référence à 3 kHz à droite. Désactivez-la pour utiliser les deux canaux pour les données. Avec deux copies, les blocs changent de canal à des moments différents ; la capacité est proche de celle d’un canal de données.
 
 Introduction vocale Inclure une introduction parlée dans cette langue
 

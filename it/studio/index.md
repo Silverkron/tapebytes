@@ -12,9 +12,7 @@ Registra un WAV TapeBytes su musicassetta. Seleziona l’uscita audio, calibra i
 
 TapeBytes riproduce il segnale. Premi REC sul registratore a cassette per registrarlo.
 
-STEREO S: dati / D: riferimento 3 kHz Sinistra: dati · Destra: riferimento 3 kHz
-
-02 / TAPE DECK
+USCITA DEL SEGNALE
 
 ## TB / DATA DECK
 
@@ -22,31 +20,45 @@ STEREO S: dati / D: riferimento 3 kHz Sinistra: dati · Destra: riferimento 3 kH
 
 Genera prima un WAV in Codifica. [Codifica →](https://tapebytes.lucasciacca.com/it/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Dati R Riferimento · 3 kHz
+
 Genera prima un WAV in Codifica. 00:00 / 00:00
 
-Il registratore è collegato e impostato su REC
+S: dati / D: riferimento 3 kHz
+
+Forma d’onda e posizione di riproduzione
+
+Spettro di uscita in tempo reale
 
 Gli indicatori mostrano l’uscita digitale effettiva. Controlla il livello di registrazione sull’indicatore del registratore.
 
-IMPOSTAZIONI DI USCITA
+01
 
-## Collegamento e calibrazione
+## Uscita audio
 
-01 Uscita audio
+Uscita audio
 
-L Dati R Riferimento
+02
 
-02 Livello di riproduzione
+## Calibra la piastra
+
+1 kHz · 5 s
+
+Livello di riproduzione
 
 100%
 
 5% 100%
 
-03 Calibra la piastra 1 kHz · 5 s
-
 Regola il livello sulla piastra senza raggiungere la zona rossa.
 
-Puoi fermare il tono con Interrompi nel pannello della cassetta.
+03
+
+## Registra sul nastro
+
+Interrompi ferma la riproduzione, incluso il tono di calibrazione.
 
 Controlla i collegamenti
 

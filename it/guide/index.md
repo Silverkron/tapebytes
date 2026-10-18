@@ -19,7 +19,11 @@ La tua prima conversione completa di andata e ritorno
 
 ## TVBLK003 / FSK
 
-TVBLK003 usa blocchi da 1 KiB, ciascuno con sincronizzazione, intestazione a 300 bit/s e CRC. Profili: FSK 300/600/1200, 4-FSK 1200/2400. La ridondanza ripete la sequenza completa 1/3/5 volte, permettendo di combinare blocchi validi da copie diverse. Devono risultare validi il CRC dell’archivio e lo SHA-256 di ogni file. Le registrazioni TVFSK001/002 restano leggibili.
+TVBLK003 trasporta blocchi di 1 KiB con sincronizzazione, CRC e 1/2/3/5 copie. TVBLK004 distribuisce i blocchi su due canali. Le copie alternano canale in intervalli temporali separati. CRC dell’archivio e SHA-256 dei file devono essere validi. TVFSK001/002 e TVBLK003 restano leggibili.
+
+Riferimento attivo: dati a sinistra, riferimento a 3 kHz a destra. Disattivalo per usare entrambi i canali per i dati. Con due copie, i blocchi si incrociano tra i canali in momenti diversi; la capacità è simile a quella di un canale dati.
+
+Ingresso mono: collega un singolo canale isolato, mai la somma S + D. Dati stereo ×1 richiede entrambi i canali; con ×2 ogni canale completo contiene tutti i blocchi. La correzione con riferimento richiede stereo. Senza, puoi leggere il canale dati sinistro disattivando la correzione. La nuova modalità dati stereo va ancora verificata sulla piastra.
 
 ## Elaborazione locale
 
@@ -39,7 +43,7 @@ Mantieni separati i canali sinistro e destro. Allinea le frequenze di ingresso e
 
 ## Scoppiettii o riferimento assente?
 
-Disabilita e riabilita l’ingresso dopo aver cambiato formato. Controlla collegamenti stereo, livelli e frequenze di campionamento. Importa un WAV stereo da Audacity per confrontare le acquisizioni. Il riferimento non ripristina audio mancante.
+Lo scoppiettio può dipendere dalla frequenza di campionamento impostata per la scheda audio, soprattutto se ingresso, uscita e motore audio del browser non sono allineati. Su macOS apri Configurazione MIDI Audio, seleziona la scheda e imposta ingresso e uscita a 48.000 Hz (48 kHz), la frequenza usata da TapeBytes per i WAV. Poi disabilita e riabilita l’ingresso in TapeBytes per ricreare il collegamento audio. Questa impostazione è distinta dalla frequenza del tono di riferimento (3 kHz). Se il problema persiste, controlla livelli, collegamenti e driver e confronta un’acquisizione con Audacity. Il riferimento non può ripristinare campioni audio mancanti.
 
 ## Animazioni e accessibilità
 

@@ -78,13 +78,21 @@ Redundancy
 
 Choosing speed and redundancy
 
-Higher rates need a cleaner signal. Data is split into 1 KiB blocks with independent synchronization and CRC. With 3 or 5 copies, Decode selects a valid copy of each block. Headers and all copies count toward tape usage. Physical tape, especially 2400 bit/s, remains experimental.
+Higher rates require a cleaner signal. Each 1 KiB block has synchronization and CRC. With 2, 3 or 5 copies, Decode uses valid copies; in stereo-data mode copies cross channels. Headers, padding and all copies are included in the estimate.
 
-Correct tape-speed variations Stereo · data on the left, reference on the right
+Audio channels Stereo
+
+Mono
+
+Reference tone Stereo · data on the left, reference on the right
 
 Connections and operation
 
 Enabled by default. Left carries data; right carries a continuous 3 kHz reference to correct tape speed variations. Record both channels separately. File capacity is unchanged; the WAV is twice as large.
+
+Mono input: connect one isolated channel, never a sum of L + R. Stereo data with ×1 needs both channels; with ×2, either complete channel contains all blocks. Reference correction requires stereo. Without it, the left data channel can be read with correction disabled. Hardware validation is still required for the new stereo-data mode.
+
+Reference enabled: data on the left, 3 kHz reference on the right. Disable it to store data on both channels. With two copies, blocks cross channels at different times; capacity is similar to one data channel.
 
 Spoken introduction Include a spoken introduction in this language
 
@@ -136,9 +144,7 @@ Record a TapeBytes WAV onto cassette. Select your audio output, calibrate record
 
 TapeBytes plays the signal. Press REC on your physical deck to record it.
 
-STEREO L: data / R: 3 kHz reference Left: data · Right: 3 kHz reference
-
-02 / TAPE DECK
+SIGNAL OUTPUT
 
 ## TB / DATA DECK
 
@@ -146,31 +152,45 @@ STEREO L: data / R: 3 kHz reference Left: data · Right: 3 kHz reference
 
 Generate a WAV in Encode first. [Encode →](https://tapebytes.lucasciacca.com/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Data R Reference · 3 kHz
+
 Generate a WAV in Encode first. 00:00 / 00:00
 
-My deck is connected and set to REC
+L: data / R: 3 kHz reference
+
+Waveform and playback position
+
+Live output spectrum
 
 The meters show the actual digital output. Check the recording level on your deck’s own meter.
 
-OUTPUT SETTINGS
+01
 
-## Connection & calibration
+## Audio output
 
-01 Audio output
+Audio output
 
-L Data R Reference
+02
 
-02 Playback level
+## Calibrate the deck
+
+1 kHz · 5 s
+
+Playback level
 
 100%
 
 5% 100%
 
-03 Calibrate the deck 1 kHz · 5 s
-
 Set the recording level on your deck without reaching the red zone.
 
-Use Stop in the deck panel to end the tone early.
+03
+
+## Record to tape
+
+Stop ends playback, including the calibration tone.
 
 Connection checklist
 
@@ -207,33 +227,51 @@ Recover files from a TapeBytes WAV or your cassette deck. Everything happens in 
 
 ✓ All processing stays on this device CRC32 + SHA-256
 
-STEREO Use the right-channel reference
-
-Left: data · Right: 3 kHz reference
-
-01 / TAPE INPUT
-
-## From your tape deck
-
-PCM
-
-Captured WAV automatically preserves both channels from a stereo input, even when reference correction is off. Connect L to input 1 and R to input 2. Monitoring and Playback use L only.
-
 Audio input
-
-Live audio input −∞ dBFS
-
-Frequency spectrum PCM / CH 1
-
-Input and processing check
 
 Playback
 
 Choose an input, then enable the monitor. Capture starts separately.
 
-About Playback
+Audio channels Stereo
 
-Listen through the default output. Off by default; use headphones with a microphone. Leaving this page turns it off.
+Mono
+
+Stereo/Mono follows the channel count reported by the input when enabled. You can override it manually. Detection does not identify audio content or the presence of a reference tone.
+
+Reference tone
+
+Reference enabled: data on the left, 3 kHz reference on the right. Disable it to store data on both channels. With two copies, blocks cross channels at different times; capacity is similar to one data channel.
+
+Connections and operation
+
+Mono input: connect one isolated channel, never a sum of L + R. Stereo data with ×1 needs both channels; with ×2, either complete channel contains all blocks. Reference correction requires stereo. Without it, the left data channel can be read with correction disabled. Hardware validation is still required for the new stereo-data mode.
+
+01 / TAPE INPUT
+
+## From your tape deck
+
+STEREO / PCM
+
+L · Data −∞ dBFS
+
+Frequency spectrum 0 — 8 kHz
+
+R · Reference −∞ dBFS
+
+Frequency spectrum 0 — 8 kHz
+
+R · Reference Measured reference frequency — Hz
+
+Enable input to measure the reference.
+
+Auto stop
+
+ⓘ
+
+After at least 0.25 s of signal above −36 dBFS, stop and decode when all captured channels remain below −42 dBFS for the selected time (1 s by default). Initial silence does not trigger it. High noise may prevent stopping; use Stop and decode.
+
+Wait without signal
 
 Audio permission is requested when needed. Capture continues until you stop it and uses browser memory.
 
@@ -243,17 +281,27 @@ OR / WAV FILE
 
 Already have a recording? Open your TapeBytes WAV to recover its files.
 
-Choose a WAV file Automatic profile detection · left channel
+Choose a WAV file Automatic profile detection · separate audio channels
 
 Generate a WAV in Encode to verify it here without recording a tape.
 
-Verified before download Recovered files appear below, only after every integrity check passes.
+## Verified before download
+
+Recovered files appear below, only after every integrity check passes.
 
 ✓ CRC32 + SHA-256
 
 Recovery settings & format details
 
-Enabled by default for stereo recordings. Turn off only for older recordings without the reference. Captured audio is preserved; Playback monitors the left channel. Missing audio cannot be reconstructed.
+Captured WAV automatically preserves both channels from a stereo input, even when reference correction is off. Connect L to input 1 and R to input 2. The visual monitor shows both channels; Playback listens to L only.
+
+Enabled by default for data + reference recordings. Disable for stereo-data recordings or older mono recordings. Audio is preserved; Playback monitors L only.
+
+Input and processing check
+
+About Playback
+
+Listen through the default output. Off by default; use headphones with a microphone. Leaving this page turns it off.
 
 Keep left and right channels separate. Match input and output sample rates in your audio settings and avoid mixing direct monitoring into playback. With a Fast Track Pro, set Mix to PB while recording.
 
@@ -288,7 +336,11 @@ Your first complete round trip
 
 ## TVBLK003 / FSK
 
-TVBLK003 uses 1 KiB blocks, each with synchronization, a 300-bit/s header and CRC. Profiles: FSK 300/600/1200, 4-FSK 1200/2400. Redundancy repeats the full sequence 1/3/5 times, allowing valid blocks from different copies to be combined. The archive CRC and each file’s SHA-256 must pass. TVFSK001/002 recordings remain readable.
+TVBLK003 carries 1 KiB data blocks with synchronization, CRC and 1/2/3/5 copies. TVBLK004 distributes blocks over two channels. Copies alternate channels in separate time slots. Archive CRC and file SHA-256 must pass. TVFSK001/002 and TVBLK003 remain readable.
+
+Reference enabled: data on the left, 3 kHz reference on the right. Disable it to store data on both channels. With two copies, blocks cross channels at different times; capacity is similar to one data channel.
+
+Mono input: connect one isolated channel, never a sum of L + R. Stereo data with ×1 needs both channels; with ×2, either complete channel contains all blocks. Reference correction requires stereo. Without it, the left data channel can be read with correction disabled. Hardware validation is still required for the new stereo-data mode.
 
 ## Local processing
 
@@ -308,7 +360,7 @@ Keep left and right channels separate. Match input and output sample rates in yo
 
 ## Crackles or missing reference?
 
-Disable and re-enable the input after changing its format. Check stereo connections, levels and sample rates. Import a stereo WAV from Audacity to compare capture paths. The reference cannot restore missing audio.
+Crackling can be caused by the sample rate configured for the audio interface, especially when input, output and the browser audio engine are not aligned. On macOS, open Audio MIDI Setup, select the interface and set input and output to 48,000 Hz (48 kHz), the sample rate TapeBytes uses for WAV files. Then disable and re-enable the input in TapeBytes to recreate the audio connection. This setting is separate from the reference tone frequency (3 kHz). If crackling persists, check levels, connections and drivers and compare a capture made with Audacity. The reference cannot restore missing audio samples.
 
 ## Motion and accessibility
 
@@ -410,13 +462,21 @@ Ridondanza
 
 Come scegliere velocità e ridondanza
 
-Velocità maggiori richiedono un segnale più pulito. I dati sono divisi in blocchi da 1 KiB, con sincronizzazione e CRC indipendenti. Con 3 o 5 copie, Decode sceglie una copia valida di ogni blocco. Intestazioni e copie sono incluse nella durata. Il nastro fisico, soprattutto a 2400 bit/s, resta sperimentale.
+Velocità maggiori richiedono un segnale più pulito. Ogni blocco di 1 KiB ha sincronizzazione e CRC. Con 2, 3 o 5 copie, Decodifica usa quelle valide; in modalità dati stereo le copie si incrociano tra i canali. Intestazioni, spazi di allineamento e copie sono inclusi nella stima.
 
-Correggi la velocità del nastro Stereo · dati a sinistra, riferimento a destra
+Canali audio Stereo
+
+Mono
+
+Tono di riferimento Stereo · dati a sinistra, riferimento a destra
 
 Collegamenti e funzionamento
 
 Attivo di default. Sinistra: dati. Destra: riferimento continuo a 3 kHz per correggere le variazioni di velocità del nastro. Registra entrambi i canali separatamente. Capacità invariata; WAV di dimensioni doppie.
+
+Ingresso mono: collega un singolo canale isolato, mai la somma S + D. Dati stereo ×1 richiede entrambi i canali; con ×2 ogni canale completo contiene tutti i blocchi. La correzione con riferimento richiede stereo. Senza, puoi leggere il canale dati sinistro disattivando la correzione. La nuova modalità dati stereo va ancora verificata sulla piastra.
+
+Riferimento attivo: dati a sinistra, riferimento a 3 kHz a destra. Disattivalo per usare entrambi i canali per i dati. Con due copie, i blocchi si incrociano tra i canali in momenti diversi; la capacità è simile a quella di un canale dati.
 
 Introduzione vocale Includi un’introduzione vocale in questa lingua
 
@@ -468,9 +528,7 @@ Registra un WAV TapeBytes su musicassetta. Seleziona l’uscita audio, calibra i
 
 TapeBytes riproduce il segnale. Premi REC sul registratore a cassette per registrarlo.
 
-STEREO S: dati / D: riferimento 3 kHz Sinistra: dati · Destra: riferimento 3 kHz
-
-02 / TAPE DECK
+USCITA DEL SEGNALE
 
 ## TB / DATA DECK
 
@@ -478,31 +536,45 @@ STEREO S: dati / D: riferimento 3 kHz Sinistra: dati · Destra: riferimento 3 kH
 
 Genera prima un WAV in Codifica. [Codifica →](https://tapebytes.lucasciacca.com/it/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Dati R Riferimento · 3 kHz
+
 Genera prima un WAV in Codifica. 00:00 / 00:00
 
-Il registratore è collegato e impostato su REC
+S: dati / D: riferimento 3 kHz
+
+Forma d’onda e posizione di riproduzione
+
+Spettro di uscita in tempo reale
 
 Gli indicatori mostrano l’uscita digitale effettiva. Controlla il livello di registrazione sull’indicatore del registratore.
 
-IMPOSTAZIONI DI USCITA
+01
 
-## Collegamento e calibrazione
+## Uscita audio
 
-01 Uscita audio
+Uscita audio
 
-L Dati R Riferimento
+02
 
-02 Livello di riproduzione
+## Calibra la piastra
+
+1 kHz · 5 s
+
+Livello di riproduzione
 
 100%
 
 5% 100%
 
-03 Calibra la piastra 1 kHz · 5 s
-
 Regola il livello sulla piastra senza raggiungere la zona rossa.
 
-Puoi fermare il tono con Interrompi nel pannello della cassetta.
+03
+
+## Registra sul nastro
+
+Interrompi ferma la riproduzione, incluso il tono di calibrazione.
 
 Controlla i collegamenti
 
@@ -539,33 +611,51 @@ Recupera i file da un WAV di TapeBytes o dal tuo registratore. Tutto avviene nel
 
 ✓ Tutto sul tuo dispositivo CRC32 + SHA-256
 
-STEREO Usa il riferimento sul canale destro
-
-Sinistra: dati · Destra: riferimento 3 kHz
-
-01 / INGRESSO CASSETTA
-
-## Dal registratore a cassette
-
-PCM
-
-Il WAV acquisito conserva automaticamente i due canali se l’ingresso è stereo, anche con la correzione disattivata. Collega L all’ingresso 1 e R all’ingresso 2. Monitor e Playback ascoltano solo L.
-
 Ingresso audio
-
-Audio in ingresso −∞ dBFS
-
-Spettro delle frequenze PCM / CH 1
-
-Verifica ingresso e filtri
 
 Playback
 
 Scegli un ingresso e abilita il monitor. L’acquisizione si avvia separatamente.
 
-Come funziona Playback
+Canali audio Stereo
 
-Ascolta dall’uscita predefinita. Spento di default; usa cuffie con un microfono. Si spegne uscendo dalla pagina.
+Mono
+
+Stereo/Mono viene selezionato dai canali dichiarati dall’ingresso quando lo abiliti. Puoi modificarlo manualmente. Il rilevamento non identifica il contenuto audio né la presenza del tono di riferimento.
+
+Tono di riferimento
+
+Riferimento attivo: dati a sinistra, riferimento a 3 kHz a destra. Disattivalo per usare entrambi i canali per i dati. Con due copie, i blocchi si incrociano tra i canali in momenti diversi; la capacità è simile a quella di un canale dati.
+
+Collegamenti e funzionamento
+
+Ingresso mono: collega un singolo canale isolato, mai la somma S + D. Dati stereo ×1 richiede entrambi i canali; con ×2 ogni canale completo contiene tutti i blocchi. La correzione con riferimento richiede stereo. Senza, puoi leggere il canale dati sinistro disattivando la correzione. La nuova modalità dati stereo va ancora verificata sulla piastra.
+
+01 / INGRESSO CASSETTA
+
+## Dal registratore a cassette
+
+STEREO / PCM
+
+L · Dati −∞ dBFS
+
+Spettro delle frequenze 0 — 8 kHz
+
+R · Riferimento −∞ dBFS
+
+Spettro delle frequenze 0 — 8 kHz
+
+R · Riferimento Frequenza del riferimento misurata — Hz
+
+Abilita l’ingresso per misurare il riferimento.
+
+Auto stop
+
+ⓘ
+
+Dopo almeno 0,25 s di segnale sopra −36 dBFS, arresta e decodifica quando tutti i canali acquisiti restano sotto −42 dBFS per il tempo scelto (1 s di default). Non si attiva durante l’attesa iniziale. Rumore elevato può impedirne l’arresto; usa Interrompi e decodifica.
+
+Attesa senza segnale
 
 Il permesso audio viene richiesto quando serve. L’acquisizione continua finché la interrompi e usa la memoria del browser.
 
@@ -575,17 +665,27 @@ OPPURE / FILE WAV
 
 Hai già una registrazione? Apri il WAV di TapeBytes per recuperare i file.
 
-Scegli un file WAV Rilevamento automatico del profilo · canale sinistro
+Scegli un file WAV Rilevamento automatico del profilo · canali audio separati
 
 Genera un WAV in Codifica per verificarlo qui senza registrare una cassetta.
 
-Verificati prima del download I file recuperati compariranno qui sotto, solo dopo aver superato tutti i controlli di integrità.
+## Verificati prima del download
+
+I file recuperati compariranno qui sotto, solo dopo aver superato tutti i controlli di integrità.
 
 ✓ CRC32 + SHA-256
 
 Impostazioni di recupero e dettagli del formato
 
-Attivo di default per le registrazioni stereo. Disattivalo solo per le vecchie registrazioni senza riferimento. L’audio acquisito viene conservato; Playback ascolta il canale sinistro. Non ricostruisce audio mancante.
+Il WAV acquisito conserva automaticamente i due canali se l’ingresso è stereo, anche con la correzione disattivata. Collega L all’ingresso 1 e R all’ingresso 2. Il visualizzatore mostra entrambi i canali; Playback ascolta solo L.
+
+Attivo di default per registrazioni dati + riferimento. Disattivalo per registrazioni dati stereo o vecchie registrazioni mono. L’audio viene conservato; Playback ascolta solo il sinistro.
+
+Verifica ingresso e filtri
+
+Come funziona Playback
+
+Ascolta dall’uscita predefinita. Spento di default; usa cuffie con un microfono. Si spegne uscendo dalla pagina.
 
 Mantieni separati i canali sinistro e destro. Allinea le frequenze di ingresso e uscita nelle impostazioni audio ed evita di mescolare il monitoraggio diretto con la riproduzione. Con Fast Track Pro, imposta Mix su PB durante la registrazione.
 
@@ -620,7 +720,11 @@ La tua prima conversione completa di andata e ritorno
 
 ## TVBLK003 / FSK
 
-TVBLK003 usa blocchi da 1 KiB, ciascuno con sincronizzazione, intestazione a 300 bit/s e CRC. Profili: FSK 300/600/1200, 4-FSK 1200/2400. La ridondanza ripete la sequenza completa 1/3/5 volte, permettendo di combinare blocchi validi da copie diverse. Devono risultare validi il CRC dell’archivio e lo SHA-256 di ogni file. Le registrazioni TVFSK001/002 restano leggibili.
+TVBLK003 trasporta blocchi di 1 KiB con sincronizzazione, CRC e 1/2/3/5 copie. TVBLK004 distribuisce i blocchi su due canali. Le copie alternano canale in intervalli temporali separati. CRC dell’archivio e SHA-256 dei file devono essere validi. TVFSK001/002 e TVBLK003 restano leggibili.
+
+Riferimento attivo: dati a sinistra, riferimento a 3 kHz a destra. Disattivalo per usare entrambi i canali per i dati. Con due copie, i blocchi si incrociano tra i canali in momenti diversi; la capacità è simile a quella di un canale dati.
+
+Ingresso mono: collega un singolo canale isolato, mai la somma S + D. Dati stereo ×1 richiede entrambi i canali; con ×2 ogni canale completo contiene tutti i blocchi. La correzione con riferimento richiede stereo. Senza, puoi leggere il canale dati sinistro disattivando la correzione. La nuova modalità dati stereo va ancora verificata sulla piastra.
 
 ## Elaborazione locale
 
@@ -640,7 +744,7 @@ Mantieni separati i canali sinistro e destro. Allinea le frequenze di ingresso e
 
 ## Scoppiettii o riferimento assente?
 
-Disabilita e riabilita l’ingresso dopo aver cambiato formato. Controlla collegamenti stereo, livelli e frequenze di campionamento. Importa un WAV stereo da Audacity per confrontare le acquisizioni. Il riferimento non ripristina audio mancante.
+Lo scoppiettio può dipendere dalla frequenza di campionamento impostata per la scheda audio, soprattutto se ingresso, uscita e motore audio del browser non sono allineati. Su macOS apri Configurazione MIDI Audio, seleziona la scheda e imposta ingresso e uscita a 48.000 Hz (48 kHz), la frequenza usata da TapeBytes per i WAV. Poi disabilita e riabilita l’ingresso in TapeBytes per ricreare il collegamento audio. Questa impostazione è distinta dalla frequenza del tono di riferimento (3 kHz). Se il problema persiste, controlla livelli, collegamenti e driver e confronta un’acquisizione con Audacity. Il riferimento non può ripristinare campioni audio mancanti.
 
 ## Animazioni e accessibilità
 
@@ -742,13 +846,21 @@ Redundancia
 
 Elegir velocidad y redundancia
 
-Las velocidades mayores requieren una señal más limpia. Los datos se dividen en bloques de 1 KiB con sincronización y CRC propios. Con 3 o 5 copias, Decode elige una copia válida de cada bloque. Las cabeceras y copias cuentan en la duración. La cinta física, especialmente a 2400 bit/s, sigue siendo experimental.
+Las velocidades mayores requieren una señal más limpia. Cada bloque de 1 KiB tiene sincronización y CRC. Con 2, 3 o 5 copias se recuperan los bloques válidos; en datos estéreo las copias cruzan canales. La estimación incluye cabeceras, alineación y copias.
 
-Corregir la velocidad de la cinta Estéreo · datos a la izquierda, referencia a la derecha
+Canales de audio Estéreo
+
+Mono
+
+Tono de referencia Estéreo · datos a la izquierda, referencia a la derecha
 
 Conexiones y funcionamiento
 
 Activado por defecto. Datos a la izquierda y referencia continua de 3 kHz a la derecha para corregir la velocidad. Graba los canales por separado. Misma capacidad; WAV del doble de tamaño.
+
+Entrada mono: conecta un canal aislado, nunca la suma I + D. Los datos estéreo ×1 necesitan ambos canales; con ×2 cada canal completo contiene todos los bloques. La corrección por referencia requiere estéreo. Puedes leer el canal izquierdo desactivando la corrección. El nuevo modo de datos estéreo aún requiere pruebas en la pletina.
+
+Referencia activada: datos a la izquierda, referencia de 3 kHz a la derecha. Desactívala para usar ambos canales para datos. Con dos copias, los bloques se cruzan entre canales en momentos distintos; la capacidad es similar a un canal de datos.
 
 Introducción de voz Incluir una introducción hablada en este idioma
 
@@ -800,9 +912,7 @@ Graba un WAV de TapeBytes en casete. Selecciona la salida, calibra los niveles y
 
 TapeBytes reproduce la señal. Pulsa REC en tu pletina para grabarla.
 
-STEREO I: datos / D: referencia de 3 kHz Izquierda: datos · Derecha: referencia de 3 kHz
-
-02 / TAPE DECK
+SALIDA DE SEÑAL
 
 ## TB / DATA DECK
 
@@ -810,31 +920,45 @@ STEREO I: datos / D: referencia de 3 kHz Izquierda: datos · Derecha: referencia
 
 Primero genera un WAV en Codificar. [Codificar →](https://tapebytes.lucasciacca.com/es/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Datos R Referencia · 3 kHz
+
 Primero genera un WAV en Codificar. 00:00 / 00:00
 
-Mi pletina está conectada y en modo REC
+I: datos / D: referencia de 3 kHz
+
+Forma de onda y posición de reproducción
+
+Espectro de salida en directo
 
 Los medidores muestran la salida digital real. Comprueba el nivel de grabación en el medidor de tu pletina.
 
-AJUSTES DE SALIDA
+01
 
-## Conexión y calibración
+## Salida de audio
 
-01 Salida de audio
+Salida de audio
 
-L Datos R Referencia
+02
 
-02 Nivel de reproducción
+## Calibra la pletina
+
+1 kHz · 5 s
+
+Nivel de reproducción
 
 100%
 
 5% 100%
 
-03 Calibra la pletina 1 kHz · 5 s
-
 Ajusta el nivel de grabación en la pletina sin llegar a la zona roja.
 
-Usa Detener en el panel de la cinta para terminar antes.
+03
+
+## Graba en cinta
+
+Interrumpir detiene la reproducción, incluido el tono de calibración.
 
 Revisa las conexiones
 
@@ -871,33 +995,51 @@ Recupera archivos de un WAV de TapeBytes o de tu grabadora. Todo sucede en el na
 
 ✓ Todo en tu dispositivo CRC32 + SHA-256
 
-STEREO Usar la referencia del canal derecho
-
-Izquierda: datos · Derecha: referencia de 3 kHz
-
-01 / ENTRADA DE CINTA
-
-## Desde tu pletina
-
-PCM
-
-El WAV conserva ambos canales de una entrada estéreo, aunque la corrección esté desactivada. Conecta L a la entrada 1 y R a la entrada 2. Monitor y Playback reproducen solo L.
-
 Entrada de audio
-
-Audio de entrada en directo −∞ dBFS
-
-Espectro de frecuencias PCM / CH 1
-
-Verificar entrada y filtros
 
 Playback
 
 Elige una entrada y activa el monitor. La captura se inicia por separado.
 
-Acerca de Playback
+Canales de audio Estéreo
 
-Escucha por la salida predeterminada. Desactivado por defecto; usa auriculares con un micrófono. Se apaga al salir.
+Mono
+
+Estéreo/Mono se selecciona según los canales declarados al activar la entrada. Puedes cambiarlo manualmente. No identifica el contenido ni la presencia del tono de referencia.
+
+Tono de referencia
+
+Referencia activada: datos a la izquierda, referencia de 3 kHz a la derecha. Desactívala para usar ambos canales para datos. Con dos copias, los bloques se cruzan entre canales en momentos distintos; la capacidad es similar a un canal de datos.
+
+Conexiones y funcionamiento
+
+Entrada mono: conecta un canal aislado, nunca la suma I + D. Los datos estéreo ×1 necesitan ambos canales; con ×2 cada canal completo contiene todos los bloques. La corrección por referencia requiere estéreo. Puedes leer el canal izquierdo desactivando la corrección. El nuevo modo de datos estéreo aún requiere pruebas en la pletina.
+
+01 / ENTRADA DE CINTA
+
+## Desde tu pletina
+
+STEREO / PCM
+
+L · Datos −∞ dBFS
+
+Espectro de frecuencias 0 — 8 kHz
+
+R · Referencia −∞ dBFS
+
+Espectro de frecuencias 0 — 8 kHz
+
+R · Referencia Frecuencia de referencia medida — Hz
+
+Activa la entrada para medir la referencia.
+
+Auto stop
+
+ⓘ
+
+Tras al menos 0,25 s por encima de −36 dBFS, detiene y decodifica cuando todos los canales quedan por debajo de −42 dBFS durante el tiempo elegido (1 s por defecto). No se activa en el silencio inicial. El ruido alto puede impedir la parada; usa Detener y decodificar.
+
+Espera sin señal
 
 El permiso de audio se solicita cuando hace falta. La captura continúa hasta detenerla y usa memoria del navegador.
 
@@ -907,17 +1049,27 @@ O / ARCHIVO WAV
 
 ¿Ya tienes una grabación? Abre el WAV de TapeBytes para recuperar los archivos.
 
-Elige un archivo WAV Detección automática del perfil · canal izquierdo
+Elige un archivo WAV Detección automática del perfil · canales de audio separados
 
 Genera un WAV en Codificar para verificarlo aquí sin grabar una cinta.
 
-Verificados antes de descargar Los archivos recuperados aparecerán debajo tras superar todos los controles de integridad.
+## Verificados antes de descargar
+
+Los archivos recuperados aparecerán debajo tras superar todos los controles de integridad.
 
 ✓ CRC32 + SHA-256
 
 Ajustes de recuperación y detalles del formato
 
-Activado por defecto para grabaciones estéreo. Desactívalo solo en grabaciones antiguas sin referencia. Se conserva el audio capturado; Playback escucha el canal izquierdo. No reconstruye audio perdido.
+El WAV conserva ambos canales de una entrada estéreo, aunque la corrección esté desactivada. Conecta L a la entrada 1 y R a la entrada 2. El visualizador muestra ambos canales; Playback reproduce solo L.
+
+Activada por defecto para datos + referencia. Desactívala para datos estéreo o grabaciones mono antiguas. El audio se conserva; Playback escucha solo el canal izquierdo.
+
+Verificar entrada y filtros
+
+Acerca de Playback
+
+Escucha por la salida predeterminada. Desactivado por defecto; usa auriculares con un micrófono. Se apaga al salir.
 
 Mantén separados los canales izquierdo y derecho. Iguala las frecuencias de muestreo de entrada y salida y evita mezclar la monitorización directa con la reproducción. En Fast Track Pro, ajusta Mix a PB al grabar.
 
@@ -952,7 +1104,11 @@ Tu primera conversión completa de ida y vuelta
 
 ## TVBLK003 / FSK
 
-TVBLK003 usa bloques de 1 KiB con sincronización, cabecera a 300 bit/s y CRC. Perfiles: FSK 300/600/1200, 4-FSK 1200/2400. Repite la secuencia 1/3/5 veces para combinar bloques válidos de distintas copias. Se verifican CRC global y SHA-256 de cada archivo. TVFSK001/002 siguen siendo legibles.
+TVBLK003 transporta bloques de 1 KiB con sincronización, CRC y 1/2/3/5 copias. TVBLK004 distribuye los bloques entre dos canales. Las copias alternan canales en intervalos distintos. El CRC del archivo y SHA-256 de cada fichero deben ser válidos. TVFSK001/002 y TVBLK003 siguen siendo legibles.
+
+Referencia activada: datos a la izquierda, referencia de 3 kHz a la derecha. Desactívala para usar ambos canales para datos. Con dos copias, los bloques se cruzan entre canales en momentos distintos; la capacidad es similar a un canal de datos.
+
+Entrada mono: conecta un canal aislado, nunca la suma I + D. Los datos estéreo ×1 necesitan ambos canales; con ×2 cada canal completo contiene todos los bloques. La corrección por referencia requiere estéreo. Puedes leer el canal izquierdo desactivando la corrección. El nuevo modo de datos estéreo aún requiere pruebas en la pletina.
 
 ## Procesamiento local
 
@@ -972,7 +1128,7 @@ Mantén separados los canales izquierdo y derecho. Iguala las frecuencias de mue
 
 ## ¿Chasquidos o falta de referencia?
 
-Desactiva y activa la entrada tras cambiar su formato. Revisa conexiones estéreo, niveles y frecuencias. Importa un WAV estéreo de Audacity para comparar las capturas. La referencia no restaura audio perdido.
+Los chasquidos pueden deberse a la frecuencia de muestreo configurada en la interfaz de audio, especialmente si la entrada, la salida y el motor de audio del navegador no coinciden. En macOS, abre Configuración de Audio MIDI, selecciona la interfaz y configura entrada y salida a 48.000 Hz (48 kHz), la frecuencia que TapeBytes usa para los WAV. Después desactiva y activa la entrada en TapeBytes para recrear la conexión. Este ajuste es distinto de la frecuencia del tono de referencia (3 kHz). Si persiste, revisa niveles, conexiones y controladores y compara una captura con Audacity. La referencia no puede restaurar muestras de audio perdidas.
 
 ## Movimiento y accesibilidad
 
@@ -1074,13 +1230,21 @@ Redundanz
 
 Geschwindigkeit und Redundanz wählen
 
-Höhere Raten benötigen ein saubereres Signal. Daten werden in 1-KiB-Blöcke mit eigener Synchronisation und CRC aufgeteilt. Bei 3 oder 5 Kopien wählt Decode je Block eine gültige Kopie. Header und Kopien zählen zur Banddauer. Echtes Band, besonders bei 2400 bit/s, bleibt experimentell.
+Höhere Raten benötigen ein saubereres Signal. Jeder 1-KiB-Block hat Synchronisation und CRC. Bei 2, 3 oder 5 Kopien werden gültige Blöcke verwendet; bei Stereodaten wechseln die Kopien den Kanal. Header, Ausrichtungspausen und Kopien sind in der Schätzung enthalten.
 
-Bandschwankungen korrigieren Stereo · Daten links, Referenz rechts
+Audiokanäle Stereo
+
+Mono
+
+Referenzton Stereo · Daten links, Referenz rechts
 
 Anschlüsse und Funktionsweise
 
 Standardmäßig aktiv. Daten links, kontinuierliche 3-kHz-Referenz rechts zur Korrektur der Bandgeschwindigkeit. Kanäle getrennt aufnehmen. Gleiche Kapazität; doppelte WAV-Größe.
+
+Mono-Eingang: einen isolierten Kanal anschließen, niemals L + R mischen. Stereodaten ×1 benötigen beide Kanäle; bei ×2 enthält jeder vollständige Kanal alle Blöcke. Referenzkorrektur erfordert Stereo. Der linke Datenkanal kann ohne Korrektur gelesen werden. Der neue Stereodatenmodus muss noch am Kassettendeck geprüft werden.
+
+Referenz aktiv: Daten links, 3-kHz-Referenz rechts. Deaktivieren, um beide Kanäle für Daten zu nutzen. Bei zwei Kopien wechseln die Blöcke zeitversetzt den Kanal; die Kapazität entspricht ungefähr einem Datenkanal.
 
 Gesprochene Einleitung Gesprochene Einleitung in dieser Sprache hinzufügen
 
@@ -1132,9 +1296,7 @@ Nimm eine TapeBytes-WAV auf Kassette auf. Wähle den Audioausgang, kalibriere di
 
 TapeBytes spielt das Signal ab. Drücke REC an deinem Kassettendeck, um es aufzunehmen.
 
-STEREO L: Daten / R: 3-kHz-Referenz Links: Daten · Rechts: 3-kHz-Referenz
-
-02 / TAPE DECK
+SIGNALAUSGANG
 
 ## TB / DATA DECK
 
@@ -1142,31 +1304,45 @@ STEREO L: Daten / R: 3-kHz-Referenz Links: Daten · Rechts: 3-kHz-Referenz
 
 Erzeuge zuerst unter Kodieren eine WAV. [Kodieren →](https://tapebytes.lucasciacca.com/de/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Daten R Referenz · 3 kHz
+
 Erzeuge zuerst unter Kodieren eine WAV. 00:00 / 00:00
 
-Mein Deck ist angeschlossen und auf REC gestellt
+L: Daten / R: 3-kHz-Referenz
+
+Wellenform und Wiedergabeposition
+
+Live-Ausgangsspektrum
 
 Die Anzeigen zeigen das tatsächliche digitale Ausgangssignal. Prüfe den Aufnahmepegel an der Anzeige deines Kassettendecks.
 
-AUSGANGSEINSTELLUNGEN
+01
 
-## Anschluss und Kalibrierung
+## Audioausgang
 
-01 Audioausgang
+Audioausgang
 
-L Daten R Referenz
+02
 
-02 Wiedergabepegel
+## Deck kalibrieren
+
+1 kHz · 5 s
+
+Wiedergabepegel
 
 100%
 
 5% 100%
 
-03 Deck kalibrieren 1 kHz · 5 s
-
 Aufnahmepegel am Deck einstellen, ohne den roten Bereich zu erreichen.
 
-Mit Stopp im Kassettenbereich lässt sich der Ton vorzeitig beenden.
+03
+
+## Auf Kassette aufnehmen
+
+Stopp beendet die Wiedergabe, einschließlich des Kalibriertons.
 
 Anschlüsse prüfen
 
@@ -1203,33 +1379,51 @@ Dateien aus einer TapeBytes-WAV oder vom Kassettendeck wiederherstellen. Alles l
 
 ✓ Alles bleibt auf diesem Gerät CRC32 + SHA-256
 
-STEREO Referenz des rechten Kanals verwenden
-
-Links: Daten · Rechts: 3-kHz-Referenz
-
-01 / BANDEINGANG
-
-## Von deinem Kassettendeck
-
-PCM
-
-Die WAV-Aufnahme erhält beide Kanäle eines Stereoeingangs, auch ohne Referenzkorrektur. L mit Eingang 1 und R mit Eingang 2 verbinden. Monitor und Playback nutzen nur L.
-
 Audioeingang
-
-Live-Audioeingang −∞ dBFS
-
-Frequenzspektrum PCM / CH 1
-
-Eingang und Filter prüfen
 
 Playback
 
 Eingang auswählen und Monitor aktivieren. Die Aufnahme startet separat.
 
-Über Playback
+Audiokanäle Stereo
 
-Über den Standardausgang hören. Anfangs aus; bei Mikrofonen Kopfhörer verwenden. Beim Verlassen wird es ausgeschaltet.
+Mono
+
+Stereo/Mono wird beim Aktivieren anhand der gemeldeten Eingangskanäle gewählt. Eine manuelle Auswahl ist möglich. Audioinhalt und Referenzton werden dabei nicht erkannt.
+
+Referenzton
+
+Referenz aktiv: Daten links, 3-kHz-Referenz rechts. Deaktivieren, um beide Kanäle für Daten zu nutzen. Bei zwei Kopien wechseln die Blöcke zeitversetzt den Kanal; die Kapazität entspricht ungefähr einem Datenkanal.
+
+Anschlüsse und Funktionsweise
+
+Mono-Eingang: einen isolierten Kanal anschließen, niemals L + R mischen. Stereodaten ×1 benötigen beide Kanäle; bei ×2 enthält jeder vollständige Kanal alle Blöcke. Referenzkorrektur erfordert Stereo. Der linke Datenkanal kann ohne Korrektur gelesen werden. Der neue Stereodatenmodus muss noch am Kassettendeck geprüft werden.
+
+01 / BANDEINGANG
+
+## Von deinem Kassettendeck
+
+STEREO / PCM
+
+L · Daten −∞ dBFS
+
+Frequenzspektrum 0 — 8 kHz
+
+R · Referenz −∞ dBFS
+
+Frequenzspektrum 0 — 8 kHz
+
+R · Referenz Gemessene Referenzfrequenz — Hz
+
+Eingang aktivieren, um die Referenz zu messen.
+
+Auto stop
+
+ⓘ
+
+Nach mindestens 0,25 s Signal über −36 dBFS wird gestoppt und decodiert, sobald alle aufgenommenen Kanäle für die gewählte Zeit (standardmäßig 1 s) unter −42 dBFS bleiben. Anfängliche Stille löst keinen Stopp aus. Starkes Rauschen kann den Stopp verhindern; dann manuell stoppen und decodieren.
+
+Wartezeit ohne Signal
 
 Audioberechtigung wird bei Bedarf angefordert. Die Aufnahme läuft bis zum Stopp und nutzt Browserspeicher.
 
@@ -1239,17 +1433,27 @@ ODER / WAV-DATEI
 
 Schon eine Aufnahme vorhanden? Öffne die TapeBytes-WAV, um Dateien wiederherzustellen.
 
-WAV-Datei auswählen Automatische Profilerkennung · linker Kanal
+WAV-Datei auswählen Automatische Profilerkennung · getrennte Audiokanäle
 
 Erzeuge unter Kodieren eine WAV und prüfe sie hier ohne Kassettenaufnahme.
 
-Vor dem Download geprüft Wiederhergestellte Dateien erscheinen unten, sobald alle Integritätsprüfungen bestanden sind.
+## Vor dem Download geprüft
+
+Wiederhergestellte Dateien erscheinen unten, sobald alle Integritätsprüfungen bestanden sind.
 
 ✓ CRC32 + SHA-256
 
 Wiederherstellung und Formatdetails
 
-Für Stereoaufnahmen standardmäßig aktiv. Nur für alte Aufnahmen ohne Referenz ausschalten. Das aufgenommene Audio bleibt erhalten; Playback gibt den linken Kanal wieder. Fehlendes Audio wird nicht rekonstruiert.
+Die WAV-Aufnahme erhält beide Kanäle eines Stereoeingangs, auch ohne Referenzkorrektur. L mit Eingang 1 und R mit Eingang 2 verbinden. Die Anzeige zeigt beide Kanäle; Playback gibt nur L wieder.
+
+Standardmäßig für Daten + Referenz aktiv. Für Stereodaten oder ältere Monoaufnahmen deaktivieren. Audio bleibt unverändert; Playback gibt nur links wieder.
+
+Eingang und Filter prüfen
+
+Über Playback
+
+Über den Standardausgang hören. Anfangs aus; bei Mikrofonen Kopfhörer verwenden. Beim Verlassen wird es ausgeschaltet.
 
 Halte linken und rechten Kanal getrennt. Gleiche die Abtastraten von Ein- und Ausgang ab und vermeide eine Mischung aus Direktmonitoring und Wiedergabe. Stelle bei der Fast Track Pro während der Aufnahme Mix auf PB.
 
@@ -1284,7 +1488,11 @@ Deine erste vollständige Hin- und Rückwandlung
 
 ## TVBLK003 / FSK
 
-TVBLK003 nutzt 1-KiB-Blöcke mit Synchronisation, 300-bit/s-Header und CRC. Profile: FSK 300/600/1200, 4-FSK 1200/2400. Die Folge wird 1/3/5-mal wiederholt, um gültige Blöcke verschiedener Kopien zu kombinieren. Archiv-CRC und Datei-SHA-256 müssen stimmen. TVFSK001/002 bleiben lesbar.
+TVBLK003 überträgt 1-KiB-Blöcke mit Synchronisation, CRC und 1/2/3/5 Kopien. TVBLK004 verteilt Blöcke auf zwei Kanäle. Kopien wechseln zeitversetzt den Kanal. Archiv-CRC und Datei-SHA-256 müssen stimmen. TVFSK001/002 und TVBLK003 bleiben lesbar.
+
+Referenz aktiv: Daten links, 3-kHz-Referenz rechts. Deaktivieren, um beide Kanäle für Daten zu nutzen. Bei zwei Kopien wechseln die Blöcke zeitversetzt den Kanal; die Kapazität entspricht ungefähr einem Datenkanal.
+
+Mono-Eingang: einen isolierten Kanal anschließen, niemals L + R mischen. Stereodaten ×1 benötigen beide Kanäle; bei ×2 enthält jeder vollständige Kanal alle Blöcke. Referenzkorrektur erfordert Stereo. Der linke Datenkanal kann ohne Korrektur gelesen werden. Der neue Stereodatenmodus muss noch am Kassettendeck geprüft werden.
 
 ## Lokale Verarbeitung
 
@@ -1304,7 +1512,7 @@ Halte linken und rechten Kanal getrennt. Gleiche die Abtastraten von Ein- und Au
 
 ## Knacken oder fehlende Referenz?
 
-Nach Formatänderungen den Eingang aus- und einschalten. Stereoanschlüsse, Pegel und Abtastraten prüfen. Zum Vergleich eine Stereo-WAV aus Audacity importieren. Die Referenz ersetzt kein fehlendes Audio.
+Knackgeräusche können durch die eingestellte Abtastrate des Audiointerfaces entstehen, besonders wenn Eingang, Ausgang und die Audio-Engine des Browsers nicht übereinstimmen. Unter macOS das Audio-MIDI-Setup öffnen, das Interface auswählen und Eingang sowie Ausgang auf 48.000 Hz (48 kHz) stellen. Diese Abtastrate verwendet TapeBytes für WAV-Dateien. Anschließend den Eingang in TapeBytes deaktivieren und wieder aktivieren, um die Audioverbindung neu aufzubauen. Diese Einstellung ist unabhängig von der Frequenz des Referenztons (3 kHz). Bei weiteren Störungen Pegel, Anschlüsse und Treiber prüfen und mit einer Aufnahme aus Audacity vergleichen. Die Referenz kann fehlende Audiosamples nicht wiederherstellen.
 
 ## Animation und Barrierefreiheit
 
@@ -1406,13 +1614,21 @@ Redondance
 
 Choisir la vitesse et la redondance
 
-Les débits élevés nécessitent un signal plus propre. Les données sont divisées en blocs de 1 KiB avec synchronisation et CRC propres. Avec 3 ou 5 copies, Decode choisit une copie valide de chaque bloc. En-têtes et copies comptent dans la durée. La cassette physique, surtout à 2400 bit/s, reste expérimentale.
+Les débits élevés nécessitent un signal plus propre. Chaque bloc de 1 Kio dispose de synchronisation et de CRC. Avec 2, 3 ou 5 copies, les blocs valides sont récupérés ; en données stéréo les copies changent de canal. En-têtes, alignement et copies sont inclus dans l’estimation.
 
-Corriger la vitesse de la bande Stéréo · données à gauche, référence à droite
+Canaux audio Stéréo
+
+Mono
+
+Signal de référence Stéréo · données à gauche, référence à droite
 
 Branchements et fonctionnement
 
 Activé par défaut. Données à gauche, référence continue de 3 kHz à droite pour corriger la vitesse. Enregistrez les canaux séparément. Capacité inchangée ; WAV deux fois plus volumineux.
+
+Entrée mono : connectez un canal isolé, jamais la somme G + D. Les données stéréo ×1 nécessitent les deux canaux ; avec ×2 chaque canal complet contient tous les blocs. La correction par référence nécessite la stéréo. Le canal gauche peut être lu sans correction. Le nouveau mode de données stéréo doit encore être testé sur la platine.
+
+Référence activée : données à gauche, référence à 3 kHz à droite. Désactivez-la pour utiliser les deux canaux pour les données. Avec deux copies, les blocs changent de canal à des moments différents ; la capacité est proche de celle d’un canal de données.
 
 Introduction vocale Inclure une introduction parlée dans cette langue
 
@@ -1464,9 +1680,7 @@ Enregistrez un WAV TapeBytes sur cassette. Choisissez la sortie audio, calibrez 
 
 TapeBytes lit le signal. Appuyez sur REC sur votre platine cassette pour l’enregistrer.
 
-STEREO G : données / D : référence 3 kHz Gauche : données · Droite : référence 3 kHz
-
-02 / TAPE DECK
+SORTIE DU SIGNAL
 
 ## TB / DATA DECK
 
@@ -1474,31 +1688,45 @@ STEREO G : données / D : référence 3 kHz Gauche : données · Droite : réfé
 
 Générez d’abord un WAV dans Encoder. [Encoder →](https://tapebytes.lucasciacca.com/fr/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Données R Référence · 3 kHz
+
 Générez d’abord un WAV dans Encoder. 00:00 / 00:00
 
-Ma platine est branchée et réglée sur REC
+G : données / D : référence 3 kHz
+
+Forme d’onde et position de lecture
+
+Spectre de sortie en direct
 
 Les indicateurs affichent la sortie numérique réelle. Vérifiez le niveau d’enregistrement sur le vumètre de votre platine.
 
-RÉGLAGES DE SORTIE
+01
 
-## Branchement et étalonnage
+## Sortie audio
 
-01 Sortie audio
+Sortie audio
 
-L Données R Référence
+02
 
-02 Niveau de lecture
+## Calibrer la platine
+
+1 kHz · 5 s
+
+Niveau de lecture
 
 100%
 
 5% 100%
 
-03 Calibrer la platine 1 kHz · 5 s
-
 Réglez le niveau sur la platine sans atteindre la zone rouge.
 
-Utilisez Arrêter dans le panneau cassette pour interrompre la tonalité.
+03
+
+## Enregistrer sur cassette
+
+Arrêter interrompt la lecture, y compris le signal de calibration.
 
 Vérifier les branchements
 
@@ -1535,33 +1763,51 @@ Récupérez les fichiers d’un WAV TapeBytes ou de votre lecteur de cassettes. 
 
 ✓ Tout reste sur cet appareil CRC32 + SHA-256
 
-STEREO Utiliser la référence du canal droit
-
-Gauche : données · Droite : référence 3 kHz
-
-01 / ENTRÉE CASSETTE
-
-## Depuis votre platine cassette
-
-PCM
-
-Le WAV conserve les deux canaux d’une entrée stéréo, même sans correction par référence. Reliez L à l’entrée 1 et R à l’entrée 2. Monitor et Playback utilisent uniquement L.
-
 Entrée audio
-
-Entrée audio en direct −∞ dBFS
-
-Spectre des fréquences PCM / CH 1
-
-Vérifier l’entrée et les filtres
 
 Playback
 
 Choisissez une entrée et activez le moniteur. La capture démarre séparément.
 
-À propos de Playback
+Canaux audio Stéréo
 
-Écoutez sur la sortie par défaut. Désactivé au départ ; utilisez un casque avec un micro. S’arrête en quittant la page.
+Mono
+
+Stéréo/Mono suit le nombre de canaux déclaré lors de l’activation de l’entrée. Vous pouvez le modifier manuellement. Le contenu audio et la présence du signal de référence ne sont pas détectés.
+
+Signal de référence
+
+Référence activée : données à gauche, référence à 3 kHz à droite. Désactivez-la pour utiliser les deux canaux pour les données. Avec deux copies, les blocs changent de canal à des moments différents ; la capacité est proche de celle d’un canal de données.
+
+Branchements et fonctionnement
+
+Entrée mono : connectez un canal isolé, jamais la somme G + D. Les données stéréo ×1 nécessitent les deux canaux ; avec ×2 chaque canal complet contient tous les blocs. La correction par référence nécessite la stéréo. Le canal gauche peut être lu sans correction. Le nouveau mode de données stéréo doit encore être testé sur la platine.
+
+01 / ENTRÉE CASSETTE
+
+## Depuis votre platine cassette
+
+STEREO / PCM
+
+L · Données −∞ dBFS
+
+Spectre des fréquences 0 — 8 kHz
+
+R · Référence −∞ dBFS
+
+Spectre des fréquences 0 — 8 kHz
+
+R · Référence Fréquence de référence mesurée — Hz
+
+Activez l’entrée pour mesurer la référence.
+
+Auto stop
+
+ⓘ
+
+Après au moins 0,25 s au-dessus de −36 dBFS, arrête et décode lorsque tous les canaux capturés restent sous −42 dBFS pendant le délai choisi (1 s par défaut). Le silence initial ne le déclenche pas. Un bruit élevé peut empêcher l’arrêt ; utilisez Arrêter et décoder.
+
+Délai sans signal
 
 L’autorisation audio est demandée au besoin. La capture continue jusqu’à l’arrêt et utilise la mémoire du navigateur.
 
@@ -1571,17 +1817,27 @@ OU / FICHIER WAV
 
 Déjà un enregistrement ? Ouvrez le WAV TapeBytes pour récupérer les fichiers.
 
-Choisir un fichier WAV Détection automatique du profil · canal gauche
+Choisir un fichier WAV Détection automatique du profil · canaux audio séparés
 
 Générez un WAV dans Encoder pour le vérifier ici sans enregistrer de cassette.
 
-Vérifiés avant le téléchargement Les fichiers récupérés apparaîtront ci-dessous après tous les contrôles d’intégrité.
+## Vérifiés avant le téléchargement
+
+Les fichiers récupérés apparaîtront ci-dessous après tous les contrôles d’intégrité.
 
 ✓ CRC32 + SHA-256
 
 Réglages de récupération et détails du format
 
-Activé par défaut pour les enregistrements stéréo. Désactivez uniquement pour les anciens enregistrements sans référence. L’audio capturé est conservé ; Playback écoute le canal gauche. L’audio manquant n’est pas reconstruit.
+Le WAV conserve les deux canaux d’une entrée stéréo, même sans correction par référence. Reliez L à l’entrée 1 et R à l’entrée 2. Le visualiseur affiche les deux canaux ; Playback écoute uniquement L.
+
+Activée par défaut pour données + référence. Désactivez-la pour les données stéréo ou les anciennes bandes mono. Le son est conservé ; Playback écoute uniquement le canal gauche.
+
+Vérifier l’entrée et les filtres
+
+À propos de Playback
+
+Écoutez sur la sortie par défaut. Désactivé au départ ; utilisez un casque avec un micro. S’arrête en quittant la page.
 
 Gardez les canaux gauche et droit séparés. Alignez les fréquences d’échantillonnage d’entrée et de sortie et évitez de mélanger l’écoute directe à la lecture. Avec la Fast Track Pro, réglez Mix sur PB pendant l’enregistrement.
 
@@ -1616,7 +1872,11 @@ Votre premier aller-retour complet
 
 ## TVBLK003 / FSK
 
-TVBLK003 utilise des blocs de 1 KiB avec synchronisation, en-tête à 300 bit/s et CRC. Profils : FSK 300/600/1200, 4-FSK 1200/2400. La séquence est répétée 1/3/5 fois pour combiner les blocs valides de copies différentes. CRC global et SHA-256 de chaque fichier sont vérifiés. TVFSK001/002 restent lisibles.
+TVBLK003 transporte des blocs de 1 Kio avec synchronisation, CRC et 1/2/3/5 copies. TVBLK004 répartit les blocs sur deux canaux. Les copies alternent les canaux à des instants distincts. Le CRC de l’archive et le SHA-256 des fichiers doivent être valides. TVFSK001/002 et TVBLK003 restent lisibles.
+
+Référence activée : données à gauche, référence à 3 kHz à droite. Désactivez-la pour utiliser les deux canaux pour les données. Avec deux copies, les blocs changent de canal à des moments différents ; la capacité est proche de celle d’un canal de données.
+
+Entrée mono : connectez un canal isolé, jamais la somme G + D. Les données stéréo ×1 nécessitent les deux canaux ; avec ×2 chaque canal complet contient tous les blocs. La correction par référence nécessite la stéréo. Le canal gauche peut être lu sans correction. Le nouveau mode de données stéréo doit encore être testé sur la platine.
 
 ## Traitement local
 
@@ -1636,7 +1896,7 @@ Gardez les canaux gauche et droit séparés. Alignez les fréquences d’échant
 
 ## Craquements ou référence absente ?
 
-Désactivez puis réactivez l’entrée après un changement de format. Vérifiez les branchements stéréo, les niveaux et les fréquences. Importez un WAV stéréo d’Audacity pour comparer les captures. La référence ne restaure pas l’audio manquant.
+Les crépitements peuvent venir de la fréquence d’échantillonnage réglée sur l’interface audio, notamment si l’entrée, la sortie et le moteur audio du navigateur ne sont pas alignés. Sur macOS, ouvrez Configuration audio et MIDI, sélectionnez l’interface et réglez l’entrée et la sortie sur 48 000 Hz (48 kHz), la fréquence utilisée par TapeBytes pour les WAV. Désactivez puis réactivez l’entrée dans TapeBytes pour recréer la connexion audio. Ce réglage est distinct de la fréquence du signal de référence (3 kHz). Si le problème persiste, vérifiez les niveaux, les branchements et les pilotes, puis comparez avec une capture réalisée dans Audacity. La référence ne peut pas restaurer les échantillons audio manquants.
 
 ## Animations et accessibilité
 

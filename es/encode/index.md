@@ -36,13 +36,21 @@ Redundancia
 
 Elegir velocidad y redundancia
 
-Las velocidades mayores requieren una señal más limpia. Los datos se dividen en bloques de 1 KiB con sincronización y CRC propios. Con 3 o 5 copias, Decode elige una copia válida de cada bloque. Las cabeceras y copias cuentan en la duración. La cinta física, especialmente a 2400 bit/s, sigue siendo experimental.
+Las velocidades mayores requieren una señal más limpia. Cada bloque de 1 KiB tiene sincronización y CRC. Con 2, 3 o 5 copias se recuperan los bloques válidos; en datos estéreo las copias cruzan canales. La estimación incluye cabeceras, alineación y copias.
 
-Corregir la velocidad de la cinta Estéreo · datos a la izquierda, referencia a la derecha
+Canales de audio Estéreo
+
+Mono
+
+Tono de referencia Estéreo · datos a la izquierda, referencia a la derecha
 
 Conexiones y funcionamiento
 
 Activado por defecto. Datos a la izquierda y referencia continua de 3 kHz a la derecha para corregir la velocidad. Graba los canales por separado. Misma capacidad; WAV del doble de tamaño.
+
+Entrada mono: conecta un canal aislado, nunca la suma I + D. Los datos estéreo ×1 necesitan ambos canales; con ×2 cada canal completo contiene todos los bloques. La corrección por referencia requiere estéreo. Puedes leer el canal izquierdo desactivando la corrección. El nuevo modo de datos estéreo aún requiere pruebas en la pletina.
+
+Referencia activada: datos a la izquierda, referencia de 3 kHz a la derecha. Desactívala para usar ambos canales para datos. Con dos copias, los bloques se cruzan entre canales en momentos distintos; la capacidad es similar a un canal de datos.
 
 Introducción de voz Incluir una introducción hablada en este idioma
 

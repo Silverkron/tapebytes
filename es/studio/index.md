@@ -12,9 +12,7 @@ Graba un WAV de TapeBytes en casete. Selecciona la salida, calibra los niveles y
 
 TapeBytes reproduce la señal. Pulsa REC en tu pletina para grabarla.
 
-STEREO I: datos / D: referencia de 3 kHz Izquierda: datos · Derecha: referencia de 3 kHz
-
-02 / TAPE DECK
+SALIDA DE SEÑAL
 
 ## TB / DATA DECK
 
@@ -22,31 +20,45 @@ STEREO I: datos / D: referencia de 3 kHz Izquierda: datos · Derecha: referencia
 
 Primero genera un WAV en Codificar. [Codificar →](https://tapebytes.lucasciacca.com/es/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Datos R Referencia · 3 kHz
+
 Primero genera un WAV en Codificar. 00:00 / 00:00
 
-Mi pletina está conectada y en modo REC
+I: datos / D: referencia de 3 kHz
+
+Forma de onda y posición de reproducción
+
+Espectro de salida en directo
 
 Los medidores muestran la salida digital real. Comprueba el nivel de grabación en el medidor de tu pletina.
 
-AJUSTES DE SALIDA
+01
 
-## Conexión y calibración
+## Salida de audio
 
-01 Salida de audio
+Salida de audio
 
-L Datos R Referencia
+02
 
-02 Nivel de reproducción
+## Calibra la pletina
+
+1 kHz · 5 s
+
+Nivel de reproducción
 
 100%
 
 5% 100%
 
-03 Calibra la pletina 1 kHz · 5 s
-
 Ajusta el nivel de grabación en la pletina sin llegar a la zona roja.
 
-Usa Detener en el panel de la cinta para terminar antes.
+03
+
+## Graba en cinta
+
+Interrumpir detiene la reproducción, incluido el tono de calibración.
 
 Revisa las conexiones
 

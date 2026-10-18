@@ -19,7 +19,11 @@ Deine erste vollständige Hin- und Rückwandlung
 
 ## TVBLK003 / FSK
 
-TVBLK003 nutzt 1-KiB-Blöcke mit Synchronisation, 300-bit/s-Header und CRC. Profile: FSK 300/600/1200, 4-FSK 1200/2400. Die Folge wird 1/3/5-mal wiederholt, um gültige Blöcke verschiedener Kopien zu kombinieren. Archiv-CRC und Datei-SHA-256 müssen stimmen. TVFSK001/002 bleiben lesbar.
+TVBLK003 überträgt 1-KiB-Blöcke mit Synchronisation, CRC und 1/2/3/5 Kopien. TVBLK004 verteilt Blöcke auf zwei Kanäle. Kopien wechseln zeitversetzt den Kanal. Archiv-CRC und Datei-SHA-256 müssen stimmen. TVFSK001/002 und TVBLK003 bleiben lesbar.
+
+Referenz aktiv: Daten links, 3-kHz-Referenz rechts. Deaktivieren, um beide Kanäle für Daten zu nutzen. Bei zwei Kopien wechseln die Blöcke zeitversetzt den Kanal; die Kapazität entspricht ungefähr einem Datenkanal.
+
+Mono-Eingang: einen isolierten Kanal anschließen, niemals L + R mischen. Stereodaten ×1 benötigen beide Kanäle; bei ×2 enthält jeder vollständige Kanal alle Blöcke. Referenzkorrektur erfordert Stereo. Der linke Datenkanal kann ohne Korrektur gelesen werden. Der neue Stereodatenmodus muss noch am Kassettendeck geprüft werden.
 
 ## Lokale Verarbeitung
 
@@ -39,7 +43,7 @@ Halte linken und rechten Kanal getrennt. Gleiche die Abtastraten von Ein- und Au
 
 ## Knacken oder fehlende Referenz?
 
-Nach Formatänderungen den Eingang aus- und einschalten. Stereoanschlüsse, Pegel und Abtastraten prüfen. Zum Vergleich eine Stereo-WAV aus Audacity importieren. Die Referenz ersetzt kein fehlendes Audio.
+Knackgeräusche können durch die eingestellte Abtastrate des Audiointerfaces entstehen, besonders wenn Eingang, Ausgang und die Audio-Engine des Browsers nicht übereinstimmen. Unter macOS das Audio-MIDI-Setup öffnen, das Interface auswählen und Eingang sowie Ausgang auf 48.000 Hz (48 kHz) stellen. Diese Abtastrate verwendet TapeBytes für WAV-Dateien. Anschließend den Eingang in TapeBytes deaktivieren und wieder aktivieren, um die Audioverbindung neu aufzubauen. Diese Einstellung ist unabhängig von der Frequenz des Referenztons (3 kHz). Bei weiteren Störungen Pegel, Anschlüsse und Treiber prüfen und mit einer Aufnahme aus Audacity vergleichen. Die Referenz kann fehlende Audiosamples nicht wiederherstellen.
 
 ## Animation und Barrierefreiheit
 

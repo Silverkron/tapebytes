@@ -19,7 +19,11 @@ Tu primera conversión completa de ida y vuelta
 
 ## TVBLK003 / FSK
 
-TVBLK003 usa bloques de 1 KiB con sincronización, cabecera a 300 bit/s y CRC. Perfiles: FSK 300/600/1200, 4-FSK 1200/2400. Repite la secuencia 1/3/5 veces para combinar bloques válidos de distintas copias. Se verifican CRC global y SHA-256 de cada archivo. TVFSK001/002 siguen siendo legibles.
+TVBLK003 transporta bloques de 1 KiB con sincronización, CRC y 1/2/3/5 copias. TVBLK004 distribuye los bloques entre dos canales. Las copias alternan canales en intervalos distintos. El CRC del archivo y SHA-256 de cada fichero deben ser válidos. TVFSK001/002 y TVBLK003 siguen siendo legibles.
+
+Referencia activada: datos a la izquierda, referencia de 3 kHz a la derecha. Desactívala para usar ambos canales para datos. Con dos copias, los bloques se cruzan entre canales en momentos distintos; la capacidad es similar a un canal de datos.
+
+Entrada mono: conecta un canal aislado, nunca la suma I + D. Los datos estéreo ×1 necesitan ambos canales; con ×2 cada canal completo contiene todos los bloques. La corrección por referencia requiere estéreo. Puedes leer el canal izquierdo desactivando la corrección. El nuevo modo de datos estéreo aún requiere pruebas en la pletina.
 
 ## Procesamiento local
 
@@ -39,7 +43,7 @@ Mantén separados los canales izquierdo y derecho. Iguala las frecuencias de mue
 
 ## ¿Chasquidos o falta de referencia?
 
-Desactiva y activa la entrada tras cambiar su formato. Revisa conexiones estéreo, niveles y frecuencias. Importa un WAV estéreo de Audacity para comparar las capturas. La referencia no restaura audio perdido.
+Los chasquidos pueden deberse a la frecuencia de muestreo configurada en la interfaz de audio, especialmente si la entrada, la salida y el motor de audio del navegador no coinciden. En macOS, abre Configuración de Audio MIDI, selecciona la interfaz y configura entrada y salida a 48.000 Hz (48 kHz), la frecuencia que TapeBytes usa para los WAV. Después desactiva y activa la entrada en TapeBytes para recrear la conexión. Este ajuste es distinto de la frecuencia del tono de referencia (3 kHz). Si persiste, revisa niveles, conexiones y controladores y compara una captura con Audacity. La referencia no puede restaurar muestras de audio perdidas.
 
 ## Movimiento y accesibilidad
 

@@ -19,7 +19,11 @@ Your first complete round trip
 
 ## TVBLK003 / FSK
 
-TVBLK003 uses 1 KiB blocks, each with synchronization, a 300-bit/s header and CRC. Profiles: FSK 300/600/1200, 4-FSK 1200/2400. Redundancy repeats the full sequence 1/3/5 times, allowing valid blocks from different copies to be combined. The archive CRC and each file’s SHA-256 must pass. TVFSK001/002 recordings remain readable.
+TVBLK003 carries 1 KiB data blocks with synchronization, CRC and 1/2/3/5 copies. TVBLK004 distributes blocks over two channels. Copies alternate channels in separate time slots. Archive CRC and file SHA-256 must pass. TVFSK001/002 and TVBLK003 remain readable.
+
+Reference enabled: data on the left, 3 kHz reference on the right. Disable it to store data on both channels. With two copies, blocks cross channels at different times; capacity is similar to one data channel.
+
+Mono input: connect one isolated channel, never a sum of L + R. Stereo data with ×1 needs both channels; with ×2, either complete channel contains all blocks. Reference correction requires stereo. Without it, the left data channel can be read with correction disabled. Hardware validation is still required for the new stereo-data mode.
 
 ## Local processing
 
@@ -39,7 +43,7 @@ Keep left and right channels separate. Match input and output sample rates in yo
 
 ## Crackles or missing reference?
 
-Disable and re-enable the input after changing its format. Check stereo connections, levels and sample rates. Import a stereo WAV from Audacity to compare capture paths. The reference cannot restore missing audio.
+Crackling can be caused by the sample rate configured for the audio interface, especially when input, output and the browser audio engine are not aligned. On macOS, open Audio MIDI Setup, select the interface and set input and output to 48,000 Hz (48 kHz), the sample rate TapeBytes uses for WAV files. Then disable and re-enable the input in TapeBytes to recreate the audio connection. This setting is separate from the reference tone frequency (3 kHz). If crackling persists, check levels, connections and drivers and compare a capture made with Audacity. The reference cannot restore missing audio samples.
 
 ## Motion and accessibility
 

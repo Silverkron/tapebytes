@@ -1,18 +1,19 @@
-import {referenceWav,correctReference,REFERENCE_HZ} from './reference.js';
-import {encode,encodeWav,decode,wav,pack,unpack,payloadSize,layout,retime,blockLocations} from './codec.js';
+import {referenceWav,stereoDataWav,correctReference,REFERENCE_HZ,decodeRecording} from './reference.js';
+import {encode,encodeWav,decode,decodeChannels,wav,pack,unpack,payloadSize,layout,retime,blockLocations} from './codec.js';
 self.onmessage=async({data:d})=>{
  const report=(stage,value=null,extra={})=>self.postMessage({id:d.id,progress:{stage,value,...extra}});
  try{
   let result;
   if(d.op==='encode'){
    report('preparing');if(layout(payloadSize(d.files),d.intro?.length||0,d.options).wavBytes*(d.options?.reference?2:1)>0xffffffff)throw Error('E_FORMAT');const p=await pack(d.files);report('encoding',0);
-   const encoded=(d.options?.reference?referenceWav:encodeWav)(p.payload,d.intro,v=>report('encoding',v),d.options);
+   const encoded=(d.options?.reference?referenceWav:d.options?.stereoData?stereoDataWav:encodeWav)(p.payload,d.intro,v=>report('encoding',v),d.options);
    result={...encoded,entries:p.entries.map(({bytes,...e})=>e)};
    self.postMessage({id:d.id,result},[encoded.wav,encoded.peaks.buffer]);return;
   }
   if(d.op==='decode'){
-   let samples=d.samples,pilotResult=null;if(d.reference){report('correcting');pilotResult=correctReference(samples,d.pilot,v=>report('correcting',v));samples=pilotResult.samples;}report('scanning');const r=decode(samples,(v,detail={})=>report(detail.phase||'decoding',detail.phase?null:v,detail),{autoSpeed:!d.reference&&d.autoSpeed!==false});report('verifying');
-   result={files:await unpack(r.payload),offset:r.offset,profile:r.profile,redundancy:r.redundancy,blocks:r.blocks,recoveredCopies:r.recoveredCopies,speedOffset:r.speedOffset,version:r.version,reference:!!pilotResult,referenceSpeed:pilotResult?.meanSpeed};
+   report('scanning');const archives=decodeRecording([d.samples,...(d.pilot?[d.pilot]:[])],(v,detail={})=>report(detail.phase||'decoding',detail.phase?null:v,detail),{reference:!!d.reference,autoSpeed:d.autoSpeed!==false});report('verifying');
+   const files=[];for(const archive of archives)files.push(...await unpack(archive.payload));
+   const r=archives[0];result={...r,payload:undefined,files,archiveCount:archives.length,reference:!!r.reference};
   }
   if(d.op==='benchmark'){
    const p=await pack(d.files),original=encode(p.payload,new Float32Array(),()=>{},d.options),cases=[{key:'clean'},{key:'noise',noise:.3},{key:'slow',speed:.97},{key:'fast',speed:1.03},{key:'dropout',dropout:true},{key:'combined',speed:1.03,noise:.1}],rows=[];

@@ -1,4 +1,4 @@
-import {RATE,encodeWav} from './codec.js';
+import {RATE,encodeWav,encode,layout,decodeAllChannels} from './codec.js';
 export const REFERENCE_HZ=3000;
 // Stereo transport wraps the existing mono format; the data channel is unchanged.
 export function referenceWav(payload,intro,progress,options){
@@ -34,4 +34,36 @@ export function correctReference(data,pilot,progress=()=>{}){
  const length=Math.floor((last-first)*period);if(length>data.length*1.3)throw Error('E_PILOT');const out=new Float32Array(length);
  for(let i=0;i<length;i++){const cycle=i/period,k=Math.floor(cycle)+first,q=cycle-Math.floor(cycle),x=points[k]*(1-q)+points[k+1]*q,j=Math.floor(x),f=x-j;out[i]=data[j]*(1-f)+(data[j+1]||0)*f;if(i%480000===0)progress(i/length);}
  progress(1);return {samples:out,meanSpeed:(length/(points[last]-points[first])-1)*100};
+}
+
+export function stereoDataWav(payload,intro=new Float32Array(),progress=()=>{},options={}){
+ const opts={...options,stereoData:true},plan=layout(payload.length,intro.length,opts);
+ if(plan.wavBytes>0xffffffff)throw Error('E_FORMAT');
+ const channels=[0,1].map(lane=>encode(payload,intro,v=>progress((lane+v)/2),{...opts,lane}));
+ const peaks=new Float32Array(640);
+ for(let i=0;i<channels[0].length;i++){const k=Math.min(639,Math.floor(i/channels[0].length*640));peaks[k]=Math.max(peaks[k],Math.abs(channels[0][i]),Math.abs(channels[1][i]));}
+ return {wav:channelWav(channels),peaks,duration:plan.duration,blocks:plan.blocks,channels:2,stereoData:true};
+}
+
+// Split only sustained quiet in the reference channel. Never interpolate timing
+// across a gap between independent recordings; each pilot is validated separately.
+export function decodeRecording(channels,progress=()=>{},options={}){
+ if(!options.reference)return decodeAllChannels(channels,progress,options);
+ const [data,pilot]=channels;if(!pilot||pilot.length!==data.length)throw Error('E_PILOT_CHANNELS');
+ const spans=[];const window=480;let start=0,quiet=-1;
+ for(let i=0;i<pilot.length;i+=window){
+  let power=0;const end=Math.min(i+window,pilot.length);for(let j=i;j<end;j++)power+=pilot[j]*pilot[j];
+  if(power/(end-i)<1e-5){if(quiet<0)quiet=i;}
+  else{if(quiet>=0&&i-quiet>=RATE*.25){if(quiet-start>=RATE*.5)spans.push([start,quiet]);start=i;}quiet=-1;}
+ }
+ const end=quiet>=0&&pilot.length-quiet>=RATE*.25?quiet:pilot.length;
+ if(end-start>=RATE*.5)spans.push([start,end]);
+ if(!spans.length)throw Error('E_PILOT');
+ const results=[];
+ for(const [start,end] of spans){
+  const corrected=correctReference(data.subarray(start,end),pilot.subarray(start,end));
+  const decoded=decodeAllChannels([corrected.samples],progress,{autoSpeed:false});
+  for(const r of decoded)results.push({...r,offset:r.offset+start,reference:true,referenceSpeed:corrected.meanSpeed});
+ }
+ return results;
 }

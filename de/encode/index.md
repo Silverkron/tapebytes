@@ -36,13 +36,21 @@ Redundanz
 
 Geschwindigkeit und Redundanz wählen
 
-Höhere Raten benötigen ein saubereres Signal. Daten werden in 1-KiB-Blöcke mit eigener Synchronisation und CRC aufgeteilt. Bei 3 oder 5 Kopien wählt Decode je Block eine gültige Kopie. Header und Kopien zählen zur Banddauer. Echtes Band, besonders bei 2400 bit/s, bleibt experimentell.
+Höhere Raten benötigen ein saubereres Signal. Jeder 1-KiB-Block hat Synchronisation und CRC. Bei 2, 3 oder 5 Kopien werden gültige Blöcke verwendet; bei Stereodaten wechseln die Kopien den Kanal. Header, Ausrichtungspausen und Kopien sind in der Schätzung enthalten.
 
-Bandschwankungen korrigieren Stereo · Daten links, Referenz rechts
+Audiokanäle Stereo
+
+Mono
+
+Referenzton Stereo · Daten links, Referenz rechts
 
 Anschlüsse und Funktionsweise
 
 Standardmäßig aktiv. Daten links, kontinuierliche 3-kHz-Referenz rechts zur Korrektur der Bandgeschwindigkeit. Kanäle getrennt aufnehmen. Gleiche Kapazität; doppelte WAV-Größe.
+
+Mono-Eingang: einen isolierten Kanal anschließen, niemals L + R mischen. Stereodaten ×1 benötigen beide Kanäle; bei ×2 enthält jeder vollständige Kanal alle Blöcke. Referenzkorrektur erfordert Stereo. Der linke Datenkanal kann ohne Korrektur gelesen werden. Der neue Stereodatenmodus muss noch am Kassettendeck geprüft werden.
+
+Referenz aktiv: Daten links, 3-kHz-Referenz rechts. Deaktivieren, um beide Kanäle für Daten zu nutzen. Bei zwei Kopien wechseln die Blöcke zeitversetzt den Kanal; die Kapazität entspricht ungefähr einem Datenkanal.
 
 Gesprochene Einleitung Gesprochene Einleitung in dieser Sprache hinzufügen
 

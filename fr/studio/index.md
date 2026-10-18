@@ -12,9 +12,7 @@ Enregistrez un WAV TapeBytes sur cassette. Choisissez la sortie audio, calibrez 
 
 TapeBytes lit le signal. Appuyez sur REC sur votre platine cassette pour l’enregistrer.
 
-STEREO G : données / D : référence 3 kHz Gauche : données · Droite : référence 3 kHz
-
-02 / TAPE DECK
+SORTIE DU SIGNAL
 
 ## TB / DATA DECK
 
@@ -22,31 +20,45 @@ STEREO G : données / D : référence 3 kHz Gauche : données · Droite : réfé
 
 Générez d’abord un WAV dans Encoder. [Encoder →](https://tapebytes.lucasciacca.com/fr/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Données R Référence · 3 kHz
+
 Générez d’abord un WAV dans Encoder. 00:00 / 00:00
 
-Ma platine est branchée et réglée sur REC
+G : données / D : référence 3 kHz
+
+Forme d’onde et position de lecture
+
+Spectre de sortie en direct
 
 Les indicateurs affichent la sortie numérique réelle. Vérifiez le niveau d’enregistrement sur le vumètre de votre platine.
 
-RÉGLAGES DE SORTIE
+01
 
-## Branchement et étalonnage
+## Sortie audio
 
-01 Sortie audio
+Sortie audio
 
-L Données R Référence
+02
 
-02 Niveau de lecture
+## Calibrer la platine
+
+1 kHz · 5 s
+
+Niveau de lecture
 
 100%
 
 5% 100%
 
-03 Calibrer la platine 1 kHz · 5 s
-
 Réglez le niveau sur la platine sans atteindre la zone rouge.
 
-Utilisez Arrêter dans le panneau cassette pour interrompre la tonalité.
+03
+
+## Enregistrer sur cassette
+
+Arrêter interrompt la lecture, y compris le signal de calibration.
 
 Vérifier les branchements
 

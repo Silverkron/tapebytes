@@ -36,13 +36,21 @@ Ridondanza
 
 Come scegliere velocità e ridondanza
 
-Velocità maggiori richiedono un segnale più pulito. I dati sono divisi in blocchi da 1 KiB, con sincronizzazione e CRC indipendenti. Con 3 o 5 copie, Decode sceglie una copia valida di ogni blocco. Intestazioni e copie sono incluse nella durata. Il nastro fisico, soprattutto a 2400 bit/s, resta sperimentale.
+Velocità maggiori richiedono un segnale più pulito. Ogni blocco di 1 KiB ha sincronizzazione e CRC. Con 2, 3 o 5 copie, Decodifica usa quelle valide; in modalità dati stereo le copie si incrociano tra i canali. Intestazioni, spazi di allineamento e copie sono inclusi nella stima.
 
-Correggi la velocità del nastro Stereo · dati a sinistra, riferimento a destra
+Canali audio Stereo
+
+Mono
+
+Tono di riferimento Stereo · dati a sinistra, riferimento a destra
 
 Collegamenti e funzionamento
 
 Attivo di default. Sinistra: dati. Destra: riferimento continuo a 3 kHz per correggere le variazioni di velocità del nastro. Registra entrambi i canali separatamente. Capacità invariata; WAV di dimensioni doppie.
+
+Ingresso mono: collega un singolo canale isolato, mai la somma S + D. Dati stereo ×1 richiede entrambi i canali; con ×2 ogni canale completo contiene tutti i blocchi. La correzione con riferimento richiede stereo. Senza, puoi leggere il canale dati sinistro disattivando la correzione. La nuova modalità dati stereo va ancora verificata sulla piastra.
+
+Riferimento attivo: dati a sinistra, riferimento a 3 kHz a destra. Disattivalo per usare entrambi i canali per i dati. Con due copie, i blocchi si incrociano tra i canali in momenti diversi; la capacità è simile a quella di un canale dati.
 
 Introduzione vocale Includi un’introduzione vocale in questa lingua
 

@@ -12,9 +12,7 @@ Record a TapeBytes WAV onto cassette. Select your audio output, calibrate record
 
 TapeBytes plays the signal. Press REC on your physical deck to record it.
 
-STEREO L: data / R: 3 kHz reference Left: data · Right: 3 kHz reference
-
-02 / TAPE DECK
+SIGNAL OUTPUT
 
 ## TB / DATA DECK
 
@@ -22,31 +20,45 @@ STEREO L: data / R: 3 kHz reference Left: data · Right: 3 kHz reference
 
 Generate a WAV in Encode first. [Encode →](https://tapebytes.lucasciacca.com/encode/)
 
+TAPEBYTES STEREO / PCM
+
+L Data R Reference · 3 kHz
+
 Generate a WAV in Encode first. 00:00 / 00:00
 
-My deck is connected and set to REC
+L: data / R: 3 kHz reference
+
+Waveform and playback position
+
+Live output spectrum
 
 The meters show the actual digital output. Check the recording level on your deck’s own meter.
 
-OUTPUT SETTINGS
+01
 
-## Connection & calibration
+## Audio output
 
-01 Audio output
+Audio output
 
-L Data R Reference
+02
 
-02 Playback level
+## Calibrate the deck
+
+1 kHz · 5 s
+
+Playback level
 
 100%
 
 5% 100%
 
-03 Calibrate the deck 1 kHz · 5 s
-
 Set the recording level on your deck without reaching the red zone.
 
-Use Stop in the deck panel to end the tone early.
+03
+
+## Record to tape
+
+Stop ends playback, including the calibration tone.
 
 Connection checklist
 

@@ -14,33 +14,51 @@ Dateien aus einer TapeBytes-WAV oder vom Kassettendeck wiederherstellen. Alles l
 
 ✓ Alles bleibt auf diesem Gerät CRC32 + SHA-256
 
-STEREO Referenz des rechten Kanals verwenden
-
-Links: Daten · Rechts: 3-kHz-Referenz
-
-01 / BANDEINGANG
-
-## Von deinem Kassettendeck
-
-PCM
-
-Die WAV-Aufnahme erhält beide Kanäle eines Stereoeingangs, auch ohne Referenzkorrektur. L mit Eingang 1 und R mit Eingang 2 verbinden. Monitor und Playback nutzen nur L.
-
 Audioeingang
-
-Live-Audioeingang −∞ dBFS
-
-Frequenzspektrum PCM / CH 1
-
-Eingang und Filter prüfen
 
 Playback
 
 Eingang auswählen und Monitor aktivieren. Die Aufnahme startet separat.
 
-Über Playback
+Audiokanäle Stereo
 
-Über den Standardausgang hören. Anfangs aus; bei Mikrofonen Kopfhörer verwenden. Beim Verlassen wird es ausgeschaltet.
+Mono
+
+Stereo/Mono wird beim Aktivieren anhand der gemeldeten Eingangskanäle gewählt. Eine manuelle Auswahl ist möglich. Audioinhalt und Referenzton werden dabei nicht erkannt.
+
+Referenzton
+
+Referenz aktiv: Daten links, 3-kHz-Referenz rechts. Deaktivieren, um beide Kanäle für Daten zu nutzen. Bei zwei Kopien wechseln die Blöcke zeitversetzt den Kanal; die Kapazität entspricht ungefähr einem Datenkanal.
+
+Anschlüsse und Funktionsweise
+
+Mono-Eingang: einen isolierten Kanal anschließen, niemals L + R mischen. Stereodaten ×1 benötigen beide Kanäle; bei ×2 enthält jeder vollständige Kanal alle Blöcke. Referenzkorrektur erfordert Stereo. Der linke Datenkanal kann ohne Korrektur gelesen werden. Der neue Stereodatenmodus muss noch am Kassettendeck geprüft werden.
+
+01 / BANDEINGANG
+
+## Von deinem Kassettendeck
+
+STEREO / PCM
+
+L · Daten −∞ dBFS
+
+Frequenzspektrum 0 — 8 kHz
+
+R · Referenz −∞ dBFS
+
+Frequenzspektrum 0 — 8 kHz
+
+R · Referenz Gemessene Referenzfrequenz — Hz
+
+Eingang aktivieren, um die Referenz zu messen.
+
+Auto stop
+
+ⓘ
+
+Nach mindestens 0,25 s Signal über −36 dBFS wird gestoppt und decodiert, sobald alle aufgenommenen Kanäle für die gewählte Zeit (standardmäßig 1 s) unter −42 dBFS bleiben. Anfängliche Stille löst keinen Stopp aus. Starkes Rauschen kann den Stopp verhindern; dann manuell stoppen und decodieren.
+
+Wartezeit ohne Signal
 
 Audioberechtigung wird bei Bedarf angefordert. Die Aufnahme läuft bis zum Stopp und nutzt Browserspeicher.
 
@@ -50,17 +68,27 @@ ODER / WAV-DATEI
 
 Schon eine Aufnahme vorhanden? Öffne die TapeBytes-WAV, um Dateien wiederherzustellen.
 
-WAV-Datei auswählen Automatische Profilerkennung · linker Kanal
+WAV-Datei auswählen Automatische Profilerkennung · getrennte Audiokanäle
 
 Erzeuge unter Kodieren eine WAV und prüfe sie hier ohne Kassettenaufnahme.
 
-Vor dem Download geprüft Wiederhergestellte Dateien erscheinen unten, sobald alle Integritätsprüfungen bestanden sind.
+## Vor dem Download geprüft
+
+Wiederhergestellte Dateien erscheinen unten, sobald alle Integritätsprüfungen bestanden sind.
 
 ✓ CRC32 + SHA-256
 
 Wiederherstellung und Formatdetails
 
-Für Stereoaufnahmen standardmäßig aktiv. Nur für alte Aufnahmen ohne Referenz ausschalten. Das aufgenommene Audio bleibt erhalten; Playback gibt den linken Kanal wieder. Fehlendes Audio wird nicht rekonstruiert.
+Die WAV-Aufnahme erhält beide Kanäle eines Stereoeingangs, auch ohne Referenzkorrektur. L mit Eingang 1 und R mit Eingang 2 verbinden. Die Anzeige zeigt beide Kanäle; Playback gibt nur L wieder.
+
+Standardmäßig für Daten + Referenz aktiv. Für Stereodaten oder ältere Monoaufnahmen deaktivieren. Audio bleibt unverändert; Playback gibt nur links wieder.
+
+Eingang und Filter prüfen
+
+Über Playback
+
+Über den Standardausgang hören. Anfangs aus; bei Mikrofonen Kopfhörer verwenden. Beim Verlassen wird es ausgeschaltet.
 
 Halte linken und rechten Kanal getrennt. Gleiche die Abtastraten von Ein- und Ausgang ab und vermeide eine Mischung aus Direktmonitoring und Wiedergabe. Stelle bei der Fast Track Pro während der Aufnahme Mix auf PB.
 

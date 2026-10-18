@@ -19,7 +19,11 @@ Votre premier aller-retour complet
 
 ## TVBLK003 / FSK
 
-TVBLK003 utilise des blocs de 1 KiB avec synchronisation, en-tête à 300 bit/s et CRC. Profils : FSK 300/600/1200, 4-FSK 1200/2400. La séquence est répétée 1/3/5 fois pour combiner les blocs valides de copies différentes. CRC global et SHA-256 de chaque fichier sont vérifiés. TVFSK001/002 restent lisibles.
+TVBLK003 transporte des blocs de 1 Kio avec synchronisation, CRC et 1/2/3/5 copies. TVBLK004 répartit les blocs sur deux canaux. Les copies alternent les canaux à des instants distincts. Le CRC de l’archive et le SHA-256 des fichiers doivent être valides. TVFSK001/002 et TVBLK003 restent lisibles.
+
+Référence activée : données à gauche, référence à 3 kHz à droite. Désactivez-la pour utiliser les deux canaux pour les données. Avec deux copies, les blocs changent de canal à des moments différents ; la capacité est proche de celle d’un canal de données.
+
+Entrée mono : connectez un canal isolé, jamais la somme G + D. Les données stéréo ×1 nécessitent les deux canaux ; avec ×2 chaque canal complet contient tous les blocs. La correction par référence nécessite la stéréo. Le canal gauche peut être lu sans correction. Le nouveau mode de données stéréo doit encore être testé sur la platine.
 
 ## Traitement local
 
@@ -39,7 +43,7 @@ Gardez les canaux gauche et droit séparés. Alignez les fréquences d’échant
 
 ## Craquements ou référence absente ?
 
-Désactivez puis réactivez l’entrée après un changement de format. Vérifiez les branchements stéréo, les niveaux et les fréquences. Importez un WAV stéréo d’Audacity pour comparer les captures. La référence ne restaure pas l’audio manquant.
+Les crépitements peuvent venir de la fréquence d’échantillonnage réglée sur l’interface audio, notamment si l’entrée, la sortie et le moteur audio du navigateur ne sont pas alignés. Sur macOS, ouvrez Configuration audio et MIDI, sélectionnez l’interface et réglez l’entrée et la sortie sur 48 000 Hz (48 kHz), la fréquence utilisée par TapeBytes pour les WAV. Désactivez puis réactivez l’entrée dans TapeBytes pour recréer la connexion audio. Ce réglage est distinct de la fréquence du signal de référence (3 kHz). Si le problème persiste, vérifiez les niveaux, les branchements et les pilotes, puis comparez avec une capture réalisée dans Audacity. La référence ne peut pas restaurer les échantillons audio manquants.
 
 ## Animations et accessibilité
 
