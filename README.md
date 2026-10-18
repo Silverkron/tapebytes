@@ -26,13 +26,13 @@ You can also try the software without a cassette recorder: generate a WAV in Enc
 
 By default, the **left channel carries data** and the **right channel carries a continuous 3 kHz reference tone**. The reference lets the decoder compensate for tape-speed variations. Keep both channels separate throughout recording and capture.
 
-Reference correction is enabled by default in Encode and Decode. Disable it when reading older recordings without a reference channel. Captured WAV files preserve both channels when the input is stereo; optional input Playback monitors only the left channel and is off by default.
+Reference correction is enabled by default in Encode and Decode. In Encode, disabling it selects dual-channel data transport. In Decode, disable it for dual-data or older mono recordings. Captured WAV files preserve both channels when the input is stereo; optional input Playback monitors only the left channel and is off by default.
 
 ## Features
 
 - Local file and folder encoding, with no preset file-size or file-count cap.
 - FSK at 300, 600 and 1200 bit/s; 4-FSK at 1200 and 2400 bit/s.
-- One, three or five copies of the transmission, with recovery of valid blocks across copies.
+- One, two, three or five copies of the transmission, with recovery of valid blocks across copies.
 - Tape capacity and recording-duration estimates that include format overhead and redundancy.
 - Stereo reference-based speed correction, live audio meters and downloadable captured WAV files.
 - Block and archive CRC checks, plus SHA-256 verification for each recovered file.
@@ -62,7 +62,7 @@ A C60 cassette provides 30 minutes per side. At 300 bit/s, the theoretical ceili
 - There is no automatic splitting across cassette sides.
 - WAV generation and capture use browser memory. Standard RIFF/WAV output is limited to roughly 4 GiB.
 - TapeBytes reads its own format. It is not a general decoder for Commodore, ZX Spectrum or Kansas City Standard tapes, or a music-digitization application.
-- The current format is `TVBLK003`; supported `TVFSK001` and `TVFSK002` recordings remain readable. These identifiers retain their original names for compatibility.
+- Data + reference uses `TVBLK003`; dual-channel data uses `TVBLK004`. Supported `TVFSK001`, `TVFSK002` and `TVBLK003` recordings remain readable. These identifiers retain their original names for compatibility.
 
 ## Run locally
 
@@ -187,3 +187,51 @@ File and audio processing happens in the browser. No backend or external API cre
 The HTML pages include the supplied standard Google Tag Manager snippets for container `GTM-WLRVCWSR`: the asynchronous loader in the head and the `noscript` iframe immediately after the opening body tag. Tags and their triggers are managed in that container. Set `GTM_CONTAINER_ID=` when building to omit both snippets, including for previews or offline use; otherwise the ID in `site.config.json` is used.
 
 Keep credentials and private research out of source files. The `.gitignore` excludes local environment files and research directories, but cannot protect a secret pasted into an otherwise tracked file.
+
+## Dual-channel data and mono capture
+
+Data + 3 kHz reference remains the default. The Stereo/Mono radio selection defaults to Stereo, with Reference tone checked.
+Mono generates a single-channel WAV and disables the reference. In Decode, Mono
+uses the isolated left input (or the left channel of a stereo file), without mixing.
+Switching back to Stereo enables the reference again. Turning reference off while
+Stereo is selected in Encode uses both stereo channels for independent data blocks. The archive, including a single
+file, is split into numbered 1 KiB blocks. Each block includes its own header and
+CRC; the full archive CRC and each file's SHA-256 must pass before download.
+
+With one copy, alternating blocks go to L and R. With two copies, each block is
+repeated on the opposite channel in the next time slot. For a pair of blocks:
+
+| Slot | Left | Right |
+| --- | --- | --- |
+| 1 | A | B |
+| 2 | B | A |
+
+Three and five copies continue alternating channels. Capacity estimates include
+both channels, repeated headers, slot padding, the introduction and all copies.
+Large archives with one copy approach twice the one-channel capacity. Two copies
+trade that gain for recovery; small files and odd block counts incur padding.
+
+A mono input must receive **one isolated channel**, never an L+R downmix. With two
+or more copies, either complete isolated channel contains every block. With one
+copy, a multi-block archive requires both channels and incomplete recovery fails
+explicitly. A downmix cannot reliably separate the simultaneous data streams.
+For data + reference tapes, an isolated left channel can be decoded with reference
+correction disabled, losing the continuous speed correction.
+
+Dual-data decoding estimates a constant speed offset per channel using the
+existing preamble. It does not provide continuous wow/flutter correction. The
+new mode is covered by software round-trip, dropout, channel-loss, capacity and
+integrity tests, but still needs validation on physical tape and the user's deck.
+Older releases cannot decode `TVBLK004`; retain an updated decoder with the archive.
+
+### Consecutive archives
+
+Decode scans the complete acquisition or imported WAV for consecutive block-format
+archives (`TVBLK003` / `TVBLK004`) and lists their recovered files together. Each
+archive is checked with CRC and each file with SHA-256 before downloads appear.
+With five single-file transmissions separated by two seconds, choose an Auto stop
+wait longer than two seconds (for example, five seconds), or disable Auto stop.
+The default one-second wait would stop at the first gap. Reference-mode recordings
+are corrected independently across sustained quiet gaps in the pilot channel.
+Concatenated playback has automated PCM coverage; physical tape validation is
+still dependent on signal quality and recording hardware.
