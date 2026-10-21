@@ -1,237 +1,124 @@
-# TapeBytes
+# TapeBytes — store digital files on cassette tape
 
-**Digital files on cassette tape.**
+[English](README.md) · [Italiano](docs/it/README.md) · [Español](docs/es/README.md) · [Deutsch](docs/de/README.md) · [Français](docs/fr/README.md)
 
-TapeBytes is a free browser application that turns small files into audio you can record onto a music cassette—and recovers those files when you play the tape back. It brings a familiar idea from early home computing into a modern, entirely client-side workflow.
+**Turn small files into audio. Record them on a cassette. Recover and verify them in your browser.**
 
-Built for retrocomputing enthusiasts, makers and people curious about analog data storage, TapeBytes combines an animated pixel-art cassette interface with real audio encoding, stereo recording support and file integrity checks.
+TapeBytes is a free, client-side **cassette data storage** application for retrocomputing enthusiasts, makers and anyone interested in data over audio. It uses FSK modulation to encode digital files into a WAV signal that an ordinary cassette deck can record. Play the tape back into your computer to reconstruct the files and verify their integrity with CRC32 and SHA-256.
 
-The configured website address is **tapebytes.lucasciacca.com**. This repository contains the source and static-site build; configuring that address does not publish the site.
+[Open TapeBytes](https://tapebytes.lucasciacca.com/) · [Quick start](docs/getting-started.md) · [Troubleshooting](docs/troubleshooting.md) · [Documentation](docs/README.md) · [Report a bug](https://github.com/Silverkron/tapebytes/issues)
 
-## How it works
+![TapeBytes pixel-art cassette animation with violet and cyan meters](docs/assets/cassette-preview.gif)
 
-```text
-Files → Encode → Stereo WAV → Cassette recorder
-                                      ↓
-Verified files ← Decode ← Stereo audio playback
-```
+*Actual homepage animation; decorative preview, not a live input or proof of a physical tape recording. [Still image](docs/assets/cassette-preview.jpg).*
 
-1. **Encode:** choose files or a folder, cassette duration, modulation and redundancy. The capacity estimate updates with your settings. Generate a WAV, optionally including a spoken introduction with the recovery website address.
-2. **Studio:** connect your computer to the recorder, select an audio output where supported, calibrate the recording level, press REC on the physical deck and start the countdown. TapeBytes plays the audio; the deck records it.
-3. **Decode:** rewind the cassette and capture its stereo output, or import an existing WAV recording. TapeBytes corrects timing using the reference channel and checks recovered data before offering downloads.
+## Try it without a tape deck
 
-You can also try the software without a cassette recorder: generate a WAV in Encode, then verify it directly in Decode.
+1. Open **Encode** and choose **Use a small sample file**.
+2. Keep **Stereo** and **Reference tone** enabled. You can disable the spoken introduction for this quick check.
+3. Select **Generate WAV audio**.
+4. Open **Decode → From file → Verify the generated WAV**.
+5. Download the recovered file after its integrity checks pass.
 
-### Why stereo?
+This checks the software path without cables. To test your recorder, record the WAV and recover it from a fresh tape playback. See the [complete recording guide](docs/getting-started.md).
 
-By default, the **left channel carries data** and the **right channel carries a continuous 3 kHz reference tone**. The reference lets the decoder compensate for tape-speed variations. Keep both channels separate throughout recording and capture.
+## From files to tape, and back
 
-Reference correction is enabled by default in Encode and Decode. In Encode, disabling it selects dual-channel data transport. In Decode, disable it for dual-data or older mono recordings. Captured WAV files preserve both channels when the input is stereo; optional input Playback monitors only the left channel and is off by default.
+![TapeBytes signal path: files to WAV, physical cassette recording, stereo capture and verified files](docs/assets/signal-path.svg)
 
-## Features
+| Step | What you do | What TapeBytes does |
+| --- | --- | --- |
+| **Encode** | Choose files, tape length, speed and copies | Builds an archive, estimates capacity and generates audio |
+| **Studio** | Connect LINE IN, calibrate, press REC on the deck | Plays the WAV after a countdown; shows waveform and spectrum |
+| **Decode** | Capture LINE OUT or open a recorded WAV | Recovers complete archives and verifies files before download |
 
-- Local file and folder encoding, with no preset file-size or file-count cap.
-- FSK at 300, 600 and 1200 bit/s; 4-FSK at 1200 and 2400 bit/s.
-- One, two, three or five copies of the transmission, with recovery of valid blocks across copies.
-- Tape capacity and recording-duration estimates that include format overhead and redundancy.
-- Stereo reference-based speed correction, live audio meters and downloadable captured WAV files.
-- Block and archive CRC checks, plus SHA-256 verification for each recovered file.
-- English, Italian, Spanish, German and French interfaces and spoken introductions.
-- Light, dark and system themes, with reduced-motion support.
-- Independently generated static pages, localized metadata and no backend, accounts or file uploads.
+The app controls audio playback, **not the cassette deck's transport**. You press REC, PLAY and rewind on the physical machine.
 
-## Equipment and browser requirements
+## Choose the right channel mode
 
-For a physical tape recording you need:
+| Mode | Left channel | Right channel | Intended use |
+| --- | --- | --- | --- |
+| **Stereo + reference** — default | File data | 3 kHz timing reference | Correct tape-speed variations using a separate reference |
+| **Stereo, reference off** | Data blocks | Other data blocks | Higher capacity; both channels needed with one copy |
+| **Mono** | File data | Unused | A single isolated audio channel |
 
-- A stereo cassette recorder with line input and output.
-- A computer with stereo audio output and input; a USB audio interface can provide these connections.
-- Suitable cables that preserve the left and right channels.
-- A browser supporting Web Audio, AudioWorklet and microphone/audio-input access. Input capture requires **HTTPS or localhost** and permission from the user.
+Two-copy stereo data repeats each block on the opposite channel in a later time slot. This trades capacity for recovery. Never mix L and R together to make mono: the simultaneous signals can interfere. [Channel wiring, redundancy and compatibility](docs/audio-modes.md).
 
-Audio-output device selection depends on browser support. When unavailable, select the output in your operating system. Match input and output sample rates, disable the deck's Dolby/noise reduction, and set recording levels below clipping. Studio playback starts at 100% and remains adjustable.
+## What is implemented?
 
-## Capacity and limitations
+- FSK at **300, 600 or 1,200 bit/s**; 4-FSK at **1,200 or 2,400 bit/s**.
+- One, two, three or five copies; recovery combines valid blocks from matching archives.
+- File and folder selection, capacity estimates and optional spoken introductions.
+- Stereo reference correction, separate L/R visualizers and live reference-frequency readout.
+- WAV import, browser audio capture and capture downloads.
+- **Consecutive archives:** recover multiple files from separate transmissions in one recording.
+- **Auto stop:** enabled by default; waits **1 second** after detected signal disappears. Choose a longer wait for gaps between archives.
+- English, Italian, Spanish, German and French; light, dark and system themes.
+- Static HTML pages, browser workers and local file processing. No application backend or account is required.
 
-TapeBytes is intended for **small files and hands-on experiments with data on tape**. Higher data rates require a cleaner signal; successful recovery depends on the recorder, tape, connections and recording levels.
+Physical recovery depends on the tape, recorder, audio interface and levels. Software tests cover stereo, redundancy, reference correction and consecutive archives; they do not certify every hardware setup. [Known limits and validation status](docs/limitations.md).
 
-A C60 cassette provides 30 minutes per side. At 300 bit/s, the theoretical ceiling is 67,500 bytes per side before headers, metadata and pauses. At 2400 bit/s it is 540,000 bytes. Actual file capacity is lower, and repeated copies consume additional time. Use the estimate in Encode for your chosen files and settings.
+## Equipment
 
-- The stereo reference corrects timing; it cannot restore missing samples or severely distorted audio.
-- Files are made available only after the required integrity checks pass. Keep the original files until you have verified a complete recording and recovery.
-- There is no automatic splitting across cassette sides.
-- WAV generation and capture use browser memory. Standard RIFF/WAV output is limited to roughly 4 GiB.
-- TapeBytes reads its own format. It is not a general decoder for Commodore, ZX Spectrum or Kansas City Standard tapes, or a music-digitization application.
-- Data + reference uses `TVBLK003`; dual-channel data uses `TVBLK004`. Supported `TVFSK001`, `TVFSK002` and `TVBLK003` recordings remain readable. These identifiers retain their original names for compatibility.
+For the default reference mode, use a stereo deck with LINE IN/OUT, a stereo audio interface and cables that preserve both channels. Browser capture requires **HTTPS or localhost** and audio-input permission. Output selection depends on browser support; use your OS output selector when needed.
+
+Start with a small file at 300 bit/s. Match interface input/output sample rates, avoid clipping, and disable Dolby/noise reduction or other processing for the data recording. [Hardware setup](docs/getting-started.md#record-a-real-cassette) · [Crackling and sample rates](docs/troubleshooting.md#crackling-clicks-or-gaps).
+
+## How much data fits on a cassette?
+
+A C60 has **30 minutes per side**, not 60. Theoretical one-data-channel ceilings before overhead are:
+
+| Rate | Bytes per 30-minute side | Approximate KiB |
+| --- | ---: | ---: |
+| 300 bit/s | 67,500 | 65.9 |
+| 600 bit/s | 135,000 | 131.8 |
+| 1,200 bit/s | 270,000 | 263.7 |
+| 2,400 bit/s | 540,000 | 527.3 |
+
+Headers, metadata, gaps, introductions and copies reduce usable file capacity. Dual-data stereo can approach twice the single-channel capacity for large archives with one copy; padding matters for small files. **Use Encode's live estimate for an actual recording.** [Capacity and format details](docs/audio-modes.md#capacity).
+
+## Screenshots
+
+<details>
+<summary>Encode, Studio, Decode and both themes</summary>
+
+| Prepare and record | Recover and verify |
+| --- | --- |
+| ![Encode with a sample file, cassette capacity and stereo reference settings](docs/assets/encode.jpg) | ![Decode input configuration and separate left and right signal displays](docs/assets/decode-tape.jpg) |
+| ![Recording Studio with WAV ready, playback level and calibration controls](docs/assets/studio.jpg) | ![A generated sample WAV recovered with matching SHA-256](docs/assets/decode-verified.jpg) |
+
+| Dark | Light |
+| --- | --- |
+| ![TapeBytes homepage in dark mode](docs/assets/home-dark.jpg) | ![TapeBytes homepage in light mode](docs/assets/home-light.jpg) |
+
+Screenshots use the English UI and a built-in sample file. The capture view is idle; no microphone recording is represented. See [media provenance](docs/assets/README.md).
+
+</details>
 
 ## Run locally
 
-Requirements: **Node.js 22+** and **Python 3** for the local development server. There are no npm dependencies to install.
+Requires **Node.js 22+** and **Python 3**. There are no npm dependencies to install.
 
 ```sh
+git clone https://github.com/Silverkron/tapebytes.git
+cd tapebytes
 npm run build
 npm test
 npm run dev
 ```
 
-Open [localhost:8765](http://127.0.0.1:8765/). English is served at `/`; other languages use `/it/`, `/es/`, `/de/` and `/fr/`. Each page can be opened directly, such as `/it/decode/`.
+Open [localhost:8765](http://127.0.0.1:8765/). Rebuild after changing source files. For a preview without the configured Google Tag Manager snippets, use `GTM_CONTAINER_ID='' npm run build`.
 
-The development server serves `dist/`. Run `npm run build` again after editing source files, then reload the browser.
+[Development and portable HTML](docs/development.md) · [GitHub Pages deployment](docs/deployment.md) · [Codec architecture](docs/architecture.md)
 
-### Portable HTML
+## Privacy and scope
 
-To create a single-file companion with embedded routes, fonts, scripts and spoken introductions:
+Files and audio are processed locally in the browser. The configured public-site build includes Google Tag Manager; local processing does **not** imply that every site visit makes no third-party network requests. See [privacy and security](docs/privacy.md).
 
-```sh
-BASE_PATH='' npm run build
-npm run portable
-```
+TapeBytes reads its own data formats. It does not decode arbitrary Commodore or ZX Spectrum tapes, convert music cassettes to MP3, or replace a dependable backup system. Keep your originals until tape recovery is verified.
 
-The result is `outputs/TapeBytes.html`. The build also writes `outputs/TapeVault.html` for compatibility with existing local preview URLs. For browser audio features, serve the file over localhost or HTTPS. GitHub Pages uses the normal static build, not this portable export.
+## Contribute
 
-## Source layout
+Bug reports, reproducible hardware findings, documentation fixes and translations are welcome. Include browser/OS, deck and interface models, sample rate, channel mode, modulation and copies. Share only non-sensitive test recordings. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-```text
-src/
-  assets/
-    app.js                 Application interactions and audio controls
-    codec.js               Data format, modulation and integrity checks
-    reference.js           Stereo-reference timing correction
-    capture.js             AudioWorklet capture processor
-    worker.js              Background encoding and decoding
-    style.css              Theme tokens, layout and animation
-    audio/                 Five pre-generated spoken introductions
-    fonts/                 Bundled font and license
-    social.png             Social sharing image
-  locales/                 UI copy, page titles and descriptions
-  cassette.svg             Animated pixel-art cassette artwork
-build.mjs                  HTML templates and static-site generator
-build-standalone.mjs        Portable HTML generator
-site.config.json           Domain, languages, routes and indexing settings
-tests/                     Codec, capture, reference and site checks
-scripts/
-  publish-static.sh        Writes generated output to gh-pages
-  generate-voices.py       Optional macOS voice regeneration
-.github/workflows/
-  static-pages.yml         Build, test and manual deployment workflow
-```
-
-HTML source templates live in the `render(lang, page)` function in `build.mjs`. The build combines those templates with `src/locales/*.json` and the assets to generate **25 localized pages** in `dist/`.
-
-`dist/` is generated output. `outputs/` and `work/` contain local exports and research. These directories are excluded from Git and are not required to build the site.
-
-## GitHub Actions and GitHub Pages
-
-Commit the source files, including `.github/workflows/static-pages.yml`, and push them to the repository's `main` branch.
-
-On each push to `main`, the workflow:
-
-1. Builds the static site and runs the tests.
-2. Updates a separate **`gh-pages`** branch containing only the generated site.
-3. Uploads the static site as a workflow artifact.
-
-Deployment is a separate, explicit action. Routine pushes do not deploy the site. The workflow uses the repository's `GITHUB_TOKEN`; no personal access token is needed. Repository rules must allow the workflow to write to `gh-pages`. Treat that branch as generated output rather than editing it manually.
-
-### Publish when ready
-
-1. In **Settings → Pages → Build and deployment**, select **GitHub Actions**.
-2. Configure the custom domain and its DNS records, and enable HTTPS when available.
-3. Indexing is enabled by default. If an existing repository variable `INDEXABLE` is `0`, remove it or set it to `1` for the public site.
-4. In **Actions → Build static site → Run workflow**, select `main` and enable **Publish the generated site to GitHub Pages**.
-
-The deployment job publishes the same artifact saved to `gh-pages`. It uses an explicit Pages deployment rather than relying on a branch push to trigger publication. See [GitHub's custom Pages workflows documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
-
-### Domain and SEO configuration
-
-The default origin is `https://tapebytes.lucasciacca.com`, with no path prefix, as defined in `site.config.json`. The build generates a `CNAME` file for this domain. DNS and GitHub Pages domain settings must still be configured separately.
-
-Optional repository variables are set under **Settings → Secrets and variables → Actions → Variables**:
-
-| Variable | Purpose |
-| --- | --- |
-| `SITE_ORIGIN` | HTTPS origin without a path; overrides the configured domain. |
-| `BASE_PATH` | Deployment prefix, such as `/tape-vault`; use `/` for the domain root. |
-| `INDEXABLE` | Defaults to `1` (indexing enabled). Set to `0` only for non-public preview builds. |
-
-For a repository hosted under a GitHub Pages path instead of the custom domain:
-
-```sh
-SITE_ORIGIN=https://OWNER.github.io BASE_PATH=/REPOSITORY INDEXABLE=1 npm run build
-npm test
-```
-
-Localized page titles and descriptions are stored under the `seo.*` and `desc.*` keys in the translation files. The generator embeds canonical links, reciprocal `hreflang` links, Open Graph and Twitter metadata, and structured data directly in each HTML page. It also creates `sitemap.xml` and `robots.txt`.
-
-Indexing is enabled by default; the 404 page remains excluded. No client-side rendering is required for search engines to read the page content or metadata.
-
-Every localized page also has a static Markdown version at `index.md` alongside its `index.html` (for example `/it/guide/index.md`). HTML pages link to these versions using `rel="alternate"` and `type="text/markdown"`. The Markdown content comes from the rendered page, including the guide and its limitations, with absolute links that respect the configured domain and base path.
-
-`llms.txt` lists all 25 Markdown pages grouped by language, and `llms-full.txt` includes their complete content. These are discovery aids for AI bots. `robots.txt` allows all crawlers by default and points to the XML sitemap, which lists the canonical HTML pages and their language alternatives.
-
-## Spoken introductions
-
-Pre-generated WAV introductions are included in the source, so Linux CI can build the complete site without a speech engine.
-
-To regenerate them on macOS after changing `voice.text` in the translation files:
-
-```sh
-python3 scripts/generate-voices.py
-```
-
-This optional step requires the configured macOS system voices and `ffmpeg`. Commit the updated WAV files together with the text changes.
-
-## Privacy
-
-File and audio processing happens in the browser. No backend or external API credentials are required to run or build TapeBytes. Audio-device permission is requested when needed. Selected files and generated audio are held in the current tab and are cleared on reload.
-
-The HTML pages include the supplied standard Google Tag Manager snippets for container `GTM-WLRVCWSR`: the asynchronous loader in the head and the `noscript` iframe immediately after the opening body tag. Tags and their triggers are managed in that container. Set `GTM_CONTAINER_ID=` when building to omit both snippets, including for previews or offline use; otherwise the ID in `site.config.json` is used.
-
-Keep credentials and private research out of source files. The `.gitignore` excludes local environment files and research directories, but cannot protect a secret pasted into an otherwise tracked file.
-
-## Dual-channel data and mono capture
-
-Data + 3 kHz reference remains the default. The Stereo/Mono radio selection defaults to Stereo, with Reference tone checked.
-Mono generates a single-channel WAV and disables the reference. In Decode, Mono
-uses the isolated left input (or the left channel of a stereo file), without mixing.
-Switching back to Stereo enables the reference again. Turning reference off while
-Stereo is selected in Encode uses both stereo channels for independent data blocks. The archive, including a single
-file, is split into numbered 1 KiB blocks. Each block includes its own header and
-CRC; the full archive CRC and each file's SHA-256 must pass before download.
-
-With one copy, alternating blocks go to L and R. With two copies, each block is
-repeated on the opposite channel in the next time slot. For a pair of blocks:
-
-| Slot | Left | Right |
-| --- | --- | --- |
-| 1 | A | B |
-| 2 | B | A |
-
-Three and five copies continue alternating channels. Capacity estimates include
-both channels, repeated headers, slot padding, the introduction and all copies.
-Large archives with one copy approach twice the one-channel capacity. Two copies
-trade that gain for recovery; small files and odd block counts incur padding.
-
-A mono input must receive **one isolated channel**, never an L+R downmix. With two
-or more copies, either complete isolated channel contains every block. With one
-copy, a multi-block archive requires both channels and incomplete recovery fails
-explicitly. A downmix cannot reliably separate the simultaneous data streams.
-For data + reference tapes, an isolated left channel can be decoded with reference
-correction disabled, losing the continuous speed correction.
-
-Dual-data decoding estimates a constant speed offset per channel using the
-existing preamble. It does not provide continuous wow/flutter correction. The
-new mode is covered by software round-trip, dropout, channel-loss, capacity and
-integrity tests, but still needs validation on physical tape and the user's deck.
-Older releases cannot decode `TVBLK004`; retain an updated decoder with the archive.
-
-### Consecutive archives
-
-Decode scans the complete acquisition or imported WAV for consecutive block-format
-archives (`TVBLK003` / `TVBLK004`) and lists their recovered files together. Each
-archive is checked with CRC and each file with SHA-256 before downloads appear.
-With five single-file transmissions separated by two seconds, choose an Auto stop
-wait longer than two seconds (for example, five seconds), or disable Auto stop.
-The default one-second wait would stop at the first gap. Reference-mode recordings
-are corrected independently across sustained quiet gaps in the pilot channel.
-Concatenated playback has automated PCM coverage; physical tape validation is
-still dependent on signal quality and recording hardware.
+No project-wide license file is currently supplied. Public source availability does not by itself grant an open-source license; bundled font licensing is separate. See [license status](docs/development.md#license-status).

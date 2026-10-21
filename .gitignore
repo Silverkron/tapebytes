@@ -47,3 +47,6 @@ outputs/seo/dati-ricerca.json
 
 ### Jetbrain
 /.idea
+
+# Private editorial and SEO strategy must not enter public documentation.
+/docs/seo/
